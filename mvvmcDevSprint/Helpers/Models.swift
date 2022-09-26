@@ -27,3 +27,22 @@ struct ContactUsModel: Codable {
     let phone: String
     let mail: String
 }
+
+struct LagostaInfos: Codable {
+    let whatsapp: String
+    let phone: String
+    let youtubeID: String
+    let linkedinID: String
+    let mediumURL: String
+    let mail: String
+    
+    static func create() -> LagostaInfos {
+        let lagostaInfos = LagostaInfos(whatsapp: "888686868686",
+                                        phone: "878878787878",
+                                        youtubeID: "UCMA72bNWUzFlTODN63ovYTw",
+                                        linkedinID: "pedro-araujo-menezes/",
+                                        mediumURL: "https://ppedroam.medium.com",
+                                        mail: "lagosta@devpass.com.br")
+        return lagostaInfos
+    }
+}

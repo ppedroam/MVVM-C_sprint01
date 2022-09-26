@@ -14,4 +14,5 @@ enum Endpoints {
     }
     static let contactUs = "www.apiQualquer.com/contactUs"
     static let sendMessage = "www.apiQualquer.com/sendMessage"
+    static let getLagostaInfos = "www.infos.com/infos"
 }

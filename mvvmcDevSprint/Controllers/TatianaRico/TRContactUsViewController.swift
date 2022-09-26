@@ -30,6 +30,7 @@ class TRContactUsViewController: BaseViewController {
     @IBOutlet weak var mediumImageView: UIImageView!
     
     let textViewPlaceholder = "Escreva seu texto aqui"
+    var lagostaInfos: LagostaInfos?
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -37,6 +38,7 @@ class TRContactUsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        getInfos()
     }
     
     @IBAction func didClickClose(_ sender: UIButton) {
@@ -85,9 +87,31 @@ class TRContactUsViewController: BaseViewController {
         view.endEditing(true)
     }
     
+    func getInfos() {
+        let url = Endpoints.getLagostaInfos
+        showLoading()
+        AF.request(url, method: .get, parameters: nil, headers: nil) { result in
+            self.stopLoading()
+            switch result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                if let infos = try? decoder.decode(LagostaInfos.self, from: data) {
+                    self.lagostaInfos = infos
+                } else {
+                    self.showAlert(title: "Opss..", message: "Erro ao receber os dados. Tente novamente mais tarde") {
+                        self.dismiss(animated: true)
+                    }
+                }
+            case .failure(let error):
+                print("error api: \(error.localizedDescription)")
+                self.showDefaultAlert()
+            }
+        }
+    }
+    
     @IBAction func didClickWhatsapp(_ sender: UIButton) {
         let application = UIApplication.shared
-        let phoneNumber =  "invalido"
+        let phoneNumber =  lagostaInfos?.whatsapp ?? ""
         let urlString =  "https://wa.me/\(phoneNumber)"
         if let appURL = URL(string: urlString),
            application.canOpenURL(appURL) {
@@ -98,7 +122,8 @@ class TRContactUsViewController: BaseViewController {
     }
     
     @IBAction func callPhoneButton(_ sender: Any) {
-        if let url = URL(string: "tel://08007092227"),
+        let tel = lagostaInfos?.phone ?? ""
+        if let url = URL(string: "tel://\(tel)"),
            UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10, *) {
                 UIApplication.shared.open(url, options: [:], completionHandler:nil)
@@ -111,16 +136,16 @@ class TRContactUsViewController: BaseViewController {
     }
 
     @IBAction func didClickYoutube(_ sender: Any) {
-        let youtubeId = "UCMA72bNWUzFlTODN63ovYTw"
+        let youtubeId = lagostaInfos?.youtubeID ?? ""
         var url = URL(string:"youtube://\(youtubeId)")!
         if !UIApplication.shared.canOpenURL(url)  {
-            url = URL(string:"https://www.youtube.com/channel/UCMA72bNWUzFlTODN63ovYTw")!
+            url = URL(string:"https://www.youtube.com/channel/\(youtubeId)")!
         }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     @IBAction func didClickLinkedin(_ sender: Any) {
-        let username =  "pedro-araujo-menezes/"
+        let username =  lagostaInfos?.linkedinID ?? ""
         let appURL = URL(string: "linkedin://profile/\(username)")!
         let application = UIApplication.shared
         
@@ -134,7 +159,8 @@ class TRContactUsViewController: BaseViewController {
     
     @IBAction func didLickMedium(_ sender: Any) {
         let application = UIApplication.shared
-        let webURL = URL(string: "https://ppedroam.medium.com")!
+        let urlString = lagostaInfos?.mediumURL ?? ""
+        let webURL = URL(string: urlString)!
         application.open(webURL)
     }
     
@@ -142,8 +168,9 @@ class TRContactUsViewController: BaseViewController {
         let message = messageTextView.text ?? ""
         guard message.count > 0 else { return }
         
+        let mail = lagostaInfos?.mail ?? ""
         let parameters: [String: String] = [
-            "email": "lagosta@devpass.com.br",
+            "email": mail,
             "mensagem": message
         ]
         let url = Endpoints.sendMessage
@@ -162,29 +189,6 @@ class TRContactUsViewController: BaseViewController {
                 print("error api: \(error.localizedDescription)")
             }
         }
-    }
-    
-    private func createEmailUrl(to: String, subject: String, body: String) -> URL? {
-        let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        
-        let gmailUrl = URL(string: "googlegmail://co?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
-        let outlookUrl = URL(string: "ms-outlook://compose?to=\(to)&subject=\(subjectEncoded)")
-        let yahooMail = URL(string: "ymail://mail/compose?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
-        let sparkUrl = URL(string: "readdle-spark://compose?recipient=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
-        let defaultUrl = URL(string: "mailto:\(to)?subject=\(subjectEncoded)&body=\(bodyEncoded)")
-        
-        if let gmailUrl = gmailUrl, UIApplication.shared.canOpenURL(gmailUrl) {
-            return gmailUrl
-        } else if let outlookUrl = outlookUrl, UIApplication.shared.canOpenURL(outlookUrl) {
-            return outlookUrl
-        } else if let yahooMail = yahooMail, UIApplication.shared.canOpenURL(yahooMail) {
-            return yahooMail
-        } else if let sparkUrl = sparkUrl, UIApplication.shared.canOpenURL(sparkUrl) {
-            return sparkUrl
-        }
-        
-        return defaultUrl
     }
 }
 

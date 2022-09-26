@@ -108,7 +108,7 @@
 		13D078A928DC9B2200CF8E00 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		13D078AC28DC9B4700CF8E00 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		13D078AE28DCFA2800CF8E00 /* Image+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extensions.swift"; sourceTree = "<group>"; };
-		13D078B028DD013900CF8E00 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		13D078B028DD013900CF8E00 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = Extensions/BaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +280,7 @@
 		13D0789028DC98EB00CF8E00 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				13D078B028DD013900CF8E00 /* BaseViewController.swift */,
 				13D0789328DC991D00CF8E00 /* Extensions */,
 				13D0789128DC98FF00CF8E00 /* Endpoints.swift */,
 				13D0789628DC996800CF8E00 /* TextfieldReturnKeyManager.swift */,
@@ -300,7 +301,6 @@
 				13D0789428DC993100CF8E00 /* Textfield+extensions.swift */,
 				13D0789C28DC9A4C00CF8E00 /* ViewController+extensions.swift */,
 				13D078AE28DCFA2800CF8E00 /* Image+extensions.swift */,
-				13D078B028DD013900CF8E00 /* BaseViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

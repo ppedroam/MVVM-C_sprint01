@@ -177,6 +177,17 @@ struct AF {
             } else {
                 completion(.failure(ServiceErros.invalidData))
             }
+            
+        case Endpoints.getLagostaInfos:
+            let infos = LagostaInfos.create()
+            let data = try? JSONEncoder().encode(infos)
+            if let data = data {
+                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                    completion(.success(data))
+                }
+            } else {
+                completion(.failure(ServiceErros.invalidData))
+            }
 
         default:
             completion(.failure(ServiceErros.failure))

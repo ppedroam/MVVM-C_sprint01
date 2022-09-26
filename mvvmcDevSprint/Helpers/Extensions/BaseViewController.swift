@@ -51,5 +51,22 @@ class BaseViewController: UIViewController {
             }
         }
     }
+    
+    func showDefaultAlert() {
+        let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
+    }
+    
+    func showAlert(title: String, message: String?, completion: @escaping ()->Void = {}) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { _ in
+            alertController.dismiss(animated: true)
+            completion()
+        }
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
+    }
 
 }

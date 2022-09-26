@@ -110,14 +110,14 @@ class TRLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
+        let vc = TRResetPasswordViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = CreateAccountViewController()
+        let controller = TRCreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -207,21 +207,6 @@ class TRLoginViewController: UIViewController {
             passwordTextField.setDefaultColor()
         }
     }
-}
-
-extension TRLoginViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailTextField {
-            passwordTextField.becomeFirstResponder()
-        } else {
-            view.endEditing(true)
-            didClickLogin()
-        }
-        return true
-    }
-}
-
-extension TRLoginViewController {
     
     func validateButton() {
         if !emailTextField.text!.contains(".") ||
@@ -251,7 +236,18 @@ extension TRLoginViewController {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
     }
-    
+}
+
+extension TRLoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            view.endEditing(true)
+            didClickLogin()
+        }
+        return true
+    }
 }
 
 //MARK: keyboard appearence manager

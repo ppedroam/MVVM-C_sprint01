@@ -1,6 +1,6 @@
 import UIKit
 
-class TRResetPasswordViewController: UIViewController {
+class TRResetPasswordViewController: BaseViewController {
 
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var recoverPasswordButton: UIButton!
@@ -64,10 +64,7 @@ class TRResetPasswordViewController: UIViewController {
                     self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
                     self.recoverPasswordButton.setTitle("Voltar", for: .normal)
                 } else {
-                    let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .default)
-                    alertController.addAction(action)
-                    self.present(alertController, animated: true)
+                    self.showDefaultAlert()
                 }
             }
         }
@@ -78,14 +75,14 @@ class TRResetPasswordViewController: UIViewController {
     }
     
     @IBAction func helpButton(_ sender: Any) {
-        let vc = ContactUsViewController()
+        let vc = TRContactUsViewController()
         vc.modalPresentationStyle = .popover
         vc.modalTransitionStyle = .coverVertical
         self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let newVc = CreateAccountViewController()
+        let newVc = TRCreateAccountViewController()
         newVc.modalPresentationStyle = .fullScreen
         present(newVc, animated: true)
     }
