@@ -20,7 +20,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactUsViewController" customModule="mvvmcDevSprint" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GPContactUsViewController" customModule="mvvmcDevSprint" customModuleProvider="target">
             <connections>
                 <outlet property="adressLabel" destination="Dep-JL-INF" id="JJL-IS-16e"/>
                 <outlet property="linkedinImageView" destination="VXZ-IA-SsB" id="VX6-6K-ECq"/>

@@ -1,6 +1,6 @@
 import UIKit
 
-class LoginViewController: UIViewController {
+class DSLoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -209,7 +209,7 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController: UITextFieldDelegate {
+extension DSLoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
@@ -221,7 +221,7 @@ extension LoginViewController: UITextFieldDelegate {
     }
 }
 
-extension LoginViewController {
+extension DSLoginViewController {
     
     func validateButton() {
         if !emailTextField.text!.contains(".") ||
@@ -256,7 +256,7 @@ extension LoginViewController {
 
 //MARK: keyboard appearence manager
 
-extension LoginViewController {
+extension DSLoginViewController {
     
     @objc
     func keyboardWillShow(_ notification: Notification) {

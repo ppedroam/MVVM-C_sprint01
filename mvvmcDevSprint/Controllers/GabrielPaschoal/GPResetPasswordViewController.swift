@@ -1,6 +1,6 @@
 import UIKit
 
-class ResetPasswordViewController: UIViewController {
+class GPResetPasswordViewController: UIViewController {
 
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var recoverPasswordButton: UIButton!
@@ -153,7 +153,7 @@ class ResetPasswordViewController: UIViewController {
     }
 }
 
-extension ResetPasswordViewController {
+extension GPResetPasswordViewController {
     
     func validateButton() {
         if !emailTextfield.text!.isEmpty {

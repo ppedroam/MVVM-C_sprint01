@@ -8,7 +8,7 @@
 import UIKit
 import MessageUI
 
-class GPContactUsViewController: BaseViewController {
+class DSContactUsViewController: BaseViewController {
     
     @IBOutlet var viewMain: UIView!
     @IBOutlet weak var viewContent: UIView!
@@ -192,7 +192,7 @@ class GPContactUsViewController: BaseViewController {
     }
 }
 
-extension GPContactUsViewController: UITextViewDelegate {
+extension DSContactUsViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == textViewPlaceholder {
             textView.text = ""

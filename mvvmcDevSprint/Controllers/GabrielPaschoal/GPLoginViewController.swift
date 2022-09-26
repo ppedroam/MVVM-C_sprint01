@@ -1,6 +1,6 @@
 import UIKit
 
-class LoginViewController: UIViewController {
+class GPLoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -221,7 +221,7 @@ extension LoginViewController: UITextFieldDelegate {
     }
 }
 
-extension LoginViewController {
+extension GPLoginViewController {
     
     func validateButton() {
         if !emailTextField.text!.contains(".") ||
@@ -256,7 +256,7 @@ extension LoginViewController {
 
 //MARK: keyboard appearence manager
 
-extension LoginViewController {
+extension GPLoginViewController {
     
     @objc
     func keyboardWillShow(_ notification: Notification) {
