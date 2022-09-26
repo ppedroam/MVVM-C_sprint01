@@ -1,6 +1,6 @@
 import UIKit
 
-class CreateAccountViewController: UIViewController {
+class EGCreateAccountViewController: UIViewController {
     
     @IBOutlet weak var viewMain: UIView!
     @IBOutlet weak var contentViewTopConstraint: NSLayoutConstraint!

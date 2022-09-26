@@ -8,7 +8,7 @@
 import UIKit
 import MessageUI
 
-class ContactUsViewController: BaseViewController {
+class HAContactUsViewController: BaseViewController {
     
     @IBOutlet var viewMain: UIView!
     @IBOutlet weak var viewContent: UIView!
@@ -192,7 +192,7 @@ class ContactUsViewController: BaseViewController {
     }
 }
 
-extension ContactUsViewController: UITextViewDelegate {
+extension HAContactUsViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == textViewPlaceholder {
             textView.text = ""

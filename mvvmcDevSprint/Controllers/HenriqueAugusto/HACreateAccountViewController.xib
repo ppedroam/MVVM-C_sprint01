@@ -16,7 +16,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateAccountViewController" customModule="mvvmcDevSprint" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HACreateAccountViewController" customModule="mvvmcDevSprint" customModuleProvider="target">
             <connections>
                 <outlet property="contentViewTopConstraint" destination="X0v-1R-3e2" id="XZ1-aF-IME"/>
                 <outlet property="createButton" destination="3IH-kg-86B" id="80k-vA-zeE"/>

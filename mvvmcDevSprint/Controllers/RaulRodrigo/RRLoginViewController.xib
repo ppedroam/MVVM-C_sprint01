@@ -17,7 +17,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="mvvmcDevSprint" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RRLoginViewController" customModule="mvvmcDevSprint" customModuleProvider="target">
             <connections>
                 <outlet property="createAccountButton" destination="fCl-kB-Bn4" id="zBk-aA-GuL"/>
                 <outlet property="emailTextField" destination="nHr-7L-xrV" id="WsG-oh-Syn"/>
