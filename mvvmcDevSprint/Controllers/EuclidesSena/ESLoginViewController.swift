@@ -1,6 +1,6 @@
 import UIKit
 
-class TRLoginViewController: UIViewController {
+class ESLoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -26,8 +26,8 @@ class TRLoginViewController: UIViewController {
         verifyLogin()
 
         #if DEBUG
-        emailTextField.text = "mvvmc@devpass.com"
-        passwordTextField.text = "Abcde1"
+        emailTextField.text = "clean.code@devpass.com"
+        passwordTextField.text = "111111"
         #endif
 
         self.setupView()
@@ -110,14 +110,14 @@ class TRLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = TRResetPasswordViewController()
+        let vc = ResetPasswordViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = TRCreateAccountViewController()
+        let controller = CreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -207,6 +207,21 @@ class TRLoginViewController: UIViewController {
             passwordTextField.setDefaultColor()
         }
     }
+}
+
+extension ESLoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            view.endEditing(true)
+            didClickLogin()
+        }
+        return true
+    }
+}
+
+extension ESLoginViewController {
     
     func validateButton() {
         if !emailTextField.text!.contains(".") ||
@@ -236,23 +251,12 @@ class TRLoginViewController: UIViewController {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
     }
-}
-
-extension TRLoginViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailTextField {
-            passwordTextField.becomeFirstResponder()
-        } else {
-            view.endEditing(true)
-            didClickLogin()
-        }
-        return true
-    }
+    
 }
 
 //MARK: keyboard appearence manager
 
-extension TRLoginViewController {
+extension ESLoginViewController {
     
     @objc
     func keyboardWillShow(_ notification: Notification) {

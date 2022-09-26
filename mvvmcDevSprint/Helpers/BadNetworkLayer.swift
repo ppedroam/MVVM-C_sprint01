@@ -130,7 +130,7 @@ struct AF {
         case Endpoints.Auth.login:
             if let email = parameters?["email"],
                let password = parameters?["password"],
-               email == "clean.code@devpass.com" && password == "Abcde1" {
+               email == "mvvmc@devpass.com" && password == "Abcde1" {
 
                 let session = Session(id: UUID.init().uuidString, token: UUID.init().uuidString)
                 let data = try? JSONEncoder().encode(session)

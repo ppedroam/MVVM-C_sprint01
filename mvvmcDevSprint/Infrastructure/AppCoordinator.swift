@@ -10,7 +10,7 @@ struct AppCoordinator {
         case gabrielPaschoal
         case danielSeitenfus
         case euclidesSena
-        case bárbaraBarone
+        case barbaraBarone
         case tatianaRico
     }
     
