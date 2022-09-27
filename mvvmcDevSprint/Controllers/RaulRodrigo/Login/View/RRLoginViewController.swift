@@ -1,5 +1,12 @@
 import UIKit
 
+protocol RRLoginViewControllerProtocol {
+    func showLoadingFunc()
+    func stopLoadingFunc()
+    func goToHome()
+    func setLoginError()
+}
+
 class RRLoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
@@ -12,14 +19,9 @@ class RRLoginViewController: UIViewController {
     @IBOutlet weak var createAccountButton: UIButton!
     
     @IBOutlet weak var showPasswordButton: UIButton!
-    var showPassword = true
-    var errorInLogin = false
     
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
-    var initialConstant: CGFloat = 0
-    let defaultSpacing: CGFloat = 100
-    var yVariation: CGFloat = 0
-    var textFieldIsMoving = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,21 +40,20 @@ class RRLoginViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardDidHideNotification, object: nil)
-        initialConstant = topConstraint.constant
+        viewModel.initialConstant(initial: topConstraint.constant) 
     }
+    
+    lazy var viewModel: RRLoginViewModelProtocol = {
+       return RRLoginViewModel()
+    }()
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
     func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
+        if viewModel.verifyLogin() {
+            goToHome()
         }
     }
     
@@ -61,52 +62,21 @@ class RRLoginViewController: UIViewController {
     }
     
     func didClickLogin() {
-        if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
-        }
-
+        showOutConnectionDialog()
         showLoading()
-        let parameters: [String: String] = ["email": emailTextField.text!,
-                                            "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
-            }
-        }
+        viewModel.login(email: emailTextField.text!, password: passwordTextField.text!, targetVC: self)
+        
     }
     
     @IBAction func showPassword(_ sender: Any) {
-        if(showPassword == true) {
+        if(viewModel.showPassword == true) {
             passwordTextField.isSecureTextEntry = false
             showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
         } else {
             passwordTextField.isSecureTextEntry = true
             showPasswordButton.setImage(UIImage.init(systemName: "eye")?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
-        showPassword = !showPassword
+        viewModel.showPassword = !viewModel.showPassword
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
@@ -157,7 +127,7 @@ class RRLoginViewController: UIViewController {
     
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
-        if errorInLogin {
+        if  viewModel.errorInLogin {
             resetErrorLogin(emailTextField)
         } else {
             emailTextField.setEditingColor()
@@ -174,7 +144,7 @@ class RRLoginViewController: UIViewController {
     
     //senha
     @IBAction func passwordBeginEditing(_ sender: Any) {
-        if errorInLogin {
+        if  viewModel.errorInLogin {
             resetErrorLogin(passwordTextField)
         } else {
             passwordTextField.setEditingColor()
@@ -190,7 +160,7 @@ class RRLoginViewController: UIViewController {
     }
     
     func setErrorLogin(_ message: String) {
-        errorInLogin = true
+        viewModel.errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
         emailTextField.setErrorColor()
@@ -221,7 +191,14 @@ extension RRLoginViewController: UITextFieldDelegate {
     }
 }
 
-extension RRLoginViewController {
+private extension RRLoginViewController {
+    
+    func  showOutConnectionDialog(){
+        if !ConnectivityManager.shared.isConnected {
+            showAlertDialog(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", buttonTitle: "Ok")
+            return
+        }
+    }
     
     func validateButton() {
         if !emailTextField.text!.contains(".") ||
@@ -254,6 +231,28 @@ extension RRLoginViewController {
     
 }
 
+extension RRLoginViewController: RRLoginViewControllerProtocol {
+    func setLoginError() {
+        self.setErrorLogin("E-mail ou senha incorretos")
+    }
+    
+    func goToHome() {
+        let vc = UINavigationController(rootViewController: HomeViewController())
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
+    }
+    
+     func stopLoadingFunc() {
+        stopLoading()
+    }
+     func showLoadingFunc() {
+        showLoading()
+    }
+}
+
 //MARK: keyboard appearence manager
 
 extension RRLoginViewController {
@@ -265,30 +264,30 @@ extension RRLoginViewController {
                   return
               }
 
-        guard !textFieldIsMoving else { return }
-        textFieldIsMoving = true
+        guard !viewModel.textFieldIsMoving else { return }
+        viewModel.textFieldIsMoving = true
 
         let currentConstraintValue = topConstraint.constant
 
         UIView.animate(withDuration: 0.1, animations: {
-            self.topConstraint.constant = currentConstraintValue - self.yVariation
+            self.topConstraint.constant = currentConstraintValue - self.viewModel.yVariation
             self.view.layoutIfNeeded()
         }) { _ in
-            self.textFieldIsMoving = false
+            self.viewModel.textFieldIsMoving = false
         }
     }
     
     @objc
     func keyboardWillHide(_ notification: Notification) {
-        if topConstraint.constant != initialConstant {
-            guard !textFieldIsMoving else { return }
-            textFieldIsMoving = true
+        if topConstraint.constant != viewModel.initialConstant {
+            guard viewModel.textFieldIsMoving  else { return }
+            viewModel.textFieldIsMoving = true
 
             UIView.animate(withDuration: 0.1, animations: {
-                self.topConstraint.constant = self.initialConstant
+                self.topConstraint.constant = self.viewModel.initialConstant
                 self.view.layoutIfNeeded()
             }) { _ in
-                self.textFieldIsMoving = false
+                self.viewModel.textFieldIsMoving = false
             }
         }
     }
@@ -301,8 +300,8 @@ extension RRLoginViewController {
               }
 
         let textFieldHeight = activeTextField.frame.height
-        let newOriginY = keyboardOriginY - textFieldHeight - defaultSpacing
-        yVariation = activeTFWindowPosition.minY - newOriginY
+        let newOriginY = keyboardOriginY - textFieldHeight - viewModel.defaultSpacing 
+        viewModel.yVariation = activeTFWindowPosition.minY - newOriginY
         let isTextFieldTooNearFromKeyboard = activeTFWindowPosition.minY > newOriginY
         return isTextFieldTooNearFromKeyboard
     }
