@@ -102,6 +102,8 @@
 		13D078AD28DC9B4700CF8E00 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D078AC28DC9B4700CF8E00 /* UserDefaultsManager.swift */; };
 		13D078AF28DCFA2800CF8E00 /* Image+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D078AE28DCFA2800CF8E00 /* Image+extensions.swift */; };
 		13D078B128DD013900CF8E00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D078B028DD013900CF8E00 /* BaseViewController.swift */; };
+		2F9C52BA28E2803D00A2BD12 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9C52B928E2803D00A2BD12 /* Coordinator.swift */; };
+		2F9C52BC28E2805C00A2BD12 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9C52BB28E2805C00A2BD12 /* LoginCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -221,6 +223,8 @@
 		13D078AC28DC9B4700CF8E00 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		13D078AE28DCFA2800CF8E00 /* Image+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extensions.swift"; sourceTree = "<group>"; };
 		13D078B028DD013900CF8E00 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = Extensions/BaseViewController.swift; sourceTree = "<group>"; };
+		2F9C52B928E2803D00A2BD12 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		2F9C52BB28E2805C00A2BD12 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,14 +330,12 @@
 		132163F328E2348F00372C58 /* EuclidesSena */ = {
 			isa = PBXGroup;
 			children = (
-				1321640B28E2368500372C58 /* ESContactUsViewController.swift */,
-				1321640A28E2368500372C58 /* ESContactUsViewController.xib */,
-				1321640928E2368500372C58 /* ESCreateAccountViewController.swift */,
-				1321640C28E2368500372C58 /* ESCreateAccountViewController.xib */,
-				1321640728E2368500372C58 /* ESLoginViewController.swift */,
-				1321640628E2368500372C58 /* ESLoginViewController.xib */,
-				1321640828E2368500372C58 /* ESResetPasswordViewController.swift */,
-				1321640D28E2368500372C58 /* ESResetPasswordViewController.xib */,
+				2F9C52BE28E2834A00A2BD12 /* Storyboards */,
+				2F9C52B828E2802800A2BD12 /* Coordinator */,
+				2F9C52C128E3687400A2BD12 /* Login */,
+				2F9C52C428E3689D00A2BD12 /* ResetPassword */,
+				2F9C52C228E3688000A2BD12 /* ContactUS */,
+				2F9C52C328E3689100A2BD12 /* CreateAccount */,
 			);
 			path = EuclidesSena;
 			sourceTree = "<group>";
@@ -529,6 +531,58 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		2F9C52B828E2802800A2BD12 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2F9C52B928E2803D00A2BD12 /* Coordinator.swift */,
+				2F9C52BB28E2805C00A2BD12 /* LoginCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		2F9C52BE28E2834A00A2BD12 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				1321640A28E2368500372C58 /* ESContactUsViewController.xib */,
+				1321640C28E2368500372C58 /* ESCreateAccountViewController.xib */,
+				1321640D28E2368500372C58 /* ESResetPasswordViewController.xib */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		2F9C52C128E3687400A2BD12 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1321640628E2368500372C58 /* ESLoginViewController.xib */,
+				1321640728E2368500372C58 /* ESLoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		2F9C52C228E3688000A2BD12 /* ContactUS */ = {
+			isa = PBXGroup;
+			children = (
+				1321640B28E2368500372C58 /* ESContactUsViewController.swift */,
+			);
+			path = ContactUS;
+			sourceTree = "<group>";
+		};
+		2F9C52C328E3689100A2BD12 /* CreateAccount */ = {
+			isa = PBXGroup;
+			children = (
+				1321640928E2368500372C58 /* ESCreateAccountViewController.swift */,
+			);
+			path = CreateAccount;
+			sourceTree = "<group>";
+		};
+		2F9C52C428E3689D00A2BD12 /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				1321640828E2368500372C58 /* ESResetPasswordViewController.swift */,
+			);
+			path = ResetPassword;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -704,6 +758,7 @@
 				1356778828E10ECC00A9C3EF /* TRContactUsViewController.swift in Sources */,
 				13D0788028DC984B00CF8E00 /* AppCoordinator.swift in Sources */,
 				1321646128E23E1300372C58 /* RRContactUsViewController.swift in Sources */,
+				2F9C52BA28E2803D00A2BD12 /* Coordinator.swift in Sources */,
 				13D078AF28DCFA2800CF8E00 /* Image+extensions.swift in Sources */,
 				1321640528E235C500372C58 /* BBLoginViewController.swift in Sources */,
 				1321641028E2368500372C58 /* ESResetPasswordViewController.swift in Sources */,
@@ -732,6 +787,7 @@
 				1321641128E2368500372C58 /* ESCreateAccountViewController.swift in Sources */,
 				1356778328E10ECC00A9C3EF /* TRCreateAccountViewController.swift in Sources */,
 				1356779628E1122700A9C3EF /* ResetPasswordViewController.swift in Sources */,
+				2F9C52BC28E2805C00A2BD12 /* LoginCoordinator.swift in Sources */,
 				13D0784E28DC8FBB00CF8E00 /* AppDelegate.swift in Sources */,
 				13D0789F28DC9A6A00CF8E00 /* LoadingController.swift in Sources */,
 				1321642128E2381500372C58 /* DSContactUsViewController.swift in Sources */,
