@@ -102,6 +102,7 @@
 		13D078AD28DC9B4700CF8E00 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D078AC28DC9B4700CF8E00 /* UserDefaultsManager.swift */; };
 		13D078AF28DCFA2800CF8E00 /* Image+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D078AE28DCFA2800CF8E00 /* Image+extensions.swift */; };
 		13D078B128DD013900CF8E00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D078B028DD013900CF8E00 /* BaseViewController.swift */; };
+		8790724E28E2908C003C53C1 /* BBLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -221,6 +222,7 @@
 		13D078AC28DC9B4700CF8E00 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		13D078AE28DCFA2800CF8E00 /* Image+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extensions.swift"; sourceTree = "<group>"; };
 		13D078B028DD013900CF8E00 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = Extensions/BaseViewController.swift; sourceTree = "<group>"; };
+		8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBLoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,12 +343,12 @@
 		132163F428E2349600372C58 /* BarbaraBarone */ = {
 			isa = PBXGroup;
 			children = (
+				132163FD28E235C500372C58 /* BBLoginViewController.swift */,
+				132163FA28E235C500372C58 /* BBLoginViewController.xib */,
 				132163F628E235C500372C58 /* BBContactUsViewController.swift */,
 				132163F728E235C500372C58 /* BBContactUsViewController.xib */,
 				132163F928E235C500372C58 /* BBCreateAccountViewController.swift */,
 				132163F828E235C500372C58 /* BBCreateAccountViewController.xib */,
-				132163FD28E235C500372C58 /* BBLoginViewController.swift */,
-				132163FA28E235C500372C58 /* BBLoginViewController.xib */,
 				132163FB28E235C500372C58 /* BBResetPasswordViewController.swift */,
 				132163FC28E235C500372C58 /* BBResetPasswordViewController.xib */,
 			);
@@ -465,6 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				1356776E28E10C6400A9C3EF /* Controllers */,
+				8790724A28E29002003C53C1 /* ViewModels */,
 				13D0789028DC98EB00CF8E00 /* Helpers */,
 				13D0788128DC989900CF8E00 /* ControllerBase */,
 				1356776C28E10B9600A9C3EF /* Infrastructure */,
@@ -527,6 +530,14 @@
 				13D078AE28DCFA2800CF8E00 /* Image+extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8790724A28E29002003C53C1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -714,6 +725,7 @@
 				13D078AA28DC9B2200CF8E00 /* HomeViewController.swift in Sources */,
 				1321644E28E23DB400372C58 /* HACreateAccountViewController.swift in Sources */,
 				1321645428E23DB400372C58 /* HAContactUsViewController.swift in Sources */,
+				8790724E28E2908C003C53C1 /* BBLoginViewModel.swift in Sources */,
 				1321642E28E238B400372C58 /* GPResetPasswordViewController.swift in Sources */,
 				13D0789D28DC9A4C00CF8E00 /* ViewController+extensions.swift in Sources */,
 				13D0788A28DC98D200CF8E00 /* LoginViewController.swift in Sources */,
