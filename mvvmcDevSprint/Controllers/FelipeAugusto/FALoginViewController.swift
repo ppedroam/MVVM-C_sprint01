@@ -1,6 +1,6 @@
 import UIKit
 
-class LoginViewController: UIViewController {
+class FALoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -47,7 +47,9 @@ class LoginViewController: UIViewController {
 
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
+            let homeViewController = HomeViewController()
+            homeViewController.lastController = String(describing: self)
+            let vc = UINavigationController(rootViewController: homeViewController)
             let scenes = UIApplication.shared.connectedScenes
             let windowScene = scenes.first as? UIWindowScene
             let window = windowScene?.windows.first
@@ -80,7 +82,9 @@ class LoginViewController: UIViewController {
                 case .success(let data):
                     let decoder = JSONDecoder()
                     if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
+                        let homeViewController = HomeViewController()
+                        homeViewController.lastController = String(describing: self)
+                        let vc = UINavigationController(rootViewController: homeViewController)
                         let scenes = UIApplication.shared.connectedScenes
                         let windowScene = scenes.first as? UIWindowScene
                         let window = windowScene?.windows.first
@@ -110,14 +114,14 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
+        let vc = FAResetPasswordViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = CreateAccountViewController()
+        let controller = FACreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -209,7 +213,7 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController: UITextFieldDelegate {
+extension FALoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
@@ -221,7 +225,7 @@ extension LoginViewController: UITextFieldDelegate {
     }
 }
 
-extension LoginViewController {
+extension FALoginViewController {
     
     func validateButton() {
         if !emailTextField.text!.contains(".") ||
@@ -256,7 +260,7 @@ extension LoginViewController {
 
 //MARK: keyboard appearence manager
 
-extension LoginViewController {
+extension FALoginViewController {
     
     @objc
     func keyboardWillShow(_ notification: Notification) {

@@ -26,8 +26,8 @@ class BBLoginViewController: UIViewController {
         verifyLogin()
 
         #if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
+        emailTextField.text = "mvvmc@devpass.com"
+        passwordTextField.text = "Abcde1"
         #endif
 
         self.setupView()
@@ -47,7 +47,9 @@ class BBLoginViewController: UIViewController {
 
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
+            let homeViewController = HomeViewController()
+            homeViewController.lastController = String(describing: self)
+            let vc = UINavigationController(rootViewController: homeViewController)
             let scenes = UIApplication.shared.connectedScenes
             let windowScene = scenes.first as? UIWindowScene
             let window = windowScene?.windows.first
@@ -80,7 +82,9 @@ class BBLoginViewController: UIViewController {
                 case .success(let data):
                     let decoder = JSONDecoder()
                     if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
+                        let homeViewController = HomeViewController()
+                        homeViewController.lastController = String(describing: self)
+                        let vc = UINavigationController(rootViewController: homeViewController)
                         let scenes = UIApplication.shared.connectedScenes
                         let windowScene = scenes.first as? UIWindowScene
                         let window = windowScene?.windows.first
