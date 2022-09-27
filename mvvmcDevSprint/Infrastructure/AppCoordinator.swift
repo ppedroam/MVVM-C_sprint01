@@ -13,6 +13,7 @@ struct AppCoordinator {
         case barbaraBarone
         case tatianaRico
         case felipeAugusto
+        case luizamoruz
     }
     
     func getRootViewController() -> UIViewController {
@@ -27,6 +28,7 @@ struct AppCoordinator {
         case .barbaraBarone: return BBLoginViewController()
         case .tatianaRico: return TRLoginViewController()
         case .felipeAugusto: return FALoginViewController()
+        case .luizamoruz: return LMLoginViewController()
         }
     }
 }

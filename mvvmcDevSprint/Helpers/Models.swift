@@ -19,7 +19,6 @@ struct User: Codable {
     var phoneNumber: String = ""
     var name: String = ""
     var document: String = ""
-    var password: String = ""
 }
 
 struct ContactUsModel: Codable {
