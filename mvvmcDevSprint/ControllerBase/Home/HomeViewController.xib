@@ -34,11 +34,21 @@
                         <action selector="didClickLogout:" destination="-1" eventType="touchUpInside" id="UIn-rU-pJd"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TuL-Tz-ugh">
+                    <rect key="frame" x="20" y="262.5" width="374" height="100.5"/>
+                    <string key="text">Ao deslogar, você vai ser redirecionado para a LoginController base. Se quiser acessar a sua classe de login novamente, mate e abre o app.</string>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                    <color key="textColor" systemColor="systemPinkColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="jos-Ja-n86" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="H2j-Fc-ufb"/>
+                <constraint firstItem="TuL-Tz-ugh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Saa-fA-Nsh"/>
+                <constraint firstItem="jos-Ja-n86" firstAttribute="top" secondItem="TuL-Tz-ugh" secondAttribute="bottom" constant="60" id="T0T-1D-nAw"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TuL-Tz-ugh" secondAttribute="trailing" constant="20" id="ijY-dW-g1w"/>
                 <constraint firstItem="jos-Ja-n86" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="qWA-JU-AcF"/>
             </constraints>
             <point key="canvasLocation" x="132" y="106"/>
@@ -50,6 +60,9 @@
         </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

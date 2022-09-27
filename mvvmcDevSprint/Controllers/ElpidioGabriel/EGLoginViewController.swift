@@ -26,8 +26,8 @@ class EGLoginViewController: UIViewController {
         verifyLogin()
 
         #if DEBUG
-        emailTextField.text = "clean.code@devpass.com"
-        passwordTextField.text = "111111"
+        emailTextField.text = "mvvmc@devpass.com"
+        passwordTextField.text = "Abcde1"
         #endif
 
         self.setupView()
