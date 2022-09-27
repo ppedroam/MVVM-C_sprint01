@@ -9,6 +9,8 @@ import UIKit
 import MessageUI
 
 class FAContactUsViewController: BaseViewController {
+
+    // MARK: - Properties
     
     @IBOutlet var viewMain: UIView!
     @IBOutlet weak var viewContent: UIView!
@@ -28,6 +30,8 @@ class FAContactUsViewController: BaseViewController {
     @IBOutlet weak var youtubeImageView: UIImageView!
     @IBOutlet weak var linkedinImageView: UIImageView!
     @IBOutlet weak var mediumImageView: UIImageView!
+
+    public private(set) var viewModel = FAContactUsViewModel()
     
     let textViewPlaceholder = "Escreva seu texto aqui"
     var lagostaInfos: LagostaInfos?
@@ -86,22 +90,18 @@ class FAContactUsViewController: BaseViewController {
     func closeKeyboard() {
         view.endEditing(true)
     }
+
+    // MARK: - Fetch Methods
     
     func getInfos() {
         let url = Endpoints.getLagostaInfos
         showLoading()
-        AF.request(url, method: .get, parameters: nil, headers: nil) { result in
+        viewModel.getInfos(url: url) { [weak self] result in
+            guard let self = self else { return }
             self.stopLoading()
             switch result {
-            case .success(let data):
-                let decoder = JSONDecoder()
-                if let infos = try? decoder.decode(LagostaInfos.self, from: data) {
-                    self.lagostaInfos = infos
-                } else {
-                    self.showAlert(title: "Opss..", message: "Erro ao receber os dados. Tente novamente mais tarde") {
-                        self.dismiss(animated: true)
-                    }
-                }
+            case .success(let infos):
+                self.lagostaInfos = infos
             case .failure(let error):
                 print("error api: \(error.localizedDescription)")
                 self.showDefaultAlert()
