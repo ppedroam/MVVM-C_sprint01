@@ -15,7 +15,7 @@ struct AppCoordinator {
     }
     
     func getRootViewController() -> UIViewController {
-        var architecter = Architecters.tatianaRico
+        var architecter = Architecters.elpidioGabriel
         switch architecter {
         case .raulRodrigo: return RRLoginViewController()
         case .henriqueAugusto: return HALoginViewController()
