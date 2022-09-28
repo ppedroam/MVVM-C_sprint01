@@ -118,6 +118,8 @@
 		13E582DC28E3813C0002E621 /* LMLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D328E3813C0002E621 /* LMLoginViewController.swift */; };
 		13E582DD28E3813C0002E621 /* LMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13E582D428E3813C0002E621 /* LMLoginViewController.xib */; };
 		13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */; };
+		16968A3F28E504C00081E132 /* EmailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16968A3E28E504C00081E132 /* EmailResponse.swift */; };
+		16CE365C28E3FAC300CE5A78 /* DSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CE365B28E3FAC300CE5A78 /* DSLoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -253,6 +255,8 @@
 		13E582D328E3813C0002E621 /* LMLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMLoginViewController.swift; sourceTree = "<group>"; };
 		13E582D428E3813C0002E621 /* LMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMLoginViewController.xib; sourceTree = "<group>"; };
 		13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCreateAccountViewController.swift; sourceTree = "<group>"; };
+		16968A3E28E504C00081E132 /* EmailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailResponse.swift; sourceTree = "<group>"; };
+		16CE365B28E3FAC300CE5A78 /* DSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSLoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,6 +347,9 @@
 		132163F228E2348200372C58 /* DanielSeintenfus */ = {
 			isa = PBXGroup;
 			children = (
+				16CE365728E3F0CF00CE5A78 /* View */,
+				16CE365628E3F0C500CE5A78 /* Model */,
+				16CE365528E3F09800CE5A78 /* ViewModel */,
 				1321641928E2381500372C58 /* DSContactUsViewController.swift */,
 				1321641728E2381500372C58 /* DSContactUsViewController.xib */,
 				1321641D28E2381500372C58 /* DSCreateAccountViewController.swift */,
@@ -593,6 +600,29 @@
 			path = LuizaMoruz;
 			sourceTree = "<group>";
 		};
+		16CE365528E3F09800CE5A78 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				16CE365B28E3FAC300CE5A78 /* DSLoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		16CE365628E3F0C500CE5A78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				16968A3E28E504C00081E132 /* EmailResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		16CE365728E3F0CF00CE5A78 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -807,6 +837,7 @@
 				1321644428E23D4200372C58 /* EGResetPasswordViewController.swift in Sources */,
 				1321641128E2368500372C58 /* ESCreateAccountViewController.swift in Sources */,
 				1356778328E10ECC00A9C3EF /* TRCreateAccountViewController.swift in Sources */,
+				16968A3F28E504C00081E132 /* EmailResponse.swift in Sources */,
 				1356779628E1122700A9C3EF /* ResetPasswordViewController.swift in Sources */,
 				13D0784E28DC8FBB00CF8E00 /* AppDelegate.swift in Sources */,
 				13D0789F28DC9A6A00CF8E00 /* LoadingController.swift in Sources */,
@@ -829,6 +860,7 @@
 				13D0789528DC993100CF8E00 /* Textfield+extensions.swift in Sources */,
 				1321640328E235C500372C58 /* BBResetPasswordViewController.swift in Sources */,
 				1321641328E2368500372C58 /* ESContactUsViewController.swift in Sources */,
+				16CE365C28E3FAC300CE5A78 /* DSLoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
