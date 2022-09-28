@@ -6,10 +6,12 @@
 //
 
 import Foundation
-enum NetworkError: Error {
-    case badURL
+
+protocol FAContactUsViewModel {
+    func getInfos(url: String, completionHandler: @escaping (Result<LagostaInfos, NetworkError>) -> Void)
 }
-class FAContactUsViewModel {
+
+class DefaultFAContactUsViewModel: FAContactUsViewModel {
 
     func getInfos(url: String, completionHandler: @escaping (Result<LagostaInfos, NetworkError>) -> Void) {
         AF.request(url, method: .get, parameters: nil, headers: nil) { result in
@@ -25,4 +27,8 @@ class FAContactUsViewModel {
             }
         }
     }
+}
+
+enum NetworkError: Error {
+    case badURL
 }

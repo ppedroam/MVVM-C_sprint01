@@ -31,7 +31,14 @@ class FAContactUsViewController: BaseViewController {
     @IBOutlet weak var linkedinImageView: UIImageView!
     @IBOutlet weak var mediumImageView: UIImageView!
 
-    public private(set) var viewModel = FAContactUsViewModel()
+    public private(set) var viewModel: FAContactUsViewModel = DefaultFAContactUsViewModel()
+
+    var vModel: FAContactUsViewModel {
+            // swiftlint:disable discouraged_beesassembler_resolve
+        get { viewModel }
+            // swiftlint:enable discouraged_beesassembler_resolve
+        set { viewModel = newValue }
+    }
     
     let textViewPlaceholder = "Escreva seu texto aqui"
     var lagostaInfos: LagostaInfos?
