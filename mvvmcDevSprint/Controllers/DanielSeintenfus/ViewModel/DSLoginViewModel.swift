@@ -51,7 +51,7 @@ class DSLoginViewModel {
         self.delegate?.alertMessage(title: "Ops...", message: "Houve um problema, tente novamente mais tarde.")
     }
     
-    private func makeLoginRequest(_ parameters: [String: String], completion: @escaping ((EmailResponse) -> Void)) {
+    private func makeLoginRequest(_ parameters: [String: String], completion: @escaping ((DSEmailResponse) -> Void)) {
         let endpoint = Endpoints.Auth.login
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
@@ -100,6 +100,14 @@ class DSLoginViewModel {
             return domain
         }
         return nil
+    }
+    
+    // MARK: Session
+    
+    public func verifySession() {
+        if let _ = UserDefaultsManager.UserInfos.shared.readSesion(){
+            delegate?.nextViewController()
+        }
     }
 }
 
