@@ -7,16 +7,18 @@
 
 import Foundation
 
-protocol RRLoginServiceProtocol{
+protocol RRLoginRepositoryProtocol{
     func isLogged() -> Bool
+    func isConnected() -> Bool
     
 }
 
-class RRLoginService {
-    
-}
 
-extension RRLoginService: RRLoginServiceProtocol {
+class RRLoginRepository: RRLoginRepositoryProtocol {
+    func isConnected() -> Bool {
+        return !ConnectivityManager.shared.isConnected
+    }
+    
     
     func isLogged() -> Bool {
         return UserDefaultsManager.UserInfos.shared.readSesion() != nil ? true : false

@@ -6,61 +6,87 @@
 //
 
 import Foundation
-import UIKit
 
-protocol RRLoginViewModelProtocol {
-    func verifyLogin() -> Bool
-    func login(email:String, password: String,targetVC: UIViewController)
-    func initialConstant(initial: CGFloat)
+protocol RRLoginViewModelToViewProtocol  {
+    func verifyLogin()
+    func validateButton(emailText: String)
+    func login(email:String, password: String)
+}
+
+protocol RRLoginViewToViewModelProtocol: AnyObject {
+    func disableButton()
+    func enableButton()
+    func showAlertDialog()
+    func showLoadingFunc()
+    func stopLoadingFunc()
+    func setLoginError(_ message: String)
+    func goToHome()
 }
 
 class RRLoginViewModel {
+    weak var delegate: RRLoginViewToViewModelProtocol?
+    let service: RRLoginRepositoryProtocol
     
-    var vc: RRLoginViewControllerProtocol?
-    var service: RRLoginServiceProtocol?
-    var initialConstant: CGFloat = 0
-    let defaultSpacing: CGFloat = 100
-    var yVariation: CGFloat = 0
-    var textFieldIsMoving = false
-    var showPassword = true
-    var errorInLogin = false
-    
+    init(service: RRLoginRepositoryProtocol) {
+        self.service = service
+    }
 }
 
-extension RRLoginViewModel: RRLoginViewModelProtocol{
-    func initialConstant(initial: CGFloat) {
-        initialConstant = initial
+extension RRLoginViewModel: RRLoginViewModelToViewProtocol{
+    func validateButton(emailText: String) {
+        if !emailText.contains(".") ||
+            !emailText.contains("@") ||
+            emailText.count <= 5 {
+            delegate?.disableButton()
+        } else {
+            if let atIndex = emailText.firstIndex(of: "@") {
+                let substring = emailText[atIndex...]
+                if substring.contains(".") {
+                    delegate?.enableButton()
+                } else {
+                    delegate?.disableButton()
+                }
+            } else {
+                delegate?.disableButton()
+            }
+        }
     }
-    
-    func login(email:String, password: String, targetVC: UIViewController) {
+    func login(email:String, password: String) {
+        let controller = RRLoginViewController()
+        if service.isConnected(){
+            self.delegate?.showAlertDialog()
+        }
+        self.delegate?.showLoadingFunc()
         let parameters: [String: String] = ["email": email,
                                             "password": password]
         let endpoint = Endpoints.Auth.login
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
-                self.vc?.stopLoadingFunc()
+                self.delegate?.stopLoadingFunc()
                 switch result {
                 case .success(let data):
                     let decoder = JSONDecoder()
                     if let session = try? decoder.decode(Session.self, from: data) {
-                        self.vc?.goToHome()
+                        self.delegate?.goToHome()
                         UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
                     } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: targetVC)
+                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: controller)
                     }
                 case .failure:
-                    self.vc?.setLoginError()
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: targetVC)
+                    self.delegate?.setLoginError("E-mail ou senha incorretos")
+                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: controller)
                 }
             }
         }
     }
     
-   
-    func verifyLogin() -> Bool {
-        return service?.isLogged() ?? false
+    func verifyLogin()  {
+        if service.isLogged() {
+            delegate?.goToHome()
+        }
     }
     
 }
+
 
 
