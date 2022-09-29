@@ -35,7 +35,7 @@ class TRLoginCoordinator {
 }
     
     func alertConexaoStates(title: String, message: String) {
-        let alertController = UIAlertController(title: title message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let actin = UIAlertAction(title: "Ok", style: .default)
         alertController.addAction(actin)
         self.vc?.present(alertController, animated: true)
