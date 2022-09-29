@@ -83,6 +83,7 @@
 		1356778E28E10F7F00A9C3EF /* TRResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1356778C28E10F7F00A9C3EF /* TRResetPasswordViewController.xib */; };
 		1356779628E1122700A9C3EF /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1356779428E1122700A9C3EF /* ResetPasswordViewController.swift */; };
 		1356779728E1122700A9C3EF /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1356779528E1122700A9C3EF /* ResetPasswordViewController.xib */; };
+		1367420428E4F3CE00BCDFE5 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1367420328E4F3CE00BCDFE5 /* ResetPasswordViewModel.swift */; };
 		13D0784E28DC8FBB00CF8E00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D0784D28DC8FBB00CF8E00 /* AppDelegate.swift */; };
 		13D0785028DC8FBB00CF8E00 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D0784F28DC8FBB00CF8E00 /* SceneDelegate.swift */; };
 		13D0785728DC8FBC00CF8E00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13D0785628DC8FBC00CF8E00 /* Assets.xcassets */; };
@@ -214,6 +215,7 @@
 		1356778C28E10F7F00A9C3EF /* TRResetPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TRResetPasswordViewController.xib; sourceTree = "<group>"; };
 		1356779428E1122700A9C3EF /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		1356779528E1122700A9C3EF /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
+		1367420328E4F3CE00BCDFE5 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		13D0784A28DC8FBB00CF8E00 /* mvvmcDevSprint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mvvmcDevSprint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13D0784D28DC8FBB00CF8E00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13D0784F28DC8FBB00CF8E00 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -485,6 +487,7 @@
 			isa = PBXGroup;
 			children = (
 				1356779428E1122700A9C3EF /* ResetPasswordViewController.swift */,
+				1367420328E4F3CE00BCDFE5 /* ResetPasswordViewModel.swift */,
 				1356779528E1122700A9C3EF /* ResetPasswordViewController.xib */,
 			);
 			path = Reset;
@@ -795,6 +798,7 @@
 				13D0788A28DC98D200CF8E00 /* LoginViewController.swift in Sources */,
 				13D0789728DC996800CF8E00 /* TextfieldReturnKeyManager.swift in Sources */,
 				1356776B28E10A4700A9C3EF /* CompleteCreateAccountController.swift in Sources */,
+				1367420428E4F3CE00BCDFE5 /* ResetPasswordViewModel.swift in Sources */,
 				1356778728E10ECC00A9C3EF /* TRLoginViewController.swift in Sources */,
 				13D078A728DC9AFA00CF8E00 /* Globals.swift in Sources */,
 				1321645F28E23E1300372C58 /* RRCreateAccountViewController.swift in Sources */,

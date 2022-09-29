@@ -15,12 +15,14 @@ class ResetPasswordViewController: UIViewController {
     var email = ""
     var loadingScreen = LoadingController()
     var recoveryEmail = false
+    let viewModel = ResetPasswordViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
         view.addGestureRecognizer(gesture)
+        viewModel.controller = self
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -42,34 +44,7 @@ class ResetPasswordViewController: UIViewController {
         }
 
         if validateForm() {
-            self.view.endEditing(true)
-            if !ConnectivityManager.shared.isConnected {
-                Globals.showNoInternetCOnnection(controller: self)
-                return
-            }
-
-            let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
-            
-            let parameters = [
-                "email": emailUser
-            ]
-            
-            BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
-                if success {
-                    self.recoveryEmail = true
-                    self.emailTextfield.isHidden = true
-                    self.textLabel.isHidden = true
-                    self.viewSuccess.isHidden = false
-                    self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
-                    self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
-                    self.recoverPasswordButton.setTitle("Voltar", for: .normal)
-                } else {
-                    let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .default)
-                    alertController.addAction(action)
-                    self.present(alertController, animated: true)
-                }
-            }
+            callAPI()
         }
     }
     
@@ -91,19 +66,14 @@ class ResetPasswordViewController: UIViewController {
     }
     
     func validateForm() -> Bool {
-        let status = emailTextfield.text!.isEmpty ||
-            !emailTextfield.text!.contains(".") ||
-            !emailTextfield.text!.contains("@") ||
-            emailTextfield.text!.count <= 5
-        
-        if status {
+        let emailString = emailTextfield.text ?? ""
+        let isValid = viewModel.validateEmail(email: emailString)
+        if !isValid {
             emailTextfield.setErrorColor()
             textLabel.textColor = .red
             textLabel.text = "Verifique o e-mail informado"
-            return false
         }
-        
-        return true
+        return isValid
     }
     
     func setupView() {
@@ -155,6 +125,20 @@ class ResetPasswordViewController: UIViewController {
 
 extension ResetPasswordViewController {
     
+    func showNoInternetAlert() {
+        Globals.showNoInternetCOnnection(controller: self)
+    }
+    
+    func showSuccessState() {
+        recoveryEmail = true
+        emailTextfield.isHidden = true
+        textLabel.isHidden = true
+        viewSuccess.isHidden = false
+        emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+        recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+        recoverPasswordButton.setTitle("Voltar", for: .normal)
+    }
+    
     func validateButton() {
         if !emailTextfield.text!.isEmpty {
             enableCreateButton()
@@ -173,5 +157,22 @@ extension ResetPasswordViewController {
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
         recoverPasswordButton.isEnabled = true
+    }
+}
+
+private extension ResetPasswordViewController {
+    func callAPI() {
+        self.view.endEditing(true)
+        let email = emailTextfield.text ?? ""
+        viewModel.callAPI(email: email)
+    }
+}
+
+extension UIViewController {
+    func showDefaultAlert() {
+        let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
     }
 }
