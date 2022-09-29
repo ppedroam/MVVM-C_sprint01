@@ -21,17 +21,28 @@ class BBLoginViewController: UIViewController {
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
     
+    private let viewModel: BBLoginViewModel
+    
+    init(viewModel: BBLoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
-
-        #if DEBUG
+        viewModel.verifyLogin()
+        
+#if DEBUG
         emailTextField.text = "clean.code@devpass.com"
         passwordTextField.text = "111111"
-        #endif
-
+#endif
+        
         self.setupView()
-        self.validateButton()
+        viewModel.validateButton(with: emailTextField.text ?? "")
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
                                                name: UIResponder.keyboardDidShowNotification, object: nil)
@@ -44,58 +55,39 @@ class BBLoginViewController: UIViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
-    func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
-        }
-    }
     
     @IBAction func loginButton(_ sender: Any) {
-        didClickLogin()
+        viewModel.fetchLogin(with: emailTextField.text ?? "")
     }
     
-    func didClickLogin() {
-        if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
-        }
-
-        showLoading()
-        let parameters: [String: String] = ["email": emailTextField.text!,
-                                            "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
-            }
-        }
+    func showAlertConnectivity() {
+        let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default)
+        alertController.addAction(action)
+        present(alertController, animated: true)
+        return
+    }
+    
+    func showGenericErrorAlert() {
+        globalMessage(with: "Ops..", description: "Houve um problema, tente novamente mais tarde.")
+    }
+    
+    func showLoginError() {
+        globalMessage(with: "E-mail ou senha incorretos", description: "Houve um problema, tente novamente mais tarde.")
+        errorInLogin = true
+        heightLabelError.constant = 20
+        errorLabel.text = "E-mail ou senha incorretos"
+        emailTextField.setErrorColor()
+        passwordTextField.setErrorColor()
+    }
+    
+    func showHomeScreen() {
+        let vc = UINavigationController(rootViewController: HomeViewController())
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
     }
     
     @IBAction func showPassword(_ sender: Any) {
@@ -128,9 +120,9 @@ class BBLoginViewController: UIViewController {
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-
+        
         showPasswordButton.tintColor = .lightGray
-
+        
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
@@ -142,14 +134,14 @@ class BBLoginViewController: UIViewController {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
-        validateButton()
+        viewModel.validateButton(with: emailTextField.text ?? "")
         
         emailTextField.returnKeyType = .next
         passwordTextField.returnKeyType = .done
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
-
+    
     @objc
     func didClickView() {
         view.endEditing(true)
@@ -165,7 +157,7 @@ class BBLoginViewController: UIViewController {
     }
     
     @IBAction func emailEditing(_ sender: Any) {
-        validateButton()
+        viewModel.validateButton(with: emailTextField.text ?? "")
     }
     
     @IBAction func emailEndEditing(_ sender: Any) {
@@ -182,7 +174,7 @@ class BBLoginViewController: UIViewController {
     }
     
     @IBAction func passwordEditing(_ sender: Any) {
-        validateButton()
+        viewModel.validateButton(with: emailTextField.text ?? "")
     }
     
     @IBAction func passwordEndEditing(_ sender: Any) {
@@ -215,33 +207,13 @@ extension BBLoginViewController: UITextFieldDelegate {
             passwordTextField.becomeFirstResponder()
         } else {
             view.endEditing(true)
-            didClickLogin()
+            viewModel.fetchLogin(with: emailTextField.text ?? "")
         }
         return true
     }
 }
 
 extension BBLoginViewController {
-    
-    func validateButton() {
-        if !emailTextField.text!.contains(".") ||
-            !emailTextField.text!.contains("@") ||
-            emailTextField.text!.count <= 5 {
-            disableButton()
-        } else {
-            if let atIndex = emailTextField.text!.firstIndex(of: "@") {
-                let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
-            } else {
-                disableButton()
-            }
-        }
-    }
-    
     func disableButton() {
         loginButton.backgroundColor = .gray
         loginButton.isEnabled = false
@@ -251,7 +223,6 @@ extension BBLoginViewController {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
     }
-    
 }
 
 //MARK: keyboard appearence manager
@@ -262,14 +233,14 @@ extension BBLoginViewController {
     func keyboardWillShow(_ notification: Notification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
               isNeededToMoveTextfield(keyboardOriginY: keyboardSize.minY) else {
-                  return
-              }
-
+            return
+        }
+        
         guard !textFieldIsMoving else { return }
         textFieldIsMoving = true
-
+        
         let currentConstraintValue = topConstraint.constant
-
+        
         UIView.animate(withDuration: 0.1, animations: {
             self.topConstraint.constant = currentConstraintValue - self.yVariation
             self.view.layoutIfNeeded()
@@ -283,7 +254,7 @@ extension BBLoginViewController {
         if topConstraint.constant != initialConstant {
             guard !textFieldIsMoving else { return }
             textFieldIsMoving = true
-
+            
             UIView.animate(withDuration: 0.1, animations: {
                 self.topConstraint.constant = self.initialConstant
                 self.view.layoutIfNeeded()
@@ -298,12 +269,18 @@ extension BBLoginViewController {
               let activeTextField = textFields.first(where: {$0.isFirstResponder}),
               let activeTFWindowPosition = activeTextField.superview?.convert(activeTextField.frame, to: nil) else {
             return false
-              }
-
+        }
+        
         let textFieldHeight = activeTextField.frame.height
         let newOriginY = keyboardOriginY - textFieldHeight - defaultSpacing
         yVariation = activeTFWindowPosition.minY - newOriginY
         let isTextFieldTooNearFromKeyboard = activeTFWindowPosition.minY > newOriginY
         return isTextFieldTooNearFromKeyboard
+    }
+}
+
+private extension BBLoginViewController {
+    func globalMessage(with title: String, description: String) {
+        Globals.alertMessage(title: title, message: description, targetVC: self)
     }
 }

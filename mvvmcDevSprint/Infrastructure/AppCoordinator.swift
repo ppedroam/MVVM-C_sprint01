@@ -23,7 +23,7 @@ struct AppCoordinator {
         case .gabrielPaschoal: return GPLoginViewController()
         case .danielSeitenfus: return DSLoginViewController()
         case .euclidesSena: return ESLoginViewController()
-        case .barbaraBarone: return BBLoginViewController()
+        case .barbaraBarone: return BBLoginViewController(viewModel: BBLoginViewModel())
         case .tatianaRico: return TRLoginViewController()
         }
     }
