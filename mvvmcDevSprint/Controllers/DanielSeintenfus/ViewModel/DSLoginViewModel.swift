@@ -8,11 +8,13 @@
 import Foundation
 
 protocol DSLoginViewModelDelegate {
-    func initLoading()
+    func startLoading()
     func pauseLoading()
     func alertMessage(title: String, message: String)
     func nextViewController()
     func showErrorLogin(_ message: String)
+    func enableButton()
+    func disableButton()
 }
 
 class DSLoginViewModel {
@@ -27,7 +29,7 @@ class DSLoginViewModel {
             return
         }
         
-        delegate?.initLoading()
+        delegate?.startLoading()
         
         let parameters = ["email": email, "password": password]
         return makeLoginRequest(parameters){ result in
@@ -107,6 +109,14 @@ class DSLoginViewModel {
     public func verifySession() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion(){
             delegate?.nextViewController()
+        }
+    }
+    
+    public func validateButton(_ email: String) {
+        if isValidEmail(email){
+            delegate?.enableButton()
+        }else{
+            delegate?.disableButton()
         }
     }
 }

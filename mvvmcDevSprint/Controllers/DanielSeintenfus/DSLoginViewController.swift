@@ -177,6 +177,11 @@ class DSLoginViewController: UIViewController {
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
+    
+    func validateButton(){
+        let email = emailTextField.text ?? ""
+        viewModel.validateButton(email)
+    }
 }
 
 extension DSLoginViewController: UITextFieldDelegate {
@@ -192,29 +197,6 @@ extension DSLoginViewController: UITextFieldDelegate {
         }
         return true
     }
-}
-
-extension DSLoginViewController {
-    
-    func validateButton() {
-        let email = emailTextField.text ?? ""
-        if viewModel.isValidEmail(email){
-            enableButton()
-        }else{
-            disableButton()
-        }
-    }
-    
-    func disableButton() {
-        loginButton.backgroundColor = .gray
-        loginButton.isEnabled = false
-    }
-    
-    func enableButton() {
-        loginButton.backgroundColor = .blue
-        loginButton.isEnabled = true
-    }
-    
 }
 
 //MARK: keyboard appearence manager
@@ -273,11 +255,21 @@ extension DSLoginViewController {
 
 extension DSLoginViewController: DSLoginViewModelDelegate {
     
+    func disableButton() {
+        loginButton.backgroundColor = .gray
+        loginButton.isEnabled = false
+    }
+    
+    func enableButton() {
+        loginButton.backgroundColor = .blue
+        loginButton.isEnabled = true
+    }
+    
     func nextViewController() {
         openViewController(viewController: HomeViewController())
     }
     
-    func initLoading() {
+    func startLoading() {
         self.showLoading()
     }
     
@@ -287,10 +279,6 @@ extension DSLoginViewController: DSLoginViewModelDelegate {
     
     func showErrorLogin(_ message: String) {
         self.setErrorLogin(message)
-    }
-    
-    func startLoading() {
-        self.showLoading()
     }
     
     func alertMessage(title: String, message: String) {
