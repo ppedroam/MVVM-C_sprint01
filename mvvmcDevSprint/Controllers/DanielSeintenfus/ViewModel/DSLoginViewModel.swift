@@ -82,8 +82,8 @@ class DSLoginViewModel {
     }
     
     private func isValidFormatEmail(_ email: String) -> Bool {
-        return email.contains(".") ||
-            email.contains("@") ||
+        return email.contains(".") &&
+            email.contains("@") &&
             email.count > 5
     }
     
