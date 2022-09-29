@@ -119,6 +119,8 @@
 		13E582DC28E3813C0002E621 /* LMLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D328E3813C0002E621 /* LMLoginViewController.swift */; };
 		13E582DD28E3813C0002E621 /* LMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13E582D428E3813C0002E621 /* LMLoginViewController.xib */; };
 		13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */; };
+		B952E60B28E63C9E00343D15 /* TRLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B952E60A28E63C9E00343D15 /* TRLoginCoordinator.swift */; };
+		B952E60D28E63CF800343D15 /* TRLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B952E60C28E63CF800343D15 /* TRLoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -255,6 +257,8 @@
 		13E582D328E3813C0002E621 /* LMLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMLoginViewController.swift; sourceTree = "<group>"; };
 		13E582D428E3813C0002E621 /* LMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMLoginViewController.xib; sourceTree = "<group>"; };
 		13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCreateAccountViewController.swift; sourceTree = "<group>"; };
+		B952E60A28E63C9E00343D15 /* TRLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRLoginCoordinator.swift; sourceTree = "<group>"; };
+		B952E60C28E63CF800343D15 /* TRLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRLoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -479,6 +483,8 @@
 				1356778028E10ECC00A9C3EF /* TRLoginViewController.xib */,
 				1356777A28E10ECC00A9C3EF /* TRResetPasswordViewController.swift */,
 				1356778C28E10F7F00A9C3EF /* TRResetPasswordViewController.xib */,
+				B952E60A28E63C9E00343D15 /* TRLoginCoordinator.swift */,
+				B952E60C28E63CF800343D15 /* TRLoginViewModel.swift */,
 			);
 			path = TatianaRico;
 			sourceTree = "<group>";
@@ -799,6 +805,8 @@
 				13D0789728DC996800CF8E00 /* TextfieldReturnKeyManager.swift in Sources */,
 				1356776B28E10A4700A9C3EF /* CompleteCreateAccountController.swift in Sources */,
 				1367420428E4F3CE00BCDFE5 /* ResetPasswordViewModel.swift in Sources */,
+				B952E60D28E63CF800343D15 /* TRLoginViewModel.swift in Sources */,
+				B952E60B28E63C9E00343D15 /* TRLoginCoordinator.swift in Sources */,
 				1356778728E10ECC00A9C3EF /* TRLoginViewController.swift in Sources */,
 				13D078A728DC9AFA00CF8E00 /* Globals.swift in Sources */,
 				1321645F28E23E1300372C58 /* RRCreateAccountViewController.swift in Sources */,
@@ -1009,6 +1017,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1037,6 +1046,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
