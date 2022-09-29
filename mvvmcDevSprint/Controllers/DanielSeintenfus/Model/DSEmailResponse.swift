@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum EmailResponse {
+enum DSEmailResponse {
     case success, invalidCredentials, failure
 }
