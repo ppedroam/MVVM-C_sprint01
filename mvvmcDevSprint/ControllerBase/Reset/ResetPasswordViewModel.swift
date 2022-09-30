@@ -11,6 +11,7 @@ import UIKit
 
 class ResetPasswordViewModel {
     var controller: ResetPasswordViewController?
+    let coordinator = ResetPasswordCoordinator()
     
     func validateEmail(email: String) -> Bool {
         let isValid = email.contains(".") && email.contains("@") || email.count > 5
@@ -36,5 +37,50 @@ class ResetPasswordViewModel {
                 controller.showDefaultAlert()
             }
         }
+    }
+    
+    func goToAccount() {
+        coordinator.controller = controller
+        coordinator.perform(action: .account)
+    }
+    
+    func goToContactUs() {
+        coordinator.controller = controller
+        coordinator.perform(action: .contactUs)
+    }
+    
+    func closeScreen() {
+        coordinator.perform(action: .close)
+    }
+}
+
+enum ResetPasswordActions {
+    case account
+    case contactUs
+    case close
+}
+
+class ResetPasswordCoordinator {
+    var controller: UIViewController?
+    
+    func perform(action: ResetPasswordActions) {
+        switch action {
+        case .account: goToAccount()
+        case .contactUs: goToContactUs()
+        case .close: controller?.dismiss(animated: true)
+        }
+    }
+    
+    private func goToAccount() {
+        let newVc = CreateAccountViewController()
+        newVc.modalPresentationStyle = .fullScreen
+        controller?.present(newVc, animated: true)
+    }
+    
+    private func goToContactUs() {
+        let vc = ContactUsViewController()
+        vc.modalPresentationStyle = .popover
+        vc.modalTransitionStyle = .coverVertical
+        controller?.present(vc, animated: true, completion: nil)
     }
 }

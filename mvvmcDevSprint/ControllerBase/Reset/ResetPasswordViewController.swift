@@ -34,7 +34,7 @@ class ResetPasswordViewController: UIViewController {
     }
 
     @IBAction func closeButtonAction(_ sender: Any) {
-        dismiss(animated: true)
+        viewModel.closeScreen()
     }
 
     @IBAction func recoverPasswordButton(_ sender: Any) {
@@ -49,20 +49,15 @@ class ResetPasswordViewController: UIViewController {
     }
     
     @IBAction func loginButton(_ sender: Any) {
-        dismiss(animated: true)
+        viewModel.closeScreen()
     }
     
     @IBAction func helpButton(_ sender: Any) {
-        let vc = ContactUsViewController()
-        vc.modalPresentationStyle = .popover
-        vc.modalTransitionStyle = .coverVertical
-        self.present(vc, animated: true, completion: nil)
+        viewModel.goToContactUs()
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let newVc = CreateAccountViewController()
-        newVc.modalPresentationStyle = .fullScreen
-        present(newVc, animated: true)
+        viewModel.goToAccount()
     }
     
     func validateForm() -> Bool {
