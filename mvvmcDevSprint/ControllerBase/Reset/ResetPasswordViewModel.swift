@@ -8,34 +8,29 @@
 import Foundation
 import UIKit
 
+protocol ResetPasswordViewModeling {
+    func startPasswordRecovering(email: String)
+    func goToAccount()
+    func goToContactUs()
+    func closeScreen()
+}
 
-class ResetPasswordViewModel {
+class ResetPasswordViewModel: ResetPasswordViewModeling {
     var controller: ResetPasswordViewController?
     let coordinator = ResetPasswordCoordinator()
     
-    func validateEmail(email: String) -> Bool {
-        let isValid = email.contains(".") && email.contains("@") || email.count > 5
-        return isValid
-    }
+    private var recoveryEmail = false
     
-    func callAPI(email: String) {
-        if !ConnectivityManager.shared.isConnected {
-            controller?.showNoInternetAlert()
+    func startPasswordRecovering(email: String) {
+        if recoveryEmail {
+            coordinator.perform(action: .close)
             return
         }
-        let emailUser = email.trimmingCharacters(in: .whitespaces)
-        let parameters = [
-            "email": emailUser
-        ]
-        guard let controller = controller else {
-            return
-        }
-        BadNetworkLayer.shared.resetPassword(controller, parameters: parameters) { (success) in
-            if success {
-                controller.showSuccessState()
-            } else {
-                controller.showDefaultAlert()
-            }
+
+        if validateEmail(email: email) {
+            callAPI(email: email)
+        } else {
+            controller?.showErrorState()
         }
     }
     
@@ -53,6 +48,40 @@ class ResetPasswordViewModel {
         coordinator.perform(action: .close)
     }
 }
+
+private extension ResetPasswordViewModel {
+    func validateEmail(email: String) -> Bool {
+        let isValid = email.contains(".") && email.contains("@") || email.count > 5
+        return isValid
+    }
+    
+    func callAPI(email: String) {
+        if !ConnectivityManager.shared.isConnected {
+            controller?.showNoInternetAlert()
+            return
+        }
+        let emailUser = email.trimmingCharacters(in: .whitespaces)
+        let parameters = [
+            "email": emailUser
+        ]
+        startAPICalling(parameters: parameters)
+    }
+    
+    func startAPICalling(parameters: [String: String]) {
+        guard let controller = controller else {
+            return
+        }
+        BadNetworkLayer.shared.resetPassword(controller, parameters: parameters) { (success) in
+            if success {
+                self.recoveryEmail = true
+                controller.showSuccessState()
+            } else {
+                controller.showDefaultAlert()
+            }
+        }
+    }
+}
+
 
 enum ResetPasswordActions {
     case account

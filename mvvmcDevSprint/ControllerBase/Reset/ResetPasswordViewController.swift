@@ -1,5 +1,14 @@
 import UIKit
 
+enum ResetPasswordFactory {
+    static func make() -> UIViewController {
+        let viewModel = ResetPasswordViewModel()
+        let controller = ResetPasswordViewController(viewModel: viewModel)
+        viewModel.controller = controller
+        return controller
+    }
+}
+
 class ResetPasswordViewController: UIViewController {
 
     @IBOutlet weak var emailTextfield: UITextField!
@@ -12,17 +21,23 @@ class ResetPasswordViewController: UIViewController {
     @IBOutlet weak var viewSuccess: UIView!
     @IBOutlet weak var emailLabel: UILabel!
     
-    var email = ""
     var loadingScreen = LoadingController()
-    var recoveryEmail = false
-    let viewModel = ResetPasswordViewModel()
-
+    private let viewModel: ResetPasswordViewModeling
+    
+    init(viewModel: ResetPasswordViewModeling) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         let gesture = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
         view.addGestureRecognizer(gesture)
-        viewModel.controller = self
     }
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -38,14 +53,9 @@ class ResetPasswordViewController: UIViewController {
     }
 
     @IBAction func recoverPasswordButton(_ sender: Any) {
-        if recoveryEmail {
-            dismiss(animated: true)
-            return
-        }
-
-        if validateForm() {
-            callAPI()
-        }
+        view.endEditing(true)
+        let email = emailTextfield.text ?? ""
+        viewModel.startPasswordRecovering(email: email)
     }
     
     @IBAction func loginButton(_ sender: Any) {
@@ -58,17 +68,6 @@ class ResetPasswordViewController: UIViewController {
     
     @IBAction func createAccountButton(_ sender: Any) {
         viewModel.goToAccount()
-    }
-    
-    func validateForm() -> Bool {
-        let emailString = emailTextfield.text ?? ""
-        let isValid = viewModel.validateEmail(email: emailString)
-        if !isValid {
-            emailTextfield.setErrorColor()
-            textLabel.textColor = .red
-            textLabel.text = "Verifique o e-mail informado"
-        }
-        return isValid
     }
     
     func setupView() {
@@ -95,11 +94,6 @@ class ResetPasswordViewController: UIViewController {
         createAccountButton.backgroundColor = .white
         
         emailTextfield.setDefaultColor()
-        
-        if !email.isEmpty {
-            emailTextfield.text = email
-            emailTextfield.isEnabled = false
-        }
         validateButton()
     }
     
@@ -125,7 +119,6 @@ extension ResetPasswordViewController {
     }
     
     func showSuccessState() {
-        recoveryEmail = true
         emailTextfield.isHidden = true
         textLabel.isHidden = true
         viewSuccess.isHidden = false
@@ -153,13 +146,11 @@ extension ResetPasswordViewController {
         recoverPasswordButton.setTitleColor(.white, for: .normal)
         recoverPasswordButton.isEnabled = true
     }
-}
-
-private extension ResetPasswordViewController {
-    func callAPI() {
-        self.view.endEditing(true)
-        let email = emailTextfield.text ?? ""
-        viewModel.callAPI(email: email)
+    
+    func showErrorState() {
+        emailTextfield.setErrorColor()
+        textLabel.textColor = .red
+        textLabel.text = "Verifique o e-mail informado"
     }
 }
 
