@@ -1,0 +1,6 @@
+framework module Pods_mvvmcDevSprint {
+  umbrella header "Pods-mvvmcDevSprint-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -20,7 +20,24 @@ class FALoginViewController: UIViewController {
     let defaultSpacing: CGFloat = 100
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
-    
+
+    // MARK: - Private properties
+
+    private let viewModel: FALoginViewModel
+    var coordinator: Coordinating?
+
+
+    // MARK: - Initializer
+
+    public init(viewModel: FALoginViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
@@ -114,16 +131,13 @@ class FALoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = FAResetPasswordViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        coordinator?.openForgotPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = FACreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        coordinator?.openCreateAccount()
+
     }
     
     func setupView() {
@@ -258,7 +272,7 @@ extension FALoginViewController {
     
 }
 
-//MARK: keyboard appearence manager
+// MARK: - keyboard appearence manager
 
 extension FALoginViewController {
     
