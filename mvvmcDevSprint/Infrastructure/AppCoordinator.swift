@@ -29,7 +29,9 @@ struct AppCoordinator {
         case .euclidesSena: return ESLoginViewController()
         case .barbaraBarone: return BBLoginViewController()
         case .tatianaRico: return TRLoginViewController()
-        case .felipeAugusto: return FALoginViewController()
+        case .felipeAugusto:
+            let coordinator = FAAuthenticationCoordinator()
+            return coordinator.buildController()
         case .luizamoruz: return LMLoginViewController()
         }
     }

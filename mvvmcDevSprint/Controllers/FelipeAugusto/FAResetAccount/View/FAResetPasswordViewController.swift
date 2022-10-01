@@ -16,6 +16,23 @@ class FAResetPasswordViewController: UIViewController {
     var loadingScreen = LoadingController()
     var recoveryEmail = false
 
+    // MARK: - Private properties
+
+    private let viewModel: FAResetPasswordViewModel
+    var coordinator: Coordinating?
+
+
+    // MARK: - Initializer
+
+    public init(viewModel: FAResetPasswordViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()

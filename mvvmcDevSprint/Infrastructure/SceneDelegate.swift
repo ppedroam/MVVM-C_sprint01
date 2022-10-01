@@ -14,11 +14,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let vc = AppCoordinator.shared.getRootViewController()
-        self.window?.rootViewController = vc
-        self.window?.windowScene = windowScene
-        self.window?.makeKeyAndVisible()
+        
+        let controller = AppCoordinator.shared.getRootViewController()
+
+        let navVC = UINavigationController()
+        let cordinator = FAAuthenticationCoordinator()
+        cordinator.navigationController = navVC
+        let window = UIWindow(windowScene: windowScene)
+
+        if isFASController(controller) {
+            window.rootViewController = navVC
+            cordinator.start()
+        } else {
+            window.rootViewController = controller
+        }
+        window.makeKeyAndVisible()
+        self.window = window
+        
+    }
+
+    func isFASController(_ controller: UIViewController) -> Bool {
+        guard let control = controller as? FALoginViewController else {
+            return false
+        }
+        return true
     }
 }
 

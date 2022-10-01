@@ -21,6 +21,26 @@ class FACreateAccountViewController: UIViewController {
     @IBOutlet weak var passwordErrorLabel: UILabel!
     @IBOutlet weak var createButton: UIButton!
 
+    // MARK: - Coordinator
+
+    var coordinator: Coordinating?
+
+    // MARK: - Private properties
+
+    private var viewModel: FACreateAccountViewModel
+
+    // MARK: - Initializer
+
+    public init(viewModel: FACreateAccountViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
