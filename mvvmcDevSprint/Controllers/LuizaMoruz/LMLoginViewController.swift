@@ -114,9 +114,9 @@ class LMLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+//        let vc = ResetPasswordViewController()
+//        vc.modalPresentationStyle = .fullScreen
+//        present(vc, animated: true)
     }
     
     

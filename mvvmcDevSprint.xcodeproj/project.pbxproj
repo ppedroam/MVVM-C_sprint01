@@ -119,6 +119,9 @@
 		13E582DC28E3813C0002E621 /* LMLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D328E3813C0002E621 /* LMLoginViewController.swift */; };
 		13E582DD28E3813C0002E621 /* LMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13E582D428E3813C0002E621 /* LMLoginViewController.xib */; };
 		13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */; };
+		2F699FEC28EA196600DFC877 /* ESLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F699FEB28EA196600DFC877 /* ESLoginViewModel.swift */; };
+		2F699FEE28EA1D0800DFC877 /* ESLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F699FED28EA1D0800DFC877 /* ESLoginCoordinator.swift */; };
+		2F699FF228EA204700DFC877 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F699FF128EA204700DFC877 /* Coordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -255,6 +258,9 @@
 		13E582D328E3813C0002E621 /* LMLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMLoginViewController.swift; sourceTree = "<group>"; };
 		13E582D428E3813C0002E621 /* LMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMLoginViewController.xib; sourceTree = "<group>"; };
 		13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCreateAccountViewController.swift; sourceTree = "<group>"; };
+		2F699FEB28EA196600DFC877 /* ESLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESLoginViewModel.swift; sourceTree = "<group>"; };
+		2F699FED28EA1D0800DFC877 /* ESLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESLoginCoordinator.swift; sourceTree = "<group>"; };
+		2F699FF128EA204700DFC877 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,14 +366,10 @@
 		132163F328E2348F00372C58 /* EuclidesSena */ = {
 			isa = PBXGroup;
 			children = (
-				1321640B28E2368500372C58 /* ESContactUsViewController.swift */,
-				1321640A28E2368500372C58 /* ESContactUsViewController.xib */,
-				1321640928E2368500372C58 /* ESCreateAccountViewController.swift */,
-				1321640C28E2368500372C58 /* ESCreateAccountViewController.xib */,
-				1321640728E2368500372C58 /* ESLoginViewController.swift */,
-				1321640628E2368500372C58 /* ESLoginViewController.xib */,
-				1321640828E2368500372C58 /* ESResetPasswordViewController.swift */,
-				1321640D28E2368500372C58 /* ESResetPasswordViewController.xib */,
+				2F699FF528EA207C00DFC877 /* ResetPassword */,
+				2F699FF428EA206D00DFC877 /* CreateAccount */,
+				2F699FF328EA205D00DFC877 /* ContactUS */,
+				2F699FEF28EA201300DFC877 /* Login */,
 			);
 			path = EuclidesSena;
 			sourceTree = "<group>";
@@ -596,6 +598,53 @@
 			path = LuizaMoruz;
 			sourceTree = "<group>";
 		};
+		2F699FEF28EA201300DFC877 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2F699FF028EA202800DFC877 /* Coordinator */,
+				1321640728E2368500372C58 /* ESLoginViewController.swift */,
+				2F699FEB28EA196600DFC877 /* ESLoginViewModel.swift */,
+				1321640628E2368500372C58 /* ESLoginViewController.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		2F699FF028EA202800DFC877 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2F699FF128EA204700DFC877 /* Coordinator.swift */,
+				2F699FED28EA1D0800DFC877 /* ESLoginCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		2F699FF328EA205D00DFC877 /* ContactUS */ = {
+			isa = PBXGroup;
+			children = (
+				1321640B28E2368500372C58 /* ESContactUsViewController.swift */,
+				1321640A28E2368500372C58 /* ESContactUsViewController.xib */,
+			);
+			path = ContactUS;
+			sourceTree = "<group>";
+		};
+		2F699FF428EA206D00DFC877 /* CreateAccount */ = {
+			isa = PBXGroup;
+			children = (
+				1321640928E2368500372C58 /* ESCreateAccountViewController.swift */,
+				1321640C28E2368500372C58 /* ESCreateAccountViewController.xib */,
+			);
+			path = CreateAccount;
+			sourceTree = "<group>";
+		};
+		2F699FF528EA207C00DFC877 /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				1321640828E2368500372C58 /* ESResetPasswordViewController.swift */,
+				1321640D28E2368500372C58 /* ESResetPasswordViewController.xib */,
+			);
+			path = ResetPassword;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -773,12 +822,14 @@
 			files = (
 				1321642428E2381500372C58 /* DSLoginViewController.swift in Sources */,
 				13D0788F28DC98D200CF8E00 /* ContactUsViewController.swift in Sources */,
+				2F699FF228EA204700DFC877 /* Coordinator.swift in Sources */,
 				1321643128E238B400372C58 /* GPLoginViewController.swift in Sources */,
 				13E582D928E3813C0002E621 /* LMResetPasswordViewController.swift in Sources */,
 				1321647828E31EE700372C58 /* FAResetPasswordViewController.swift in Sources */,
 				1321645028E23DB400372C58 /* HAResetPasswordViewController.swift in Sources */,
 				13D078A528DC9AC600CF8E00 /* Models.swift in Sources */,
 				1356778828E10ECC00A9C3EF /* TRContactUsViewController.swift in Sources */,
+				2F699FEE28EA1D0800DFC877 /* ESLoginCoordinator.swift in Sources */,
 				13D0788028DC984B00CF8E00 /* AppCoordinator.swift in Sources */,
 				13E582DB28E3813C0002E621 /* LMContactUsViewController.swift in Sources */,
 				1321646128E23E1300372C58 /* RRContactUsViewController.swift in Sources */,
@@ -804,6 +855,7 @@
 				1321645F28E23E1300372C58 /* RRCreateAccountViewController.swift in Sources */,
 				1321643028E238B400372C58 /* GPCreateAccountViewController.swift in Sources */,
 				1321642F28E238B400372C58 /* GPContactUsViewController.swift in Sources */,
+				2F699FEC28EA196600DFC877 /* ESLoginViewModel.swift in Sources */,
 				1321644028E23D4200372C58 /* EGContactUsViewController.swift in Sources */,
 				1321640128E235C500372C58 /* BBCreateAccountViewController.swift in Sources */,
 				13D0789928DC99D300CF8E00 /* KeyboardAppearenceManager.swift in Sources */,
