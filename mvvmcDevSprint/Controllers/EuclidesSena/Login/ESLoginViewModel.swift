@@ -18,11 +18,14 @@ protocol ESLoginViewModelProtocol {
 
 class ESLoginViewModel: ESLoginViewModelProtocol {
     private let coordinator: ESLoginCoordinator
+    private let service: LoginServiceProtocol
+    
     var controller: ESLoginViewController?
     weak var delegate: ESLoginDelegate?
     
-    init(withCoordinator cood: ESLoginCoordinator) {
+    init(withCoordinator cood: ESLoginCoordinator, _ service: LoginServiceProtocol = LoginService()) {
         self.coordinator = cood
+        self.service = service
     }
     
     func startResetPasswd() {
@@ -40,8 +43,7 @@ class ESLoginViewModel: ESLoginViewModelProtocol {
         }
         
         controller?.showLoading()
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
+        service.fetch(parameters: parameters) { result in
             DispatchQueue.main.async {
                 self.controller?.stopLoading()
                 switch result {
