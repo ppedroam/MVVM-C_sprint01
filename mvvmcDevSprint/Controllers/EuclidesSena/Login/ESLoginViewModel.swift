@@ -38,7 +38,7 @@ class ESLoginViewModel: ESLoginViewModelProtocol {
     
     func showHomeScreen(parameters: [String: String]) {
         if !ConnectivityManager.shared.isConnected {
-            coordinator.alertError("Sem conexão", "Conecte-se à internet para tentar novamente")
+            self.coordinator.perform(action: .alert("Sem conexão", "Conecte-se à internet para tentar novamente"))
             return
         }
         
@@ -53,11 +53,11 @@ class ESLoginViewModel: ESLoginViewModelProtocol {
                         self.coordinator.perform(action: .goToHome)
                         UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
                     } else {
-                        self.coordinator.alertError("Ops..", "Houve um problema, tente novamente mais tarde.")
+                        self.coordinator.perform(action: .alert("Ops..", "Houve um problema, tente novamente mais tarde."))
                     }
                 case .failure:
                     self.delegate?.setErrorLogin("E-mail ou senha incorretos")
-                    self.coordinator.alertError("Ops..", "Houve um problema, tente novamente mais tarde.")
+                    self.coordinator.perform(action: .alert("Ops..", "Houve um problema, tente novamente mais tarde."))
                 }
             }
         }

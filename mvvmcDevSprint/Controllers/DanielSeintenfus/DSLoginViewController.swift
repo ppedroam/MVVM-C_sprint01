@@ -110,7 +110,7 @@ class DSLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
+        let vc = DSResetPasswordViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }

@@ -110,7 +110,7 @@ class EGLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
+        let vc = EGResetPasswordViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }

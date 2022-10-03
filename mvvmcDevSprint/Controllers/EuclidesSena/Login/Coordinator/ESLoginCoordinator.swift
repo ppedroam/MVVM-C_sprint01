@@ -12,20 +12,26 @@ enum LoginPasswordActions {
     case resetPasswd
     case createAccount
     case goToHome
+    case alert(String,String)
+}
+
+protocol LoginCoordinatorProtocol: AnyObject {
+    var controller: UIViewController? { get set }
+    func perform(action: ResetPasswordActions)
+    func goToResetPassword()
+    func goToCreateAccount()
+    func goToHomeScreen()
+    func alertError(_ title: String,_ subtitle: String)
 }
 
 class ESLoginCoordinator: ESLoginCoordinatorProtocol {
-    let navigationController: UINavigationController
-    
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
+    var controller: UIViewController?
     
     func start() {
         let viewModel = ESLoginViewModel(withCoordinator: self)
         let loginStart = ESLoginViewController(withViewModel: viewModel)
         viewModel.controller = loginStart
-        navigationController.pushViewController(loginStart, animated: true)
+        controller?.present(loginStart, animated: true)
     }
     
     func perform(action: LoginPasswordActions) {
@@ -33,6 +39,7 @@ class ESLoginCoordinator: ESLoginCoordinatorProtocol {
         case .resetPasswd: goToResetPassword()
         case .createAccount: goToCreateAccount()
         case .goToHome: goToHomeScreen()
+        case .alert(let title, let subtitle): alertError(title, subtitle)
         }
     }
     
@@ -40,17 +47,15 @@ class ESLoginCoordinator: ESLoginCoordinatorProtocol {
     func goToResetPassword() {
         let vc = ESResetPasswordViewController()
         vc.modalPresentationStyle = .fullScreen
-        navigationController.present(vc, animated: true)
+        controller?.present(vc, animated: true)
     }
     
     func goToCreateAccount() {
         let controller = CreateAccountViewController()
         controller.modalPresentationStyle = .fullScreen
-        navigationController.present(controller, animated: true)
+        controller.present(controller, animated: true)
     }
-    
 
-    
     func goToHomeScreen() {
         let vc = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
@@ -64,7 +69,7 @@ class ESLoginCoordinator: ESLoginCoordinatorProtocol {
         let alertController = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
         let actin = UIAlertAction(title: "Ok", style: .default)
         alertController.addAction(actin)
-        navigationController.present(alertController, animated: true)
+        controller?.present(alertController, animated: true)
     }
     
 }

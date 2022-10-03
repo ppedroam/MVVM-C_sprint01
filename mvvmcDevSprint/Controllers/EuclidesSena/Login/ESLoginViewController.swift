@@ -1,5 +1,15 @@
 import UIKit
 
+enum LoginFactory {
+    static func make() -> UIViewController {
+        let coordinator = ESLoginCoordinator()
+        let viewModel = ESLoginViewModel(withCoordinator: coordinator)
+        let controller = ESLoginViewController(withViewModel: viewModel)
+        viewModel.controller = controller
+        return controller
+    }
+}
+
 protocol ESLoginDelegate: AnyObject {
     func setErrorLogin(_ message: String)
 }

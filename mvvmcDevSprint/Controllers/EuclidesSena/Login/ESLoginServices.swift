@@ -13,9 +13,9 @@ protocol LoginServiceProtocol {
 }
 
 class LoginService: LoginServiceProtocol {
-    private let service: ServiceManager
+    private let service: ESServiceManager
     
-    required init(_ service: ServiceManager = ServiceManager()) {
+    required init(_ service: ESServiceManager = ESServiceManager()) {
         self.service = service
     }
     
