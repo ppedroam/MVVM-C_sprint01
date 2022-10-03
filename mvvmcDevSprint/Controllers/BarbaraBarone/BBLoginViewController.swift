@@ -114,7 +114,7 @@ class BBLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
+        let vc = BBResetPasswordViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }

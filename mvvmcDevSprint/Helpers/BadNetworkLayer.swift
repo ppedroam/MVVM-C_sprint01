@@ -198,6 +198,7 @@ struct AF {
 enum ServiceErros: Error {
     case invalidData
     case failure
+    case invalidCredentials
 }
 
 enum Auth {
