@@ -9,7 +9,7 @@ struct AppCoordinator {
         case elpidioGabriel
         case gabrielPaschoal
         case danielSeitenfus
-        case euclidesSena
+//        case euclidesSena
         case barbaraBarone
         case tatianaRico
         case felipeAugusto
@@ -26,7 +26,7 @@ struct AppCoordinator {
         case .elpidioGabriel: return EGLoginViewController()
         case .gabrielPaschoal: return GPLoginViewController()
         case .danielSeitenfus: return DSLoginViewController()
-        case .euclidesSena: return ESLoginViewController()
+//        case .euclidesSena: return ESLoginViewController()
         case .barbaraBarone: return BBLoginViewController()
         case .tatianaRico: return TRLoginViewController()
         case .felipeAugusto: return FALoginViewController()

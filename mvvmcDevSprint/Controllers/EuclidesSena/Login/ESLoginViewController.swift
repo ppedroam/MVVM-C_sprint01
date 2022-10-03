@@ -1,5 +1,9 @@
 import UIKit
 
+protocol ESLoginDelegate: AnyObject {
+    func setErrorLogin(_ message: String)
+}
+
 class ESLoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
@@ -21,9 +25,21 @@ class ESLoginViewController: UIViewController {
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
     
+    private var viewModel: ESLoginViewModelProtocol
+    
+    init(withViewModel viewModel: ESLoginViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         verifyLogin()
+        viewModel.delegate = self
 
         #if DEBUG
         emailTextField.text = "mvvmc@devpass.com"
@@ -57,45 +73,10 @@ class ESLoginViewController: UIViewController {
     }
     
     @IBAction func loginButton(_ sender: Any) {
-        didClickLogin()
-    }
-    
-    func didClickLogin() {
-        if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
-        }
-
-        showLoading()
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
-            }
-        }
+                                            
+        viewModel.showHomeScreen(parameters: parameters)
     }
     
     @IBAction func showPassword(_ sender: Any) {
@@ -110,16 +91,12 @@ class ESLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        viewModel.startResetPasswd()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = CreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        viewModel.createAccount()
     }
     
     func setupView() {
@@ -189,14 +166,6 @@ class ESLoginViewController: UIViewController {
         passwordTextField.setDefaultColor()
     }
     
-    func setErrorLogin(_ message: String) {
-        errorInLogin = true
-        heightLabelError.constant = 20
-        errorLabel.text = message
-        emailTextField.setErrorColor()
-        passwordTextField.setErrorColor()
-    }
-    
     func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
         if textField == emailTextField {
@@ -211,11 +180,14 @@ class ESLoginViewController: UIViewController {
 
 extension ESLoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let parameters: [String: String] = ["email": emailTextField.text!,
+                                            "password": passwordTextField.text!]
+        
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
         } else {
             view.endEditing(true)
-            didClickLogin()
+            viewModel.showHomeScreen(parameters: parameters)
         }
         return true
     }
@@ -305,5 +277,15 @@ extension ESLoginViewController {
         yVariation = activeTFWindowPosition.minY - newOriginY
         let isTextFieldTooNearFromKeyboard = activeTFWindowPosition.minY > newOriginY
         return isTextFieldTooNearFromKeyboard
+    }
+}
+
+extension ESLoginViewController: ESLoginDelegate {
+    func setErrorLogin(_ message: String) {
+        errorInLogin = true
+        heightLabelError.constant = 20
+        errorLabel.text = message
+        emailTextField.setErrorColor()
+        passwordTextField.setErrorColor()
     }
 }
