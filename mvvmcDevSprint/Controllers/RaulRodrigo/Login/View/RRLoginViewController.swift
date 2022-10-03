@@ -53,10 +53,6 @@ class RRLoginViewController: UIViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
-    func verifyLogin() {
-        viewModel.verifyLogin()
-    }
     
     @IBAction func loginButton(_ sender: Any) {
         didClickLogin()
@@ -183,8 +179,13 @@ extension RRLoginViewController: UITextFieldDelegate {
 }
 
 extension RRLoginViewController: RRLoginViewToViewModelProtocol {
+    func stateButton(isEnabled: Bool) {
+        loginButton.backgroundColor = isEnabled ? .blue : .gray
+        loginButton.isEnabled = isEnabled
+    }
+    
     func showAlertDialog() {
-        showAlertDialog(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", buttonTitle: "Ok")
+        showAlertDialogDS(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", buttonTitle: "Ok")
     }
     
     func showLoadingFunc() {
@@ -213,18 +214,16 @@ extension RRLoginViewController: RRLoginViewToViewModelProtocol {
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
+}
+
+private extension RRLoginViewController {
     
-    
-    func disableButton() {
-        loginButton.backgroundColor = .gray
-        loginButton.isEnabled = false
+    func showAlertDialogDS(title: String, message: String, buttonTitle: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let actin = UIAlertAction(title: buttonTitle, style: .default)
+        alertController.addAction(actin)
+        present(alertController, animated: true)
     }
-    
-    func enableButton() {
-        loginButton.backgroundColor = .blue
-        loginButton.isEnabled = true
-    }
-    
 }
 
 //MARK: keyboard appearence manager
@@ -282,4 +281,6 @@ extension RRLoginViewController {
         let isTextFieldTooNearFromKeyboard = activeTFWindowPosition.minY > newOriginY
         return isTextFieldTooNearFromKeyboard
     }
+    
+    
 }

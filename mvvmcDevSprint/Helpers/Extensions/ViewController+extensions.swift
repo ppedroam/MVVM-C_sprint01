@@ -21,13 +21,6 @@ extension UIViewController {
             presentedController.dismiss(animated: true)
         }
     }
-    
-    func showAlertDialog(title: String, message: String, buttonTitle: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let actin = UIAlertAction(title: buttonTitle, style: .default)
-        alertController.addAction(actin)
-        present(alertController, animated: true)
-    }
 
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))

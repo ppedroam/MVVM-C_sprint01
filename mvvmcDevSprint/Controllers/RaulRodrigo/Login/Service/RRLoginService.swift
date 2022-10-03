@@ -9,13 +9,13 @@ import Foundation
 
 protocol RRLoginRepositoryProtocol{
     func isLogged() -> Bool
-    func isConnected() -> Bool
+    func isWithOutConnection() -> Bool
     
 }
 
 
 class RRLoginRepository: RRLoginRepositoryProtocol {
-    func isConnected() -> Bool {
+    func isWithOutConnection() -> Bool {
         return !ConnectivityManager.shared.isConnected
     }
     

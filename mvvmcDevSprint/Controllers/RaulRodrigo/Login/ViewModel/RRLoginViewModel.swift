@@ -14,8 +14,7 @@ protocol RRLoginViewModelToViewProtocol  {
 }
 
 protocol RRLoginViewToViewModelProtocol: AnyObject {
-    func disableButton()
-    func enableButton()
+    func stateButton(isEnabled: Bool)
     func showAlertDialog()
     func showLoadingFunc()
     func stopLoadingFunc()
@@ -37,23 +36,23 @@ extension RRLoginViewModel: RRLoginViewModelToViewProtocol{
         if !emailText.contains(".") ||
             !emailText.contains("@") ||
             emailText.count <= 5 {
-            delegate?.disableButton()
+            delegate?.stateButton(isEnabled: false)
         } else {
             if let atIndex = emailText.firstIndex(of: "@") {
                 let substring = emailText[atIndex...]
                 if substring.contains(".") {
-                    delegate?.enableButton()
+                    delegate?.stateButton(isEnabled: true)
                 } else {
-                    delegate?.disableButton()
+                    delegate?.stateButton(isEnabled: false)
                 }
             } else {
-                delegate?.disableButton()
+                delegate?.stateButton(isEnabled: false)
             }
         }
     }
     func login(email:String, password: String) {
         let controller = RRLoginViewController()
-        if service.isConnected(){
+        if service.isWithOutConnection(){
             self.delegate?.showAlertDialog()
         }
         self.delegate?.showLoadingFunc()
