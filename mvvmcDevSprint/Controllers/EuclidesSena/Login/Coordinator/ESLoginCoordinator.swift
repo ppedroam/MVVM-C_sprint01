@@ -17,22 +17,15 @@ enum LoginPasswordActions {
 
 protocol LoginCoordinatorProtocol: AnyObject {
     var controller: UIViewController? { get set }
-    func perform(action: ResetPasswordActions)
+    func perform(action: LoginPasswordActions)
     func goToResetPassword()
     func goToCreateAccount()
     func goToHomeScreen()
     func alertError(_ title: String,_ subtitle: String)
 }
 
-class ESLoginCoordinator: ESLoginCoordinatorProtocol {
+class ESLoginCoordinator: LoginCoordinatorProtocol {
     var controller: UIViewController?
-    
-    func start() {
-        let viewModel = ESLoginViewModel(withCoordinator: self)
-        let loginStart = ESLoginViewController(withViewModel: viewModel)
-        viewModel.controller = loginStart
-        controller?.present(loginStart, animated: true)
-    }
     
     func perform(action: LoginPasswordActions) {
         switch action {
