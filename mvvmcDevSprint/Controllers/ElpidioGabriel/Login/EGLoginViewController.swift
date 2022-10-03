@@ -57,7 +57,7 @@ class EGLoginViewController: UIViewController {
     }
     
     func didClickLogin() {
-        viewModel.isNoConnection()
+//        viewModel.isNoConnection()
         viewModel.isLogged(emailText: emailTextField.text ?? "", passwordText: passwordTextField.text ?? "")
     }
     
@@ -73,7 +73,7 @@ class EGLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
+        let vc = EGResetPasswordViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
