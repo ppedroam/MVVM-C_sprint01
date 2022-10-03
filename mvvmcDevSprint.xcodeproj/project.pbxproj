@@ -119,6 +119,7 @@
 		13E582DC28E3813C0002E621 /* LMLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D328E3813C0002E621 /* LMLoginViewController.swift */; };
 		13E582DD28E3813C0002E621 /* LMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13E582D428E3813C0002E621 /* LMLoginViewController.xib */; };
 		13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */; };
+		29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE31B128E47459009110A8 /* EGLoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -255,6 +256,7 @@
 		13E582D328E3813C0002E621 /* LMLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMLoginViewController.swift; sourceTree = "<group>"; };
 		13E582D428E3813C0002E621 /* LMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMLoginViewController.xib; sourceTree = "<group>"; };
 		13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCreateAccountViewController.swift; sourceTree = "<group>"; };
+		29CE31B128E47459009110A8 /* EGLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EGLoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,14 +317,10 @@
 		132163F028E2347000372C58 /* ElpidioGabriel */ = {
 			isa = PBXGroup;
 			children = (
-				1321643828E23D4100372C58 /* EGContactUsViewController.swift */,
-				1321643928E23D4100372C58 /* EGContactUsViewController.xib */,
-				1321643B28E23D4200372C58 /* EGCreateAccountViewController.swift */,
-				1321643628E23D4100372C58 /* EGCreateAccountViewController.xib */,
-				1321643A28E23D4200372C58 /* EGLoginViewController.swift */,
-				1321643728E23D4100372C58 /* EGLoginViewController.xib */,
-				1321643C28E23D4200372C58 /* EGResetPasswordViewController.swift */,
-				1321643D28E23D4200372C58 /* EGResetPasswordViewController.xib */,
+				2924CAF728E772240051CD63 /* Login */,
+				2924CAF828E772390051CD63 /* ContactUs */,
+				2924CAF928E7724E0051CD63 /* CreateAccount */,
+				2924CAFA28E772660051CD63 /* ResetPassword */,
 			);
 			path = ElpidioGabriel;
 			sourceTree = "<group>";
@@ -596,6 +594,43 @@
 			path = LuizaMoruz;
 			sourceTree = "<group>";
 		};
+		2924CAF728E772240051CD63 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				29CE31B128E47459009110A8 /* EGLoginViewModel.swift */,
+				1321643A28E23D4200372C58 /* EGLoginViewController.swift */,
+				1321643728E23D4100372C58 /* EGLoginViewController.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		2924CAF828E772390051CD63 /* ContactUs */ = {
+			isa = PBXGroup;
+			children = (
+				1321643828E23D4100372C58 /* EGContactUsViewController.swift */,
+				1321643928E23D4100372C58 /* EGContactUsViewController.xib */,
+			);
+			path = ContactUs;
+			sourceTree = "<group>";
+		};
+		2924CAF928E7724E0051CD63 /* CreateAccount */ = {
+			isa = PBXGroup;
+			children = (
+				1321643628E23D4100372C58 /* EGCreateAccountViewController.xib */,
+				1321643B28E23D4200372C58 /* EGCreateAccountViewController.swift */,
+			);
+			path = CreateAccount;
+			sourceTree = "<group>";
+		};
+		2924CAFA28E772660051CD63 /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				1321643C28E23D4200372C58 /* EGResetPasswordViewController.swift */,
+				1321643D28E23D4200372C58 /* EGResetPasswordViewController.xib */,
+			);
+			path = ResetPassword;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -814,6 +849,7 @@
 				1356779628E1122700A9C3EF /* ResetPasswordViewController.swift in Sources */,
 				13D0784E28DC8FBB00CF8E00 /* AppDelegate.swift in Sources */,
 				13D0789F28DC9A6A00CF8E00 /* LoadingController.swift in Sources */,
+				29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */,
 				1321642128E2381500372C58 /* DSContactUsViewController.swift in Sources */,
 				13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */,
 				1356778428E10ECC00A9C3EF /* TRResetPasswordViewController.swift in Sources */,
