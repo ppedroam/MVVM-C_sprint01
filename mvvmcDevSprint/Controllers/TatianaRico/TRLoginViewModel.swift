@@ -8,7 +8,7 @@
 import Foundation
 
 class TRLoginViewModel {
-    let vc = TRLoginViewController()
+    var vc: TRLoginViewController? = nil
     let coordinator = TRLoginCoordinator()
     
     func verifyLogin() {
@@ -40,20 +40,20 @@ class TRLoginViewModel {
         
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
-                self.vc.stopLoading()
+                self.vc?.stopLoading()
                 
                 switch result {
                 case .success(let data):
                     let decoder = JSONDecoder()
                     if let session = try? decoder.decode(Session.self, from: data) {
-                        self.vc.goToHome()
+                        self.vc?.goToHome()
                         UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
                     } else {
-                        self.vc.globalsAlerts(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
+                        self.vc?.globalsAlerts(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
                     }
                 case .failure:
-                    self.vc.setErrorLogin("E-mail ou senha incorretos")
-                    self.vc.globalsAlerts(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
+                    self.vc?.setErrorLogin("E-mail ou senha incorretos")
+                    self.vc?.globalsAlerts(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
                 }
             }
         }
@@ -69,8 +69,14 @@ class TRLoginViewModel {
         coordinator.goToCreatAccount()
     }
     
-    func alertConexao(title: String, message: String) {
+ private func alertConexao(title: String, message: String) {
         self.coordinator.vc = vc
         coordinator.alertConexaoStates(title: title, message: message)
+    }
+    
+    func noConnectedInternet() {
+        if !ConnectivityManager.shared.isConnected {
+            self.alertConexao(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente")
+        }
     }
 }

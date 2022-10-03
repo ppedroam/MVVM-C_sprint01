@@ -26,6 +26,7 @@ class TRLoginViewController: UIViewController {
         self.setupView()
         self.validateButton()
         self.configNotificationCenter()
+        viewModel.vc = self
     }
     
     @IBAction func loginButton(_ sender: Any) {
@@ -33,7 +34,7 @@ class TRLoginViewController: UIViewController {
     }
     
     @IBAction func showPassword(_ sender: Any) {
-        let imageName = showPassword ? "eye.slash" : "eye"
+        let imageName = self.showPassword ? "eye.slash" : "eye"
         let image = UIImage.init(systemName: imageName)?.withRenderingMode(.alwaysTemplate)
         showPasswordButton.setImage(image, for: .normal)
         passwordTextField.isSecureTextEntry = showPassword
@@ -109,10 +110,8 @@ class TRLoginViewController: UIViewController {
     func didClickLogin() {
         let email = emailTextField.text ?? ""
         let password = emailTextField.text ?? ""
-        
-        if !ConnectivityManager.shared.isConnected {
-            self.viewModel.alertConexao(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente")
-        }
+    
+        self.viewModel.noConnectedInternet()
         
         showLoading()
         self.viewModel.requestScreenLogin(email: email, password: password)
