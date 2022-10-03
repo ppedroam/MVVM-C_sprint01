@@ -20,8 +20,6 @@ struct AppCoordinator {
 
         var architecter = Architecters.elpidioGabriel
 
-        return LoginViewController()
-
         switch architecter {
         case .raulRodrigo: return RRLoginViewController()
         case .henriqueAugusto: return HALoginViewController()
