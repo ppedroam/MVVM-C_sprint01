@@ -35,8 +35,8 @@ final class EGLoginViewModel: EGLoginViewModelProtocol  {
     func isLogged(emailText: String, passwordText: String) {
         if !ConnectivityManager.shared.isConnected {
             delegate?.noConnectionAlert()
-            delegate?.showLoadingFunction()
         } else {
+            delegate?.showLoadingFunction()
             let parameters: [String: String] = ["email": emailText, "password": passwordText]
             let endpoint = Endpoints.Auth.login
             AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
