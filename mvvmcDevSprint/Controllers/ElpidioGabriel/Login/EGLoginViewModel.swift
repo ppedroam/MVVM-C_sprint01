@@ -19,7 +19,6 @@ protocol EGLoginViewModelDelegate {
 
 protocol EGLoginViewModelProtocol {
     func verifyLogin()
-    func isNoConnection()
     func isLogged(emailText: String, passwordText: String)
     func validateButton(emailText: String)
 }
@@ -33,32 +32,29 @@ final class EGLoginViewModel: EGLoginViewModelProtocol  {
         }
     }
     
-    func isNoConnection() {
+    func isLogged(emailText: String, passwordText: String) {
         if !ConnectivityManager.shared.isConnected {
             delegate?.noConnectionAlert()
-        }
-        delegate?.showLoadingFunction()
-    }
-    
-    func isLogged(emailText: String, passwordText: String) {
-        let parameters: [String: String] = ["email": emailText,
-                                            "password": passwordText]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.delegate?.stopLoadingFunction()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        self.delegate?.goToHomeView()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
+            delegate?.showLoadingFunction()
+        } else {
+            let parameters: [String: String] = ["email": emailText, "password": passwordText]
+            let endpoint = Endpoints.Auth.login
+            AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
+                DispatchQueue.main.async {
+                    self.delegate?.stopLoadingFunction()
+                    switch result {
+                    case .success(let data):
+                        let decoder = JSONDecoder()
+                        if let session = try? decoder.decode(Session.self, from: data) {
+                            self.delegate?.goToHomeView()
+                            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+                        } else {
+                            self.delegate?.tryAgainAlert()
+                        }
+                    case .failure:
+                        self.delegate?.loginErrorMessage()
                         self.delegate?.tryAgainAlert()
                     }
-                case .failure:
-                    self.delegate?.loginErrorMessage()
-                    self.delegate?.tryAgainAlert()
                 }
             }
         }
