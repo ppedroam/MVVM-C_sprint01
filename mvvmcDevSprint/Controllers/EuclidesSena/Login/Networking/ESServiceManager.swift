@@ -1,5 +1,5 @@
 //
-//  ServiceManager.swift
+//  ESServiceManager.swift
 //  mvvmcDevSprint
 //
 //  Created by Euclides Medeiros on 02/10/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ServiceManager {
+struct ESServiceManager {
     enum Method {
         case get
         case post
