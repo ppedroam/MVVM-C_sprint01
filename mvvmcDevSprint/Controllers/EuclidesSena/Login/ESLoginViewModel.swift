@@ -7,17 +7,28 @@
 
 import Foundation
 
+protocol ESLoginDelegate: AnyObject {
+    func setErrorLogin(_ message: String)
+    func showLoadingScreen()
+    func stopLoadingScreen()
+}
+
 protocol ESLoginViewModelProtocol {
     func startResetPasswd()
     func createAccount()
     func showHomeScreen(parameters: [String: String])
 
     var delegate: ESLoginDelegate? { get set }
+    var showPassword: Bool { get set }
+    var errorInLogin: Bool { get set }
 }
 
 class ESLoginViewModel: ESLoginViewModelProtocol {
     private let coordinator: ESLoginCoordinator
     private let service: LoginServiceProtocol
+    
+    var showPassword = true
+    var errorInLogin = false
 
     weak var delegate: ESLoginDelegate?
     
