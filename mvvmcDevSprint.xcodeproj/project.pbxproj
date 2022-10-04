@@ -343,9 +343,6 @@
 		132163F428E2349600372C58 /* BarbaraBarone */ = {
 			isa = PBXGroup;
 			children = (
-				132163FD28E235C500372C58 /* BBLoginViewController.swift */,
-				132163FA28E235C500372C58 /* BBLoginViewController.xib */,
-				8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */,
 				8790732C28EBCA46003C53C1 /* BBLogin */,
 				132163F628E235C500372C58 /* BBContactUsViewController.swift */,
 				132163F728E235C500372C58 /* BBContactUsViewController.xib */,
@@ -536,6 +533,9 @@
 		8790732C28EBCA46003C53C1 /* BBLogin */ = {
 			isa = PBXGroup;
 			children = (
+				132163FD28E235C500372C58 /* BBLoginViewController.swift */,
+				132163FA28E235C500372C58 /* BBLoginViewController.xib */,
+				8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */,
 			);
 			path = BBLogin;
 			sourceTree = "<group>";
