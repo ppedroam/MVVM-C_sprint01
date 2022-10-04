@@ -103,6 +103,8 @@
 		13D078AF28DCFA2800CF8E00 /* Image+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D078AE28DCFA2800CF8E00 /* Image+extensions.swift */; };
 		13D078B128DD013900CF8E00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D078B028DD013900CF8E00 /* BaseViewController.swift */; };
 		8790724E28E2908C003C53C1 /* BBLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */; };
+		8790732E28EBCEE0003C53C1 /* BBLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790732D28EBCEE0003C53C1 /* BBLoginCoordinator.swift */; };
+		8790733028EBD394003C53C1 /* BBLoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790732F28EBD394003C53C1 /* BBLoginFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +225,8 @@
 		13D078AE28DCFA2800CF8E00 /* Image+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+extensions.swift"; sourceTree = "<group>"; };
 		13D078B028DD013900CF8E00 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = Extensions/BaseViewController.swift; sourceTree = "<group>"; };
 		8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBLoginViewModel.swift; sourceTree = "<group>"; };
+		8790732D28EBCEE0003C53C1 /* BBLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBLoginCoordinator.swift; sourceTree = "<group>"; };
+		8790732F28EBD394003C53C1 /* BBLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBLoginFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,9 +347,6 @@
 		132163F428E2349600372C58 /* BarbaraBarone */ = {
 			isa = PBXGroup;
 			children = (
-				132163FD28E235C500372C58 /* BBLoginViewController.swift */,
-				132163FA28E235C500372C58 /* BBLoginViewController.xib */,
-				8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */,
 				8790732C28EBCA46003C53C1 /* BBLogin */,
 				132163F628E235C500372C58 /* BBContactUsViewController.swift */,
 				132163F728E235C500372C58 /* BBContactUsViewController.xib */,
@@ -536,6 +537,11 @@
 		8790732C28EBCA46003C53C1 /* BBLogin */ = {
 			isa = PBXGroup;
 			children = (
+				8790732F28EBD394003C53C1 /* BBLoginFactory.swift */,
+				8790732D28EBCEE0003C53C1 /* BBLoginCoordinator.swift */,
+				8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */,
+				132163FD28E235C500372C58 /* BBLoginViewController.swift */,
+				132163FA28E235C500372C58 /* BBLoginViewController.xib */,
 			);
 			path = BBLogin;
 			sourceTree = "<group>";
@@ -726,6 +732,7 @@
 				1321644E28E23DB400372C58 /* HACreateAccountViewController.swift in Sources */,
 				1321645428E23DB400372C58 /* HAContactUsViewController.swift in Sources */,
 				8790724E28E2908C003C53C1 /* BBLoginViewModel.swift in Sources */,
+				8790732E28EBCEE0003C53C1 /* BBLoginCoordinator.swift in Sources */,
 				1321642E28E238B400372C58 /* GPResetPasswordViewController.swift in Sources */,
 				13D0789D28DC9A4C00CF8E00 /* ViewController+extensions.swift in Sources */,
 				13D0788A28DC98D200CF8E00 /* LoginViewController.swift in Sources */,
@@ -750,6 +757,7 @@
 				1356778428E10ECC00A9C3EF /* TRResetPasswordViewController.swift in Sources */,
 				1321646328E23E1300372C58 /* RRResetPasswordViewController.swift in Sources */,
 				1321645E28E23E1300372C58 /* RRLoginViewController.swift in Sources */,
+				8790733028EBD394003C53C1 /* BBLoginFactory.swift in Sources */,
 				1321644228E23D4200372C58 /* EGLoginViewController.swift in Sources */,
 				1321642228E2381500372C58 /* DSResetPasswordViewController.swift in Sources */,
 				1321644328E23D4200372C58 /* EGCreateAccountViewController.swift in Sources */,

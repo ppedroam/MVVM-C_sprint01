@@ -1,6 +1,17 @@
 import UIKit
 
-class BBLoginViewController: UIViewController {
+protocol BBLoginViewControlling {
+    func showLoading()
+    func stopLoading()
+    func showLoginError()
+    func showGenericErrorAlert()
+    func showAlertConnectivity()
+    func showHomeScreen()
+    func enableButton()
+    func disableButton()
+}
+
+class BBLoginViewController: UIViewController, BBLoginViewControlling {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -21,9 +32,9 @@ class BBLoginViewController: UIViewController {
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
     
-    private let viewModel: BBLoginViewModel
+    private let viewModel: BBLoginViewModeling
     
-    init(viewModel: BBLoginViewModel) {
+    init(viewModel: BBLoginViewModeling) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -82,12 +93,7 @@ class BBLoginViewController: UIViewController {
     }
     
     func showHomeScreen() {
-        let vc = UINavigationController(rootViewController: HomeViewController())
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
+        viewModel.goToHome()
     }
     
     @IBAction func showPassword(_ sender: Any) {

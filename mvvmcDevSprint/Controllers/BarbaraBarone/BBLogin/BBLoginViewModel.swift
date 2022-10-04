@@ -1,8 +1,20 @@
 import Foundation
 
-final class BBLoginViewModel {
+protocol BBLoginViewModeling {
+    func fetchLogin(with email: String)
+    func validateButton(with email: String)
+    func verifyLogin()
+    func goToHome()
+}
+
+final class BBLoginViewModel: BBLoginViewModeling {
     let endpoint = Endpoints.Auth.login
-    weak var viewController: BBLoginViewController?
+    var viewController: BBLoginViewControlling?
+    private let coordinator: BBLoginCoordinating
+    
+    init(coordinator: BBLoginCoordinator) {
+        self.coordinator = coordinator
+    }
     
     func fetchLogin(with email: String) {
         let parameters = ["email" : email]
@@ -26,20 +38,6 @@ final class BBLoginViewModel {
         }
     }
     
-    func loginError() {
-        viewController?.showLoginError()
-    }
-    
-    func genericError() {
-        viewController?.showGenericErrorAlert()
-    }
-    
-    func noInternetConnection() {
-        if !ConnectivityManager.shared.isConnected {
-            viewController?.showAlertConnectivity()
-        }
-    }
-    
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
             viewController?.showHomeScreen()
@@ -60,6 +58,26 @@ final class BBLoginViewModel {
             } else {
                 viewController?.disableButton()
             }
+        }
+    }
+    
+    func goToHome() {
+        coordinator.perform(action: .home)
+    }
+}
+
+private extension BBLoginViewModel {
+    func loginError() {
+        viewController?.showLoginError()
+    }
+    
+    func genericError() {
+        viewController?.showGenericErrorAlert()
+    }
+    
+    func noInternetConnection() {
+        if !ConnectivityManager.shared.isConnected {
+            viewController?.showAlertConnectivity()
         }
     }
 }
