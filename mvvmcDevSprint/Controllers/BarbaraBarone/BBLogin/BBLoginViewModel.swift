@@ -5,6 +5,8 @@ protocol BBLoginViewModeling {
     func validateButton(with email: String)
     func verifyLogin()
     func goToHome()
+    func goToResetPassword()
+    func goToCreateAccount()
 }
 
 final class BBLoginViewModel: BBLoginViewModeling {
@@ -63,6 +65,14 @@ final class BBLoginViewModel: BBLoginViewModeling {
     
     func goToHome() {
         coordinator.perform(action: .home)
+    }
+    
+    func goToResetPassword() {
+        coordinator.perform(action: .resetPassword)
+    }
+    
+    func goToCreateAccount() {
+        coordinator.perform(action: .createAccount)
     }
 }
 

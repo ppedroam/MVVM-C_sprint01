@@ -108,16 +108,12 @@ class BBLoginViewController: UIViewController, BBLoginViewControlling {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        viewModel.goToResetPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = CreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        viewModel.goToCreateAccount()
     }
     
     func setupView() {
