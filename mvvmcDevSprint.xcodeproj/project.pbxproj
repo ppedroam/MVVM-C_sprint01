@@ -55,9 +55,7 @@
 		1321645328E23DB400372C58 /* HACreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1321644B28E23DB400372C58 /* HACreateAccountViewController.xib */; };
 		1321645428E23DB400372C58 /* HAContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321644C28E23DB400372C58 /* HAContactUsViewController.swift */; };
 		1321645528E23DB400372C58 /* HAContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1321644D28E23DB400372C58 /* HAContactUsViewController.xib */; };
-		1321645E28E23E1300372C58 /* RRLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321645628E23E1300372C58 /* RRLoginViewController.swift */; };
 		1321645F28E23E1300372C58 /* RRCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321645728E23E1300372C58 /* RRCreateAccountViewController.swift */; };
-		1321646028E23E1300372C58 /* RRLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1321645828E23E1300372C58 /* RRLoginViewController.xib */; };
 		1321646128E23E1300372C58 /* RRContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321645928E23E1300372C58 /* RRContactUsViewController.swift */; };
 		1321646228E23E1300372C58 /* RRContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1321645A28E23E1300372C58 /* RRContactUsViewController.xib */; };
 		1321646328E23E1300372C58 /* RRResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321645B28E23E1300372C58 /* RRResetPasswordViewController.swift */; };
@@ -119,6 +117,10 @@
 		13E582DC28E3813C0002E621 /* LMLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D328E3813C0002E621 /* LMLoginViewController.swift */; };
 		13E582DD28E3813C0002E621 /* LMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13E582D428E3813C0002E621 /* LMLoginViewController.xib */; };
 		13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */; };
+		7168AF5028E3E04E00856C29 /* RRLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */; };
+		7169154D28E3AA4000CDD8DE /* RRLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */; };
+		7169154F28E3AA4500CDD8DE /* RRLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */; };
+		7169155128E3AA4800CDD8DE /* RRLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169155028E3AA4800CDD8DE /* RRLoginService.swift */; };
 		29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE31B128E47459009110A8 /* EGLoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -188,9 +190,7 @@
 		1321644B28E23DB400372C58 /* HACreateAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HACreateAccountViewController.xib; sourceTree = "<group>"; };
 		1321644C28E23DB400372C58 /* HAContactUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAContactUsViewController.swift; sourceTree = "<group>"; };
 		1321644D28E23DB400372C58 /* HAContactUsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HAContactUsViewController.xib; sourceTree = "<group>"; };
-		1321645628E23E1300372C58 /* RRLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRLoginViewController.swift; sourceTree = "<group>"; };
 		1321645728E23E1300372C58 /* RRCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRCreateAccountViewController.swift; sourceTree = "<group>"; };
-		1321645828E23E1300372C58 /* RRLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RRLoginViewController.xib; sourceTree = "<group>"; };
 		1321645928E23E1300372C58 /* RRContactUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRContactUsViewController.swift; sourceTree = "<group>"; };
 		1321645A28E23E1300372C58 /* RRContactUsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RRContactUsViewController.xib; sourceTree = "<group>"; };
 		1321645B28E23E1300372C58 /* RRResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRResetPasswordViewController.swift; sourceTree = "<group>"; };
@@ -256,6 +256,10 @@
 		13E582D328E3813C0002E621 /* LMLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMLoginViewController.swift; sourceTree = "<group>"; };
 		13E582D428E3813C0002E621 /* LMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMLoginViewController.xib; sourceTree = "<group>"; };
 		13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCreateAccountViewController.swift; sourceTree = "<group>"; };
+		7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewController.swift; sourceTree = "<group>"; };
+		7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RRLoginViewController.xib; sourceTree = "<group>"; };
+		7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewModel.swift; sourceTree = "<group>"; };
+		7169155028E3AA4800CDD8DE /* RRLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginService.swift; sourceTree = "<group>"; };
 		29CE31B128E47459009110A8 /* EGLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EGLoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -287,12 +291,11 @@
 		132163EE28E2345F00372C58 /* RaulRodrigo */ = {
 			isa = PBXGroup;
 			children = (
+				7168AF5128E519BA00856C29 /* Login */,
 				1321645928E23E1300372C58 /* RRContactUsViewController.swift */,
 				1321645A28E23E1300372C58 /* RRContactUsViewController.xib */,
 				1321645728E23E1300372C58 /* RRCreateAccountViewController.swift */,
 				1321645C28E23E1300372C58 /* RRCreateAccountViewController.xib */,
-				1321645628E23E1300372C58 /* RRLoginViewController.swift */,
-				1321645828E23E1300372C58 /* RRLoginViewController.xib */,
 				1321645B28E23E1300372C58 /* RRResetPasswordViewController.swift */,
 				1321645D28E23E1300372C58 /* RRResetPasswordViewController.xib */,
 			);
@@ -594,6 +597,16 @@
 			path = LuizaMoruz;
 			sourceTree = "<group>";
 		};
+		7168AF5128E519BA00856C29 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7168AF5428E519FF00856C29 /* View */,
+				7168AF5328E519F700856C29 /* ViewModel */,
+				7168AF5228E519C200856C29 /* Service */,
+				);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		2924CAF728E772240051CD63 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -602,6 +615,31 @@
 				1321643728E23D4100372C58 /* EGLoginViewController.xib */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		7168AF5228E519C200856C29 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				7169155028E3AA4800CDD8DE /* RRLoginService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		7168AF5328E519F700856C29 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7168AF5428E519FF00856C29 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */,
+				7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		2924CAF828E772390051CD63 /* ContactUs */ = {
@@ -740,13 +778,13 @@
 				1321643328E238B400372C58 /* GPResetPasswordViewController.xib in Resources */,
 				1356778228E10ECC00A9C3EF /* TRContactUsViewController.xib in Resources */,
 				1321644128E23D4200372C58 /* EGContactUsViewController.xib in Resources */,
+				7168AF5028E3E04E00856C29 /* RRLoginViewController.xib in Resources */,
 				1321643F28E23D4200372C58 /* EGLoginViewController.xib in Resources */,
 				13E582DA28E3813C0002E621 /* LMCreateAccountViewController.xib in Resources */,
 				1321643428E238B400372C58 /* GPContactUsViewController.xib in Resources */,
 				1321642028E2381500372C58 /* DSLoginViewController.xib in Resources */,
 				1321646228E23E1300372C58 /* RRContactUsViewController.xib in Resources */,
 				13E582D728E3813C0002E621 /* LMContactUsViewController.xib in Resources */,
-				1321646028E23E1300372C58 /* RRLoginViewController.xib in Resources */,
 				1356778128E10ECC00A9C3EF /* TRCreateAccountViewController.xib in Resources */,
 				1321647128E31EE700372C58 /* FAContactUsViewController.xib in Resources */,
 				1321641528E2368500372C58 /* ESResetPasswordViewController.xib in Resources */,
@@ -814,6 +852,7 @@
 				1321645028E23DB400372C58 /* HAResetPasswordViewController.swift in Sources */,
 				13D078A528DC9AC600CF8E00 /* Models.swift in Sources */,
 				1356778828E10ECC00A9C3EF /* TRContactUsViewController.swift in Sources */,
+				7169154F28E3AA4500CDD8DE /* RRLoginViewModel.swift in Sources */,
 				13D0788028DC984B00CF8E00 /* AppCoordinator.swift in Sources */,
 				13E582DB28E3813C0002E621 /* LMContactUsViewController.swift in Sources */,
 				1321646128E23E1300372C58 /* RRContactUsViewController.swift in Sources */,
@@ -835,6 +874,7 @@
 				1356776B28E10A4700A9C3EF /* CompleteCreateAccountController.swift in Sources */,
 				1367420428E4F3CE00BCDFE5 /* ResetPasswordViewModel.swift in Sources */,
 				1356778728E10ECC00A9C3EF /* TRLoginViewController.swift in Sources */,
+				7169155128E3AA4800CDD8DE /* RRLoginService.swift in Sources */,
 				13D078A728DC9AFA00CF8E00 /* Globals.swift in Sources */,
 				1321645F28E23E1300372C58 /* RRCreateAccountViewController.swift in Sources */,
 				1321643028E238B400372C58 /* GPCreateAccountViewController.swift in Sources */,
@@ -854,7 +894,6 @@
 				13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */,
 				1356778428E10ECC00A9C3EF /* TRResetPasswordViewController.swift in Sources */,
 				1321646328E23E1300372C58 /* RRResetPasswordViewController.swift in Sources */,
-				1321645E28E23E1300372C58 /* RRLoginViewController.swift in Sources */,
 				1321644228E23D4200372C58 /* EGLoginViewController.swift in Sources */,
 				1321647428E31EE700372C58 /* FALoginViewController.swift in Sources */,
 				1321647728E31EE700372C58 /* FAContactUsViewController.swift in Sources */,
@@ -864,6 +903,7 @@
 				1321644F28E23DB400372C58 /* HALoginViewController.swift in Sources */,
 				13D0789228DC98FF00CF8E00 /* Endpoints.swift in Sources */,
 				13D0788C28DC98D200CF8E00 /* CreateAccountViewController.swift in Sources */,
+				7169154D28E3AA4000CDD8DE /* RRLoginViewController.swift in Sources */,
 				1321647528E31EE700372C58 /* FACreateAccountViewController.swift in Sources */,
 				13D0789B28DC9A2300CF8E00 /* BadNetworkLayer.swift in Sources */,
 				13D0789528DC993100CF8E00 /* Textfield+extensions.swift in Sources */,

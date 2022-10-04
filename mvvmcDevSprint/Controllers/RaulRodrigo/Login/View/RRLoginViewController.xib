@@ -20,11 +20,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RRLoginViewController" customModule="mvvmcDevSprint" customModuleProvider="target">
             <connections>
                 <outlet property="createAccountButton" destination="fCl-kB-Bn4" id="zBk-aA-GuL"/>
-                <outlet property="emailTextField" destination="nHr-7L-xrV" id="WsG-oh-Syn"/>
+                <outlet property="emailTextField" destination="nHr-7L-xrV" id="jw4-VE-xUQ"/>
                 <outlet property="errorLabel" destination="s3r-Kn-I6W" id="HaK-rw-ikz"/>
                 <outlet property="heightLabelError" destination="BkU-8f-q4t" id="AHY-LP-Mvq"/>
                 <outlet property="loginButton" destination="uV7-5W-xbp" id="MQ0-Ju-awQ"/>
-                <outlet property="passwordTextField" destination="CjC-ny-kfz" id="cob-on-1um"/>
+                <outlet property="passwordTextField" destination="CjC-ny-kfz" id="uDy-5e-yJx"/>
                 <outlet property="showPasswordButton" destination="ga9-fs-bmQ" id="fAx-VG-y29"/>
                 <outlet property="topConstraint" destination="yGa-bd-vhX" id="tgz-X5-HM0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
