@@ -17,7 +17,6 @@ struct AppCoordinator {
     }
     
     func getRootViewController() -> UIViewController {
-
         var architecter = Architecters.elpidioGabriel
 
         switch architecter {
