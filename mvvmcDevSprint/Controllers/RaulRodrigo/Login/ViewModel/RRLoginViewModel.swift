@@ -19,15 +19,16 @@ protocol RRLoginViewToViewModelProtocol: AnyObject {
     func showLoadingFunc()
     func stopLoadingFunc()
     func setLoginError(_ message: String)
-    func goToHome()
 }
 
 class RRLoginViewModel {
     weak var delegate: RRLoginViewToViewModelProtocol?
+    let coordinator: RRLoginCoordinating
     let service: RRLoginRepositoryProtocol
     
-    init(service: RRLoginRepositoryProtocol) {
+    init(service: RRLoginRepositoryProtocol, coordinator: RRLoginCoordinating) {
         self.service = service
+        self.coordinator = coordinator
     }
 }
 
@@ -51,7 +52,7 @@ extension RRLoginViewModel: RRLoginViewModelToViewProtocol{
         }
     }
     func login(email:String, password: String) {
-        let controller = RRLoginViewController()
+        let controller = RRLoginViewController(viewModel: self)
         if service.isWithOutConnection(){
             self.delegate?.showAlertDialog()
         }
@@ -66,7 +67,7 @@ extension RRLoginViewModel: RRLoginViewModelToViewProtocol{
                 case .success(let data):
                     let decoder = JSONDecoder()
                     if let session = try? decoder.decode(Session.self, from: data) {
-                        self.delegate?.goToHome()
+                        self.coordinator.perform(action: .home)
                         UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
                     } else {
                         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: controller)
@@ -81,7 +82,7 @@ extension RRLoginViewModel: RRLoginViewModelToViewProtocol{
     
     func verifyLogin()  {
         if service.isLogged() {
-            delegate?.goToHome()
+            coordinator.perform(action: .home)
         }
     }
     
