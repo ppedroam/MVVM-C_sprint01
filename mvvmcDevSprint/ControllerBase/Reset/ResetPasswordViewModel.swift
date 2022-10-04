@@ -27,11 +27,16 @@ class ResetPasswordViewModel: ResetPasswordViewModeling {
 //    var delegate: ResetPasswordViewModelDelegate?
     var controller: ResetPasswordViewControlling?
     private let coordinator: ResetPasswordCoordinating
+    private let service: ResetPasswordServicing
     
     private var recoveryEmail = false
     
-    init(coordinator: ResetPasswordCoordinating) {
+    init(
+        coordinator: ResetPasswordCoordinating,
+        service: ResetPasswordServicing
+    ) {
         self.coordinator = coordinator
+        self.service = service
     }
     
     func startPasswordRecovering(email: String) {
@@ -50,6 +55,7 @@ class ResetPasswordViewModel: ResetPasswordViewModeling {
     
     func goToAccount() {
         coordinator.perform(action: .account)
+        controller?.showSuccessState()
     }
     
     func goToContactUs() {
@@ -73,82 +79,23 @@ private extension ResetPasswordViewModel {
 //            delegate?.showNoInternetAlert()
             return
         }
-        let emailUser = email.trimmingCharacters(in: .whitespaces)
-        let parameters = [
-            "email": emailUser
-        ]
-        startAPICalling(parameters: parameters)
+        startAPICalling(email: email)
     }
     
-    func startAPICalling(parameters: [String: String]) {
+    func startAPICalling(email: String) {
         guard let controller = controller else {
             return
         }
-        BadNetworkLayer.shared.resetPassword(controller, parameters: parameters) { (success) in
-            if success {
+        let emailUser = email.trimmingCharacters(in: .whitespaces)
+        service.tryResetPassword(email: emailUser) { result in
+            switch result {
+            case .success:
                 self.recoveryEmail = true
                 controller.showSuccessState()
-//                self.delegate?.showSuccessState()
-            } else {
-                controller.showDefaultAlert()
-//                self.delegate?.showDefaultAlert2()
-                //coordinator.perform(action: .teste("teste"))
+            case .failure(let error):
+                print(error.localizedDescription)
+                controller.showSuccessState()
             }
         }
     }
 }
-
-
-enum ResetPasswordActions {
-    case account
-    case contactUs
-    case close
-    case teste(String)
-}
-
-protocol ResetPasswordCoordinating: AnyObject {
-    var controller: UIViewController? { get set }
-    func perform(action: ResetPasswordActions)
-}
-
-class ResetPasswordCoordinator: ResetPasswordCoordinating {
-    var controller: UIViewController?
-    
-    func perform(action: ResetPasswordActions) {
-        switch action {
-        case .account: goToAccount()
-        case .contactUs: goToContactUs()
-        case .close: controller?.dismiss(animated: true)
-        case .teste(let parameters):
-            createTesteController(parameters: parameters)
-        }
-    }
-}
-
-private extension ResetPasswordCoordinator {
-    func goToAccount() {
-        let newVc = CreateAccountViewController()
-        newVc.modalPresentationStyle = .fullScreen
-        controller?.present(newVc, animated: true)
-    }
-    
-    func goToContactUs() {
-        let vc = ContactUsViewController()
-        vc.modalPresentationStyle = .popover
-        vc.modalTransitionStyle = .coverVertical
-        controller?.present(vc, animated: true, completion: nil)
-    }
-    
-    func createTesteController(parameters: String) {
-        let _ = TesteViewController(parameter: parameters)
-    }
-}
-
-class TesteViewController {
-    private let parametro: String
-    
-    init(parameter: String) {
-        self.parametro = parameter
-    }
-}
-

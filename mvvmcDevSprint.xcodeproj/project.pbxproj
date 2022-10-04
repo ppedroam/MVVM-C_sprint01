@@ -117,11 +117,13 @@
 		13E582DC28E3813C0002E621 /* LMLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D328E3813C0002E621 /* LMLoginViewController.swift */; };
 		13E582DD28E3813C0002E621 /* LMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13E582D428E3813C0002E621 /* LMLoginViewController.xib */; };
 		13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */; };
+		29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE31B128E47459009110A8 /* EGLoginViewModel.swift */; };
 		7168AF5028E3E04E00856C29 /* RRLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */; };
 		7169154D28E3AA4000CDD8DE /* RRLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */; };
 		7169154F28E3AA4500CDD8DE /* RRLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */; };
 		7169155128E3AA4800CDD8DE /* RRLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169155028E3AA4800CDD8DE /* RRLoginService.swift */; };
-		29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE31B128E47459009110A8 /* EGLoginViewModel.swift */; };
+		A4B4947428ECD9A900370FA5 /* ResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4947328ECD9A900370FA5 /* ResetPasswordCoordinator.swift */; };
+		A4B4947628ECE13900370FA5 /* ResetPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4947528ECE13900370FA5 /* ResetPasswordService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,11 +258,13 @@
 		13E582D328E3813C0002E621 /* LMLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMLoginViewController.swift; sourceTree = "<group>"; };
 		13E582D428E3813C0002E621 /* LMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMLoginViewController.xib; sourceTree = "<group>"; };
 		13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCreateAccountViewController.swift; sourceTree = "<group>"; };
+		29CE31B128E47459009110A8 /* EGLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EGLoginViewModel.swift; sourceTree = "<group>"; };
 		7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewController.swift; sourceTree = "<group>"; };
 		7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RRLoginViewController.xib; sourceTree = "<group>"; };
 		7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewModel.swift; sourceTree = "<group>"; };
 		7169155028E3AA4800CDD8DE /* RRLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginService.swift; sourceTree = "<group>"; };
-		29CE31B128E47459009110A8 /* EGLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EGLoginViewModel.swift; sourceTree = "<group>"; };
+		A4B4947328ECD9A900370FA5 /* ResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordCoordinator.swift; sourceTree = "<group>"; };
+		A4B4947528ECE13900370FA5 /* ResetPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -489,6 +493,8 @@
 			children = (
 				1356779428E1122700A9C3EF /* ResetPasswordViewController.swift */,
 				1367420328E4F3CE00BCDFE5 /* ResetPasswordViewModel.swift */,
+				A4B4947528ECE13900370FA5 /* ResetPasswordService.swift */,
+				A4B4947328ECD9A900370FA5 /* ResetPasswordCoordinator.swift */,
 				1356779528E1122700A9C3EF /* ResetPasswordViewController.xib */,
 			);
 			path = Reset;
@@ -597,16 +603,6 @@
 			path = LuizaMoruz;
 			sourceTree = "<group>";
 		};
-		7168AF5128E519BA00856C29 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				7168AF5428E519FF00856C29 /* View */,
-				7168AF5328E519F700856C29 /* ViewModel */,
-				7168AF5228E519C200856C29 /* Service */,
-				);
-			path = Login;
-			sourceTree = "<group>";
-		};
 		2924CAF728E772240051CD63 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -615,31 +611,6 @@
 				1321643728E23D4100372C58 /* EGLoginViewController.xib */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		7168AF5228E519C200856C29 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				7169155028E3AA4800CDD8DE /* RRLoginService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		7168AF5328E519F700856C29 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		7168AF5428E519FF00856C29 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */,
-				7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		2924CAF828E772390051CD63 /* ContactUs */ = {
@@ -667,6 +638,41 @@
 				1321643D28E23D4200372C58 /* EGResetPasswordViewController.xib */,
 			);
 			path = ResetPassword;
+			sourceTree = "<group>";
+		};
+		7168AF5128E519BA00856C29 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7168AF5428E519FF00856C29 /* View */,
+				7168AF5328E519F700856C29 /* ViewModel */,
+				7168AF5228E519C200856C29 /* Service */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		7168AF5228E519C200856C29 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				7169155028E3AA4800CDD8DE /* RRLoginService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		7168AF5328E519F700856C29 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7168AF5428E519FF00856C29 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */,
+				7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -879,6 +885,7 @@
 				1321645F28E23E1300372C58 /* RRCreateAccountViewController.swift in Sources */,
 				1321643028E238B400372C58 /* GPCreateAccountViewController.swift in Sources */,
 				1321642F28E238B400372C58 /* GPContactUsViewController.swift in Sources */,
+				A4B4947428ECD9A900370FA5 /* ResetPasswordCoordinator.swift in Sources */,
 				1321644028E23D4200372C58 /* EGContactUsViewController.swift in Sources */,
 				1321640128E235C500372C58 /* BBCreateAccountViewController.swift in Sources */,
 				13D0789928DC99D300CF8E00 /* KeyboardAppearenceManager.swift in Sources */,
@@ -892,6 +899,7 @@
 				29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */,
 				1321642128E2381500372C58 /* DSContactUsViewController.swift in Sources */,
 				13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */,
+				A4B4947628ECE13900370FA5 /* ResetPasswordService.swift in Sources */,
 				1356778428E10ECC00A9C3EF /* TRResetPasswordViewController.swift in Sources */,
 				1321646328E23E1300372C58 /* RRResetPasswordViewController.swift in Sources */,
 				1321644228E23D4200372C58 /* EGLoginViewController.swift in Sources */,
