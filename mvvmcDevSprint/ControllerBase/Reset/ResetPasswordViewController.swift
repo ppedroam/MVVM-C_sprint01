@@ -2,11 +2,21 @@ import UIKit
 
 enum ResetPasswordFactory {
     static func make() -> UIViewController {
-        let viewModel = ResetPasswordViewModel()
+        let coordinator = ResetPasswordCoordinator()
+        let viewModel = ResetPasswordViewModel(coordinator: coordinator)
         let controller = ResetPasswordViewController(viewModel: viewModel)
         viewModel.controller = controller
+//        viewModel.delegate = controller
+        coordinator.controller = controller
         return controller
     }
+}
+
+protocol ResetPasswordViewControlling where Self: UIViewController {
+    func showErrorState()
+    func showNoInternetAlert()
+    func showSuccessState()
+    func showDefaultAlert2()
 }
 
 class ResetPasswordViewController: UIViewController {
@@ -114,19 +124,6 @@ class ResetPasswordViewController: UIViewController {
 
 extension ResetPasswordViewController {
     
-    func showNoInternetAlert() {
-        Globals.showNoInternetCOnnection(controller: self)
-    }
-    
-    func showSuccessState() {
-        emailTextfield.isHidden = true
-        textLabel.isHidden = true
-        viewSuccess.isHidden = false
-        emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
-        recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
-        recoverPasswordButton.setTitle("Voltar", for: .normal)
-    }
-    
     func validateButton() {
         if !emailTextfield.text!.isEmpty {
             enableCreateButton()
@@ -147,15 +144,39 @@ extension ResetPasswordViewController {
         recoverPasswordButton.isEnabled = true
     }
     
+
+}
+
+extension UIViewController {
+    func showDefaultAlert() {
+        let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
+    }
+}
+
+extension ResetPasswordViewController: ResetPasswordViewControlling {
     func showErrorState() {
         emailTextfield.setErrorColor()
         textLabel.textColor = .red
         textLabel.text = "Verifique o e-mail informado"
     }
-}
-
-extension UIViewController {
-    func showDefaultAlert() {
+    
+    func showSuccessState() {
+        emailTextfield.isHidden = true
+        textLabel.isHidden = true
+        viewSuccess.isHidden = false
+        emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+        recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+        recoverPasswordButton.setTitle("Voltar", for: .normal)
+    }
+    
+    func showNoInternetAlert() {
+        Globals.showNoInternetCOnnection(controller: self)
+    }
+    
+    func showDefaultAlert2() {
         let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(action)

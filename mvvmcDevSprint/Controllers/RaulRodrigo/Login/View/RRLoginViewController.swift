@@ -74,7 +74,7 @@ class RRLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
+        let vc = RRResetPasswordViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
