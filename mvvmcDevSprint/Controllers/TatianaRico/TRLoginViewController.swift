@@ -15,7 +15,7 @@ class TRLoginViewController: UIViewController {
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
     var showPassword = true
-    var errorInLogin = false
+   
     var viewModel = TRLoginViewModel()
     
     override func viewDidLoad() {
@@ -51,11 +51,7 @@ class TRLoginViewController: UIViewController {
     
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
-        if errorInLogin {
-            resetErrorLogin(emailTextField)
-        } else {
-            emailTextField.setEditingColor()
-        }
+        viewModel.resetErrorLogin(emailTextField, textFieldPassword: passwordTextField)
     }
     
     @IBAction func emailEditing(_ sender: Any) {
@@ -68,11 +64,7 @@ class TRLoginViewController: UIViewController {
     
     //senha
     @IBAction func passwordBeginEditing(_ sender: Any) {
-        if errorInLogin {
-            resetErrorLogin(passwordTextField)
-        } else {
-            passwordTextField.setEditingColor()
-        }
+        viewModel.resetErrorLogin(emailTextField, textFieldPassword: passwordTextField)
     }
     
     @IBAction func passwordEditing(_ sender: Any) {
@@ -89,8 +81,8 @@ class TRLoginViewController: UIViewController {
     
     func ifDebugPasswordMock() {
 #if DEBUG
-        emailTextField.text = "mvvmc@devpass.com"
-        passwordTextField.text = "Abcde1"
+      //  emailTextField.text = "mvvmc@devpass.com"
+//        passwordTextField.text = "Abcde1"
 #endif
     }
     
@@ -177,7 +169,6 @@ class TRLoginViewController: UIViewController {
     }
     
     func setErrorLogin(_ message: String) {
-        errorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
         emailTextField.setErrorColor()

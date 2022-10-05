@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 class TRLoginViewModel {
     var vc: TRLoginViewController? = nil
+    var errorInLogin = false
+    
     let coordinator = TRLoginCoordinator()
     
     func verifyLogin() {
@@ -52,6 +55,7 @@ class TRLoginViewModel {
                         self.vc?.globalsAlerts(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
                     }
                 case .failure:
+                    self.errorInLogin = true
                     self.vc?.setErrorLogin("E-mail ou senha incorretos")
                     self.vc?.globalsAlerts(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
                 }
@@ -79,4 +83,14 @@ class TRLoginViewModel {
             self.alertConexao(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente")
         }
     }
+    
+    func resetErrorLogin(_ textFieldEmail: UITextField, textFieldPassword: UITextField) {
+        if errorInLogin {
+            textFieldEmail.setEditingColor()
+            textFieldPassword.setDefaultColor()
+        } else {
+            textFieldEmail.setDefaultColor()
+            textFieldPassword.setDefaultColor()
+        }
+}
 }
