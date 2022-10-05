@@ -3,7 +3,8 @@ import UIKit
 enum ResetPasswordFactory {
     static func make() -> UIViewController {
         let coordinator = ResetPasswordCoordinator()
-        let viewModel = ResetPasswordViewModel(coordinator: coordinator)
+        let service = ResetPasswordService()
+        let viewModel = ResetPasswordViewModel(coordinator: coordinator, service: service)
         let controller = ResetPasswordViewController(viewModel: viewModel)
         viewModel.controller = controller
 //        viewModel.delegate = controller
@@ -12,7 +13,7 @@ enum ResetPasswordFactory {
     }
 }
 
-protocol ResetPasswordViewControlling where Self: UIViewController {
+protocol ResetPasswordViewControlling {
     func showErrorState()
     func showNoInternetAlert()
     func showSuccessState()

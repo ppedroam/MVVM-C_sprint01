@@ -25,7 +25,7 @@ struct AppCoordinator {
         case .elpidioGabriel: return EGLoginViewController()
         case .gabrielPaschoal: return GPLoginViewController()
         case .danielSeitenfus: return DSLoginViewController()
-        case .euclidesSena: return ESLoginViewController()
+        case .euclidesSena: return ESLoginFactory.make()
         case .barbaraBarone: return BBLoginViewController()
         case .tatianaRico: return TRLoginViewController()
         case .felipeAugusto: return FALoginViewController()
