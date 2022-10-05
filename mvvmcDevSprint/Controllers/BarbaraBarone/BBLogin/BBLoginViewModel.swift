@@ -10,7 +10,6 @@ protocol BBLoginViewModeling {
 }
 
 final class BBLoginViewModel: BBLoginViewModeling {
-    let endpoint = Endpoints.Auth.login
     var viewController: BBLoginViewControlling?
     private let coordinator: BBLoginCoordinating
     

@@ -105,6 +105,7 @@
 		8790724E28E2908C003C53C1 /* BBLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */; };
 		8790732E28EBCEE0003C53C1 /* BBLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790732D28EBCEE0003C53C1 /* BBLoginCoordinator.swift */; };
 		8790733028EBD394003C53C1 /* BBLoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790732F28EBD394003C53C1 /* BBLoginFactory.swift */; };
+		8790733228EBDC61003C53C1 /* BBLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8790733128EBDC61003C53C1 /* BBLoginService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +228,7 @@
 		8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBLoginViewModel.swift; sourceTree = "<group>"; };
 		8790732D28EBCEE0003C53C1 /* BBLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBLoginCoordinator.swift; sourceTree = "<group>"; };
 		8790732F28EBD394003C53C1 /* BBLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBLoginFactory.swift; sourceTree = "<group>"; };
+		8790733128EBDC61003C53C1 /* BBLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBLoginService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -540,6 +542,7 @@
 				8790732F28EBD394003C53C1 /* BBLoginFactory.swift */,
 				8790732D28EBCEE0003C53C1 /* BBLoginCoordinator.swift */,
 				8790724D28E2908C003C53C1 /* BBLoginViewModel.swift */,
+				8790733128EBDC61003C53C1 /* BBLoginService.swift */,
 				132163FD28E235C500372C58 /* BBLoginViewController.swift */,
 				132163FA28E235C500372C58 /* BBLoginViewController.xib */,
 			);
@@ -741,6 +744,7 @@
 				1356778728E10ECC00A9C3EF /* TRLoginViewController.swift in Sources */,
 				13D078A728DC9AFA00CF8E00 /* Globals.swift in Sources */,
 				1321645F28E23E1300372C58 /* RRCreateAccountViewController.swift in Sources */,
+				8790733228EBDC61003C53C1 /* BBLoginService.swift in Sources */,
 				1321643028E238B400372C58 /* GPCreateAccountViewController.swift in Sources */,
 				1321642F28E238B400372C58 /* GPContactUsViewController.swift in Sources */,
 				1321644028E23D4200372C58 /* EGContactUsViewController.swift in Sources */,
