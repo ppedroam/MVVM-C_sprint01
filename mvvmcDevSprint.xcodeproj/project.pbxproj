@@ -124,6 +124,8 @@
 		7169155128E3AA4800CDD8DE /* RRLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169155028E3AA4800CDD8DE /* RRLoginService.swift */; };
 		A4B4947428ECD9A900370FA5 /* ResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4947328ECD9A900370FA5 /* ResetPasswordCoordinator.swift */; };
 		A4B4947628ECE13900370FA5 /* ResetPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4947528ECE13900370FA5 /* ResetPasswordService.swift */; };
+		B952E60B28E63C9E00343D15 /* TRLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B952E60A28E63C9E00343D15 /* TRLoginCoordinator.swift */; };
+		B952E60D28E63CF800343D15 /* TRLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B952E60C28E63CF800343D15 /* TRLoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -265,6 +267,8 @@
 		7169155028E3AA4800CDD8DE /* RRLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginService.swift; sourceTree = "<group>"; };
 		A4B4947328ECD9A900370FA5 /* ResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 		A4B4947528ECE13900370FA5 /* ResetPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordService.swift; sourceTree = "<group>"; };
+		B952E60A28E63C9E00343D15 /* TRLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRLoginCoordinator.swift; sourceTree = "<group>"; };
+		B952E60C28E63CF800343D15 /* TRLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRLoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -484,6 +488,8 @@
 				1356778028E10ECC00A9C3EF /* TRLoginViewController.xib */,
 				1356777A28E10ECC00A9C3EF /* TRResetPasswordViewController.swift */,
 				1356778C28E10F7F00A9C3EF /* TRResetPasswordViewController.xib */,
+				B952E60A28E63C9E00343D15 /* TRLoginCoordinator.swift */,
+				B952E60C28E63CF800343D15 /* TRLoginViewModel.swift */,
 			);
 			path = TatianaRico;
 			sourceTree = "<group>";
@@ -879,6 +885,8 @@
 				13D0789728DC996800CF8E00 /* TextfieldReturnKeyManager.swift in Sources */,
 				1356776B28E10A4700A9C3EF /* CompleteCreateAccountController.swift in Sources */,
 				1367420428E4F3CE00BCDFE5 /* ResetPasswordViewModel.swift in Sources */,
+				B952E60D28E63CF800343D15 /* TRLoginViewModel.swift in Sources */,
+				B952E60B28E63C9E00343D15 /* TRLoginCoordinator.swift in Sources */,
 				1356778728E10ECC00A9C3EF /* TRLoginViewController.swift in Sources */,
 				7169155128E3AA4800CDD8DE /* RRLoginService.swift in Sources */,
 				13D078A728DC9AFA00CF8E00 /* Globals.swift in Sources */,
@@ -1093,6 +1101,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1121,6 +1130,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
