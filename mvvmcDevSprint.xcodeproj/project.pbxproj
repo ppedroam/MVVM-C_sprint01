@@ -35,8 +35,6 @@
 		1321642F28E238B400372C58 /* GPContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321642728E238B400372C58 /* GPContactUsViewController.swift */; };
 		1321643028E238B400372C58 /* GPCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321642828E238B400372C58 /* GPCreateAccountViewController.swift */; };
 		1321643128E238B400372C58 /* GPLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1321642928E238B400372C58 /* GPLoginViewController.swift */; };
-		1321643228E238B400372C58 /* GPLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1321642A28E238B400372C58 /* GPLoginViewController.xib */; };
-		1321643328E238B400372C58 /* GPResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1321642B28E238B400372C58 /* GPResetPasswordViewController.xib */; };
 		1321643428E238B400372C58 /* GPContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1321642C28E238B400372C58 /* GPContactUsViewController.xib */; };
 		1321643528E238B400372C58 /* GPCreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1321642D28E238B400372C58 /* GPCreateAccountViewController.xib */; };
 		1321643E28E23D4200372C58 /* EGCreateAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1321643628E23D4100372C58 /* EGCreateAccountViewController.xib */; };
@@ -118,6 +116,15 @@
 		13E582DD28E3813C0002E621 /* LMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13E582D428E3813C0002E621 /* LMLoginViewController.xib */; };
 		13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */; };
 		29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE31B128E47459009110A8 /* EGLoginViewModel.swift */; };
+		48875CDE28EDE3520004F91B /* ButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CDD28EDE3520004F91B /* ButtonComponent.swift */; };
+		48875CE328EDE3980004F91B /* EmailComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE228EDE3980004F91B /* EmailComponent.swift */; };
+		48875CE528EDE3A80004F91B /* PasswordComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE428EDE3A80004F91B /* PasswordComponent.swift */; };
+		48875CE828EDE3BD0004F91B /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE728EDE3BD0004F91B /* CustomTextField.swift */; };
+		48875CEA28EDE3D20004F91B /* GPLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE928EDE3D20004F91B /* GPLoginView.swift */; };
+		48875CED28EDE3F10004F91B /* GPLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CEC28EDE3F10004F91B /* GPLoginViewModel.swift */; };
+		48875CF028EDE4CD0004F91B /* ResetPasswordEmailComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CEF28EDE4CD0004F91B /* ResetPasswordEmailComponent.swift */; };
+		48875CF328EDE4F90004F91B /* GPResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CF228EDE4F90004F91B /* GPResetPasswordView.swift */; };
+		48875CF628EDE5140004F91B /* GPResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CF528EDE5140004F91B /* GPResetPasswordViewModel.swift */; };
 		7168AF5028E3E04E00856C29 /* RRLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */; };
 		7169154D28E3AA4000CDD8DE /* RRLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */; };
 		7169154F28E3AA4500CDD8DE /* RRLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */; };
@@ -172,8 +179,6 @@
 		1321642728E238B400372C58 /* GPContactUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPContactUsViewController.swift; sourceTree = "<group>"; };
 		1321642828E238B400372C58 /* GPCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPCreateAccountViewController.swift; sourceTree = "<group>"; };
 		1321642928E238B400372C58 /* GPLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPLoginViewController.swift; sourceTree = "<group>"; };
-		1321642A28E238B400372C58 /* GPLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPLoginViewController.xib; sourceTree = "<group>"; };
-		1321642B28E238B400372C58 /* GPResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPResetPasswordViewController.xib; sourceTree = "<group>"; };
 		1321642C28E238B400372C58 /* GPContactUsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPContactUsViewController.xib; sourceTree = "<group>"; };
 		1321642D28E238B400372C58 /* GPCreateAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GPCreateAccountViewController.xib; sourceTree = "<group>"; };
 		1321643628E23D4100372C58 /* EGCreateAccountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EGCreateAccountViewController.xib; sourceTree = "<group>"; };
@@ -259,6 +264,15 @@
 		13E582D428E3813C0002E621 /* LMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMLoginViewController.xib; sourceTree = "<group>"; };
 		13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCreateAccountViewController.swift; sourceTree = "<group>"; };
 		29CE31B128E47459009110A8 /* EGLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EGLoginViewModel.swift; sourceTree = "<group>"; };
+		48875CDD28EDE3520004F91B /* ButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonComponent.swift; sourceTree = "<group>"; };
+		48875CE228EDE3980004F91B /* EmailComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComponent.swift; sourceTree = "<group>"; };
+		48875CE428EDE3A80004F91B /* PasswordComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordComponent.swift; sourceTree = "<group>"; };
+		48875CE728EDE3BD0004F91B /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		48875CE928EDE3D20004F91B /* GPLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPLoginView.swift; sourceTree = "<group>"; };
+		48875CEC28EDE3F10004F91B /* GPLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPLoginViewModel.swift; sourceTree = "<group>"; };
+		48875CEF28EDE4CD0004F91B /* ResetPasswordEmailComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordEmailComponent.swift; sourceTree = "<group>"; };
+		48875CF228EDE4F90004F91B /* GPResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPResetPasswordView.swift; sourceTree = "<group>"; };
+		48875CF528EDE5140004F91B /* GPResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewController.swift; sourceTree = "<group>"; };
 		7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RRLoginViewController.xib; sourceTree = "<group>"; };
 		7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewModel.swift; sourceTree = "<group>"; };
@@ -335,14 +349,11 @@
 		132163F128E2347A00372C58 /* GabrielPaschoal */ = {
 			isa = PBXGroup;
 			children = (
+				48875CDA28EDE3240004F91B /* Screens */,
 				1321642728E238B400372C58 /* GPContactUsViewController.swift */,
 				1321642C28E238B400372C58 /* GPContactUsViewController.xib */,
 				1321642828E238B400372C58 /* GPCreateAccountViewController.swift */,
 				1321642D28E238B400372C58 /* GPCreateAccountViewController.xib */,
-				1321642928E238B400372C58 /* GPLoginViewController.swift */,
-				1321642A28E238B400372C58 /* GPLoginViewController.xib */,
-				1321642628E238B400372C58 /* GPResetPasswordViewController.swift */,
-				1321642B28E238B400372C58 /* GPResetPasswordViewController.xib */,
 			);
 			path = GabrielPaschoal;
 			sourceTree = "<group>";
@@ -640,6 +651,104 @@
 			path = ResetPassword;
 			sourceTree = "<group>";
 		};
+		48875CDA28EDE3240004F91B /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				48875CDF28EDE3730004F91B /* Login */,
+				48875CDB28EDE3350004F91B /* ResetPassword */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		48875CDB28EDE3350004F91B /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				48875CF728EDE5230004F91B /* ViewController */,
+				48875CF428EDE5080004F91B /* ViewModel */,
+				48875CDC28EDE3450004F91B /* View */,
+			);
+			path = ResetPassword;
+			sourceTree = "<group>";
+		};
+		48875CDC28EDE3450004F91B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				48875CF128EDE4E80004F91B /* Components */,
+				48875CF228EDE4F90004F91B /* GPResetPasswordView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		48875CDF28EDE3730004F91B /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				48875CEE28EDE40F0004F91B /* ViewController */,
+				48875CEB28EDE3E40004F91B /* ViewModel */,
+				48875CE028EDE3850004F91B /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		48875CE028EDE3850004F91B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				48875CE128EDE38C0004F91B /* Component */,
+				48875CE928EDE3D20004F91B /* GPLoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		48875CE128EDE38C0004F91B /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				48875CE228EDE3980004F91B /* EmailComponent.swift */,
+				48875CE428EDE3A80004F91B /* PasswordComponent.swift */,
+				48875CE728EDE3BD0004F91B /* CustomTextField.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		48875CEB28EDE3E40004F91B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				48875CEC28EDE3F10004F91B /* GPLoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		48875CEE28EDE40F0004F91B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1321642928E238B400372C58 /* GPLoginViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		48875CF128EDE4E80004F91B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				48875CDD28EDE3520004F91B /* ButtonComponent.swift */,
+				48875CEF28EDE4CD0004F91B /* ResetPasswordEmailComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		48875CF428EDE5080004F91B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				48875CF528EDE5140004F91B /* GPResetPasswordViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		48875CF728EDE5230004F91B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1321642628E238B400372C58 /* GPResetPasswordViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		7168AF5128E519BA00856C29 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -781,7 +890,6 @@
 			files = (
 				1321645128E23DB400372C58 /* HALoginViewController.xib in Resources */,
 				1321640E28E2368500372C58 /* ESLoginViewController.xib in Resources */,
-				1321643328E238B400372C58 /* GPResetPasswordViewController.xib in Resources */,
 				1356778228E10ECC00A9C3EF /* TRContactUsViewController.xib in Resources */,
 				1321644128E23D4200372C58 /* EGContactUsViewController.xib in Resources */,
 				7168AF5028E3E04E00856C29 /* RRLoginViewController.xib in Resources */,
@@ -797,7 +905,6 @@
 				13D0788928DC98D200CF8E00 /* ContactUsViewController.xib in Resources */,
 				1321640028E235C500372C58 /* BBCreateAccountViewController.xib in Resources */,
 				132163FF28E235C500372C58 /* BBContactUsViewController.xib in Resources */,
-				1321643228E238B400372C58 /* GPLoginViewController.xib in Resources */,
 				1321646428E23E1300372C58 /* RRCreateAccountViewController.xib in Resources */,
 				1321641228E2368500372C58 /* ESContactUsViewController.xib in Resources */,
 				1356776528DE127800A9C3EF /* LoginViewController.xib in Resources */,
@@ -863,9 +970,12 @@
 				13E582DB28E3813C0002E621 /* LMContactUsViewController.swift in Sources */,
 				1321646128E23E1300372C58 /* RRContactUsViewController.swift in Sources */,
 				13D078AF28DCFA2800CF8E00 /* Image+extensions.swift in Sources */,
+				48875CE328EDE3980004F91B /* EmailComponent.swift in Sources */,
+				48875CE528EDE3A80004F91B /* PasswordComponent.swift in Sources */,
 				1321640528E235C500372C58 /* BBLoginViewController.swift in Sources */,
 				1321641028E2368500372C58 /* ESResetPasswordViewController.swift in Sources */,
 				13D078B128DD013900CF8E00 /* BaseViewController.swift in Sources */,
+				48875CF628EDE5140004F91B /* GPResetPasswordViewModel.swift in Sources */,
 				13D078AD28DC9B4700CF8E00 /* UserDefaultsManager.swift in Sources */,
 				1321642528E2381500372C58 /* DSCreateAccountViewController.swift in Sources */,
 				132163FE28E235C500372C58 /* BBContactUsViewController.swift in Sources */,
@@ -879,6 +989,7 @@
 				13D0789728DC996800CF8E00 /* TextfieldReturnKeyManager.swift in Sources */,
 				1356776B28E10A4700A9C3EF /* CompleteCreateAccountController.swift in Sources */,
 				1367420428E4F3CE00BCDFE5 /* ResetPasswordViewModel.swift in Sources */,
+				48875CEA28EDE3D20004F91B /* GPLoginView.swift in Sources */,
 				1356778728E10ECC00A9C3EF /* TRLoginViewController.swift in Sources */,
 				7169155128E3AA4800CDD8DE /* RRLoginService.swift in Sources */,
 				13D078A728DC9AFA00CF8E00 /* Globals.swift in Sources */,
@@ -889,14 +1000,17 @@
 				1321644028E23D4200372C58 /* EGContactUsViewController.swift in Sources */,
 				1321640128E235C500372C58 /* BBCreateAccountViewController.swift in Sources */,
 				13D0789928DC99D300CF8E00 /* KeyboardAppearenceManager.swift in Sources */,
+				48875CDE28EDE3520004F91B /* ButtonComponent.swift in Sources */,
 				1321640F28E2368500372C58 /* ESLoginViewController.swift in Sources */,
 				1321644428E23D4200372C58 /* EGResetPasswordViewController.swift in Sources */,
 				1321641128E2368500372C58 /* ESCreateAccountViewController.swift in Sources */,
 				1356778328E10ECC00A9C3EF /* TRCreateAccountViewController.swift in Sources */,
 				1356779628E1122700A9C3EF /* ResetPasswordViewController.swift in Sources */,
 				13D0784E28DC8FBB00CF8E00 /* AppDelegate.swift in Sources */,
+				48875CF028EDE4CD0004F91B /* ResetPasswordEmailComponent.swift in Sources */,
 				13D0789F28DC9A6A00CF8E00 /* LoadingController.swift in Sources */,
 				29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */,
+				48875CF328EDE4F90004F91B /* GPResetPasswordView.swift in Sources */,
 				1321642128E2381500372C58 /* DSContactUsViewController.swift in Sources */,
 				13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */,
 				A4B4947628ECE13900370FA5 /* ResetPasswordService.swift in Sources */,
@@ -908,9 +1022,11 @@
 				1321642228E2381500372C58 /* DSResetPasswordViewController.swift in Sources */,
 				1321644328E23D4200372C58 /* EGCreateAccountViewController.swift in Sources */,
 				13D0785028DC8FBB00CF8E00 /* SceneDelegate.swift in Sources */,
+				48875CED28EDE3F10004F91B /* GPLoginViewModel.swift in Sources */,
 				1321644F28E23DB400372C58 /* HALoginViewController.swift in Sources */,
 				13D0789228DC98FF00CF8E00 /* Endpoints.swift in Sources */,
 				13D0788C28DC98D200CF8E00 /* CreateAccountViewController.swift in Sources */,
+				48875CE828EDE3BD0004F91B /* CustomTextField.swift in Sources */,
 				7169154D28E3AA4000CDD8DE /* RRLoginViewController.swift in Sources */,
 				1321647528E31EE700372C58 /* FACreateAccountViewController.swift in Sources */,
 				13D0789B28DC9A2300CF8E00 /* BadNetworkLayer.swift in Sources */,
