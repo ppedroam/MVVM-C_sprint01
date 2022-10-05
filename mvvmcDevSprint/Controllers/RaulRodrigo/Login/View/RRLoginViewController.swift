@@ -7,6 +7,7 @@ enum RRLoginFactory{
         let viewModel = RRLoginViewModel(service: service, coordinator: coordinator)
         let controller = RRLoginViewController(viewModel: viewModel)
         viewModel.delegate = controller
+        coordinator.controller = controller
         return controller
     }
 }

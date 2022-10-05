@@ -8,21 +8,11 @@
 import Foundation
 
 protocol RRLoginRepositoryProtocol{
-    func isLogged() -> Bool
-    func isWithOutConnection() -> Bool
-    
+    func isLogged() -> Bool    
 }
 
-
 class RRLoginRepository: RRLoginRepositoryProtocol {
-    func isWithOutConnection() -> Bool {
-        return !ConnectivityManager.shared.isConnected
-    }
-    
-    
     func isLogged() -> Bool {
         return UserDefaultsManager.UserInfos.shared.readSesion() != nil ? true : false
     }
-    
-    
 }

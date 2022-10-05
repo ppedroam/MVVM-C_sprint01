@@ -23,8 +23,8 @@ protocol RRLoginViewToViewModelProtocol: AnyObject {
 
 class RRLoginViewModel {
     weak var delegate: RRLoginViewToViewModelProtocol?
-    let coordinator: RRLoginCoordinating
-    let service: RRLoginRepositoryProtocol
+    private let coordinator: RRLoginCoordinating
+    private let service: RRLoginRepositoryProtocol
     
     init(service: RRLoginRepositoryProtocol, coordinator: RRLoginCoordinating) {
         self.service = service
@@ -53,7 +53,7 @@ extension RRLoginViewModel: RRLoginViewModelToViewProtocol{
     }
     func login(email:String, password: String) {
         let controller = RRLoginViewController(viewModel: self)
-        if service.isWithOutConnection(){
+        if !ConnectivityManager.shared.isConnected{
             self.delegate?.showAlertDialog()
         }
         self.delegate?.showLoadingFunc()
