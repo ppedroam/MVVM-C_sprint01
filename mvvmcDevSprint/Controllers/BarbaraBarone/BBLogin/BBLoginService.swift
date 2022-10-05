@@ -3,6 +3,7 @@ import Foundation
 enum ErrorType: Error {
     case generic
     case login
+    case connectionError
 }
 
 protocol BBLogigServicing {

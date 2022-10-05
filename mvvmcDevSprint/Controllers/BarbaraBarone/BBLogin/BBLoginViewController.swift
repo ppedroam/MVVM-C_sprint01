@@ -68,7 +68,7 @@ class BBLoginViewController: UIViewController, BBLoginViewControlling {
     }
     
     @IBAction func loginButton(_ sender: Any) {
-        viewModel.fetchLogin(with: emailTextField.text ?? "")
+        viewModel.makeLogin(with: emailTextField.text ?? "")
     }
     
     func showAlertConnectivity() {
@@ -209,7 +209,7 @@ extension BBLoginViewController: UITextFieldDelegate {
             passwordTextField.becomeFirstResponder()
         } else {
             view.endEditing(true)
-            viewModel.fetchLogin(with: emailTextField.text ?? "")
+            viewModel.makeLogin(with: emailTextField.text ?? "")
         }
         return true
     }

@@ -1,7 +1,7 @@
 import Foundation
 
 protocol BBLoginViewModeling {
-    func fetchLogin(with email: String)
+    func makeLogin(with email: String)
     func validateButton(with email: String)
     func verifyLogin()
     func goToHome()
@@ -12,29 +12,27 @@ protocol BBLoginViewModeling {
 final class BBLoginViewModel: BBLoginViewModeling {
     var viewController: BBLoginViewControlling?
     private let coordinator: BBLoginCoordinating
+    private let service: BBLogigServicing
     
-    init(coordinator: BBLoginCoordinator) {
+    init(coordinator: BBLoginCoordinator,
+         service: BBLogigServicing) {
         self.coordinator = coordinator
+        self.service = service
     }
     
-    func fetchLogin(with email: String) {
-        let parameters = ["email" : email]
-        noInternetConnection()
+    func makeLogin(with email: String) {
         viewController?.showLoading()
-        AF.request(endpoint, method: .get, parameters: parameters) { result in
-            DispatchQueue.main.async {
-                self.viewController?.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        self.genericError()
-                    }
-                case .failure:
-                    self.loginError()
-                }
+        service.fetchLogin(with: email) { result in
+            self.viewController?.stopLoading()
+            switch result {
+            case .success:
+                self.verifyLogin()
+            case .failure(let error) where error as? ErrorType == ErrorType.generic:
+                self.genericError()
+            case .failure(let error) where error as? ErrorType == ErrorType.connectionError:
+                self.noInternetConnection()
+            case .failure:
+                self.loginError()
             }
         }
     }
