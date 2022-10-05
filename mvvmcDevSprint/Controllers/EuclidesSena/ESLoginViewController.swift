@@ -1,5 +1,16 @@
 import UIKit
 
+enum ESLoginFactory {
+    static func make() -> UIViewController {
+        let coordinator = ESLoginCoordinator()
+        let viewModel = ESLoginViewModel(withCoordinator: coordinator)
+        let controller = ESLoginViewController(withViewModel: viewModel)
+        viewModel.delegate = controller
+        coordinator.controller = controller
+        return controller
+    }
+}
+
 class ESLoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
@@ -12,14 +23,23 @@ class ESLoginViewController: UIViewController {
     @IBOutlet weak var createAccountButton: UIButton!
     
     @IBOutlet weak var showPasswordButton: UIButton!
-    var showPassword = true
-    var errorInLogin = false
     
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     var initialConstant: CGFloat = 0
     let defaultSpacing: CGFloat = 100
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
+    
+    private var viewModel: ESLoginViewModelProtocol
+    
+    init(withViewModel viewModel: ESLoginViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,69 +77,30 @@ class ESLoginViewController: UIViewController {
     }
     
     @IBAction func loginButton(_ sender: Any) {
-        didClickLogin()
-    }
-    
-    func didClickLogin() {
-        if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
-        }
-
-        showLoading()
         let parameters: [String: String] = ["email": emailTextField.text!,
                                             "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
-            }
-        }
+                                            
+        viewModel.showHomeScreen(parameters: parameters)
     }
     
     @IBAction func showPassword(_ sender: Any) {
-        if(showPassword == true) {
+        if(viewModel.showPassword == true) {
             passwordTextField.isSecureTextEntry = false
             showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
         } else {
             passwordTextField.isSecureTextEntry = true
             showPasswordButton.setImage(UIImage.init(systemName: "eye")?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
-        showPassword = !showPassword
+        viewModel.showPassword = !viewModel.showPassword
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ESResetPasswordViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        viewModel.startResetPasswd()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = CreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        viewModel.createAccount()
     }
     
     func setupView() {
@@ -157,7 +138,7 @@ class ESLoginViewController: UIViewController {
     
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
-        if errorInLogin {
+        if viewModel.errorInLogin {
             resetErrorLogin(emailTextField)
         } else {
             emailTextField.setEditingColor()
@@ -174,7 +155,7 @@ class ESLoginViewController: UIViewController {
     
     //senha
     @IBAction func passwordBeginEditing(_ sender: Any) {
-        if errorInLogin {
+        if viewModel.errorInLogin {
             resetErrorLogin(passwordTextField)
         } else {
             passwordTextField.setEditingColor()
@@ -187,14 +168,6 @@ class ESLoginViewController: UIViewController {
     
     @IBAction func passwordEndEditing(_ sender: Any) {
         passwordTextField.setDefaultColor()
-    }
-    
-    func setErrorLogin(_ message: String) {
-        errorInLogin = true
-        heightLabelError.constant = 20
-        errorLabel.text = message
-        emailTextField.setErrorColor()
-        passwordTextField.setErrorColor()
     }
     
     func resetErrorLogin(_ textField: UITextField) {
@@ -211,11 +184,14 @@ class ESLoginViewController: UIViewController {
 
 extension ESLoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let parameters: [String: String] = ["email": emailTextField.text!,
+                                            "password": passwordTextField.text!]
+        
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
         } else {
             view.endEditing(true)
-            didClickLogin()
+            viewModel.showHomeScreen(parameters: parameters)
         }
         return true
     }
@@ -305,5 +281,23 @@ extension ESLoginViewController {
         yVariation = activeTFWindowPosition.minY - newOriginY
         let isTextFieldTooNearFromKeyboard = activeTFWindowPosition.minY > newOriginY
         return isTextFieldTooNearFromKeyboard
+    }
+}
+
+extension ESLoginViewController: ESLoginDelegate {
+    func setErrorLogin(_ message: String) {
+        viewModel.errorInLogin = true
+        heightLabelError.constant = 20
+        errorLabel.text = message
+        emailTextField.setErrorColor()
+        passwordTextField.setErrorColor()
+    }
+    
+    func showLoadingScreen() {
+        showLoading()
+    }
+    
+    func stopLoadingScreen() {
+        stopLoading()
     }
 }
