@@ -24,32 +24,32 @@ class GPResetPasswordView: UIView {
         return img
     }()
     
-    lazy var boxResetEmail: ResetPasswordEmailComponent = {
-        let box = ResetPasswordEmailComponent()
+    lazy var boxResetEmail: GPResetPasswordEmailComponent = {
+        let box = GPResetPasswordEmailComponent()
         box.translatesAutoresizingMaskIntoConstraints = false
         return box
     }()
     
-    lazy var recoverPasswordButton: ButtonComponent = {
-        let btn = ButtonComponent()
+    lazy var recoverPasswordButton: GPButtonComponent = {
+        let btn = GPButtonComponent()
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
-    lazy var loginButton: ButtonComponent = {
-        let btn = ButtonComponent()
+    lazy var loginButton: GPButtonComponent = {
+        let btn = GPButtonComponent()
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
-    lazy var needHelpButton: ButtonComponent = {
-        let btn = ButtonComponent()
+    lazy var needHelpButton: GPButtonComponent = {
+        let btn = GPButtonComponent()
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
-    lazy var createAnotherAccountButton: ButtonComponent = {
-        let btn = ButtonComponent()
+    lazy var createAnotherAccountButton: GPButtonComponent = {
+        let btn = GPButtonComponent()
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()

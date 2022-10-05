@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ResetPasswordEmailComponent: UIView {
+class GPResetPasswordEmailComponent: UIView {
     
     lazy var emailLabel: UILabel = {
         let text = UILabel()
@@ -19,8 +19,8 @@ class ResetPasswordEmailComponent: UIView {
         return text
     }()
     
-    lazy var emailTextField: CustomTextField = {
-        let textField = CustomTextField()
+    lazy var emailTextField: GPCustomTextField = {
+        let textField = GPCustomTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 6
@@ -56,7 +56,7 @@ class ResetPasswordEmailComponent: UIView {
     }
 }
 
-extension ResetPasswordEmailComponent {
+extension GPResetPasswordEmailComponent {
     func setTitleLabel(title: String) {
         emailLabel.text = title
     }

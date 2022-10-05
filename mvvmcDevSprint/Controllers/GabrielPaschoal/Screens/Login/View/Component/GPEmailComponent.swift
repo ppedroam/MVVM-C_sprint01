@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class EmailComponent: UIView {
+class GPEmailComponent: UIView {
     
     lazy var emailLabel: UILabel = {
         let label = UILabel()
@@ -19,8 +19,8 @@ class EmailComponent: UIView {
         return label
     }()
     
-    lazy var emailTextField: CustomTextField = {
-        let textField = CustomTextField()
+    lazy var emailTextField: GPCustomTextField = {
+        let textField = GPCustomTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 6

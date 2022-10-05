@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PasswordComponent: UIView {
+class GPPasswordComponent: UIView {
     
     var showPasswordState = false
     
@@ -21,8 +21,8 @@ class PasswordComponent: UIView {
         return label
     }()
     
-    lazy var passwordTextField: CustomTextField = {
-        let textField = CustomTextField()
+    lazy var passwordTextField: GPCustomTextField = {
+        let textField = GPCustomTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 6

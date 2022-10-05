@@ -32,14 +32,14 @@ class GPLoginView: UIView {
         return label
     }()
     
-    lazy var emailComponent: EmailComponent = {
-        let component = EmailComponent()
+    lazy var emailComponent: GPEmailComponent = {
+        let component = GPEmailComponent()
         component.translatesAutoresizingMaskIntoConstraints = false
         return component
     }()
     
-    lazy var passwordComponent: PasswordComponent = {
-        let component = PasswordComponent()
+    lazy var passwordComponent: GPPasswordComponent = {
+        let component = GPPasswordComponent()
         component.translatesAutoresizingMaskIntoConstraints = false
         return component
     }()

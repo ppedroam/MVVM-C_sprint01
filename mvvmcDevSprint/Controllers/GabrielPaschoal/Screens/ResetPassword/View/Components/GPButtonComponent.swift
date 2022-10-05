@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ButtonComponent: UIView {
+class GPButtonComponent: UIView {
     
     lazy var buttonComponent: UIButton = {
         let btn = UIButton()
@@ -42,7 +42,7 @@ class ButtonComponent: UIView {
     }
 }
 
-extension ButtonComponent {
+extension GPButtonComponent {
     func setButtonTitle(title: String) {
         buttonComponent.setTitle(title, for: .normal)
     }

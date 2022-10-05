@@ -116,13 +116,13 @@
 		13E582DD28E3813C0002E621 /* LMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13E582D428E3813C0002E621 /* LMLoginViewController.xib */; };
 		13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */; };
 		29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE31B128E47459009110A8 /* EGLoginViewModel.swift */; };
-		48875CDE28EDE3520004F91B /* ButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CDD28EDE3520004F91B /* ButtonComponent.swift */; };
-		48875CE328EDE3980004F91B /* EmailComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE228EDE3980004F91B /* EmailComponent.swift */; };
-		48875CE528EDE3A80004F91B /* PasswordComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE428EDE3A80004F91B /* PasswordComponent.swift */; };
-		48875CE828EDE3BD0004F91B /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE728EDE3BD0004F91B /* CustomTextField.swift */; };
+		48875CDE28EDE3520004F91B /* GPButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CDD28EDE3520004F91B /* GPButtonComponent.swift */; };
+		48875CE328EDE3980004F91B /* GPEmailComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE228EDE3980004F91B /* GPEmailComponent.swift */; };
+		48875CE528EDE3A80004F91B /* GPPasswordComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE428EDE3A80004F91B /* GPPasswordComponent.swift */; };
+		48875CE828EDE3BD0004F91B /* GPCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE728EDE3BD0004F91B /* GPCustomTextField.swift */; };
 		48875CEA28EDE3D20004F91B /* GPLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CE928EDE3D20004F91B /* GPLoginView.swift */; };
 		48875CED28EDE3F10004F91B /* GPLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CEC28EDE3F10004F91B /* GPLoginViewModel.swift */; };
-		48875CF028EDE4CD0004F91B /* ResetPasswordEmailComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CEF28EDE4CD0004F91B /* ResetPasswordEmailComponent.swift */; };
+		48875CF028EDE4CD0004F91B /* GPResetPasswordEmailComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CEF28EDE4CD0004F91B /* GPResetPasswordEmailComponent.swift */; };
 		48875CF328EDE4F90004F91B /* GPResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CF228EDE4F90004F91B /* GPResetPasswordView.swift */; };
 		48875CF628EDE5140004F91B /* GPResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48875CF528EDE5140004F91B /* GPResetPasswordViewModel.swift */; };
 		7168AF5028E3E04E00856C29 /* RRLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */; };
@@ -264,13 +264,13 @@
 		13E582D428E3813C0002E621 /* LMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMLoginViewController.xib; sourceTree = "<group>"; };
 		13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCreateAccountViewController.swift; sourceTree = "<group>"; };
 		29CE31B128E47459009110A8 /* EGLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EGLoginViewModel.swift; sourceTree = "<group>"; };
-		48875CDD28EDE3520004F91B /* ButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonComponent.swift; sourceTree = "<group>"; };
-		48875CE228EDE3980004F91B /* EmailComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComponent.swift; sourceTree = "<group>"; };
-		48875CE428EDE3A80004F91B /* PasswordComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordComponent.swift; sourceTree = "<group>"; };
-		48875CE728EDE3BD0004F91B /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		48875CDD28EDE3520004F91B /* GPButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPButtonComponent.swift; sourceTree = "<group>"; };
+		48875CE228EDE3980004F91B /* GPEmailComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPEmailComponent.swift; sourceTree = "<group>"; };
+		48875CE428EDE3A80004F91B /* GPPasswordComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPasswordComponent.swift; sourceTree = "<group>"; };
+		48875CE728EDE3BD0004F91B /* GPCustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPCustomTextField.swift; sourceTree = "<group>"; };
 		48875CE928EDE3D20004F91B /* GPLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPLoginView.swift; sourceTree = "<group>"; };
 		48875CEC28EDE3F10004F91B /* GPLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPLoginViewModel.swift; sourceTree = "<group>"; };
-		48875CEF28EDE4CD0004F91B /* ResetPasswordEmailComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordEmailComponent.swift; sourceTree = "<group>"; };
+		48875CEF28EDE4CD0004F91B /* GPResetPasswordEmailComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPResetPasswordEmailComponent.swift; sourceTree = "<group>"; };
 		48875CF228EDE4F90004F91B /* GPResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPResetPasswordView.swift; sourceTree = "<group>"; };
 		48875CF528EDE5140004F91B /* GPResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewController.swift; sourceTree = "<group>"; };
@@ -701,9 +701,9 @@
 		48875CE128EDE38C0004F91B /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				48875CE228EDE3980004F91B /* EmailComponent.swift */,
-				48875CE428EDE3A80004F91B /* PasswordComponent.swift */,
-				48875CE728EDE3BD0004F91B /* CustomTextField.swift */,
+				48875CE228EDE3980004F91B /* GPEmailComponent.swift */,
+				48875CE428EDE3A80004F91B /* GPPasswordComponent.swift */,
+				48875CE728EDE3BD0004F91B /* GPCustomTextField.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -727,8 +727,8 @@
 		48875CF128EDE4E80004F91B /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				48875CDD28EDE3520004F91B /* ButtonComponent.swift */,
-				48875CEF28EDE4CD0004F91B /* ResetPasswordEmailComponent.swift */,
+				48875CDD28EDE3520004F91B /* GPButtonComponent.swift */,
+				48875CEF28EDE4CD0004F91B /* GPResetPasswordEmailComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -970,8 +970,8 @@
 				13E582DB28E3813C0002E621 /* LMContactUsViewController.swift in Sources */,
 				1321646128E23E1300372C58 /* RRContactUsViewController.swift in Sources */,
 				13D078AF28DCFA2800CF8E00 /* Image+extensions.swift in Sources */,
-				48875CE328EDE3980004F91B /* EmailComponent.swift in Sources */,
-				48875CE528EDE3A80004F91B /* PasswordComponent.swift in Sources */,
+				48875CE328EDE3980004F91B /* GPEmailComponent.swift in Sources */,
+				48875CE528EDE3A80004F91B /* GPPasswordComponent.swift in Sources */,
 				1321640528E235C500372C58 /* BBLoginViewController.swift in Sources */,
 				1321641028E2368500372C58 /* ESResetPasswordViewController.swift in Sources */,
 				13D078B128DD013900CF8E00 /* BaseViewController.swift in Sources */,
@@ -1000,14 +1000,14 @@
 				1321644028E23D4200372C58 /* EGContactUsViewController.swift in Sources */,
 				1321640128E235C500372C58 /* BBCreateAccountViewController.swift in Sources */,
 				13D0789928DC99D300CF8E00 /* KeyboardAppearenceManager.swift in Sources */,
-				48875CDE28EDE3520004F91B /* ButtonComponent.swift in Sources */,
+				48875CDE28EDE3520004F91B /* GPButtonComponent.swift in Sources */,
 				1321640F28E2368500372C58 /* ESLoginViewController.swift in Sources */,
 				1321644428E23D4200372C58 /* EGResetPasswordViewController.swift in Sources */,
 				1321641128E2368500372C58 /* ESCreateAccountViewController.swift in Sources */,
 				1356778328E10ECC00A9C3EF /* TRCreateAccountViewController.swift in Sources */,
 				1356779628E1122700A9C3EF /* ResetPasswordViewController.swift in Sources */,
 				13D0784E28DC8FBB00CF8E00 /* AppDelegate.swift in Sources */,
-				48875CF028EDE4CD0004F91B /* ResetPasswordEmailComponent.swift in Sources */,
+				48875CF028EDE4CD0004F91B /* GPResetPasswordEmailComponent.swift in Sources */,
 				13D0789F28DC9A6A00CF8E00 /* LoadingController.swift in Sources */,
 				29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */,
 				48875CF328EDE4F90004F91B /* GPResetPasswordView.swift in Sources */,
@@ -1026,7 +1026,7 @@
 				1321644F28E23DB400372C58 /* HALoginViewController.swift in Sources */,
 				13D0789228DC98FF00CF8E00 /* Endpoints.swift in Sources */,
 				13D0788C28DC98D200CF8E00 /* CreateAccountViewController.swift in Sources */,
-				48875CE828EDE3BD0004F91B /* CustomTextField.swift in Sources */,
+				48875CE828EDE3BD0004F91B /* GPCustomTextField.swift in Sources */,
 				7169154D28E3AA4000CDD8DE /* RRLoginViewController.swift in Sources */,
 				1321647528E31EE700372C58 /* FACreateAccountViewController.swift in Sources */,
 				13D0789B28DC9A2300CF8E00 /* BadNetworkLayer.swift in Sources */,
