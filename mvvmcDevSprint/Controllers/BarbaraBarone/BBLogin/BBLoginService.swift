@@ -1,5 +1,10 @@
 import Foundation
 
+enum ErrorType: Error {
+    case generic
+    case login
+}
+
 protocol BBLogigServicing {
     func fetchLogin(with email: String, completion: @escaping (Result<Session, Error>) -> Void)
 }
@@ -15,9 +20,11 @@ final class BBLoginService: BBLogigServicing {
                 if let session = try? decoder.decode(Session.self, from: data) {
                     UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
                     completion(.success(session))
+                } else {
+                    completion(.failure(ErrorType.generic))
                 }
             case .failure:
-                completion(.failure(<#T##Error#>))
+                completion(.failure(ErrorType.login))
             }
         }
     }
