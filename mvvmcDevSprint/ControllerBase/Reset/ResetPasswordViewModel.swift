@@ -8,44 +8,57 @@
 import Foundation
 import UIKit
 
+protocol ResetPasswordViewModeling {
+    func startPasswordRecovering(email: String)
+    func goToAccount()
+    func goToContactUs()
+    func closeScreen()
+}
 
-class ResetPasswordViewModel {
-    var controller: ResetPasswordViewController?
-    let coordinator = ResetPasswordCoordinator()
+protocol ResetPasswordViewModelDelegate {
+    func showErrorState()
+    func showNoInternetAlert()
+    func showSuccessState()
+    func showDefaultAlert2()
+}
+
+class ResetPasswordViewModel: ResetPasswordViewModeling {
+//    var controller: ResetPasswordViewController?
+//    var delegate: ResetPasswordViewModelDelegate?
+    var controller: ResetPasswordViewControlling?
+    private let coordinator: ResetPasswordCoordinating
+    private let service: ResetPasswordServicing
     
-    func validateEmail(email: String) -> Bool {
-        let isValid = email.contains(".") && email.contains("@") || email.count > 5
-        return isValid
+    private var recoveryEmail = false
+    
+    init(
+        coordinator: ResetPasswordCoordinating,
+        service: ResetPasswordServicing
+    ) {
+        self.coordinator = coordinator
+        self.service = service
     }
     
-    func callAPI(email: String) {
-        if !ConnectivityManager.shared.isConnected {
-            controller?.showNoInternetAlert()
+    func startPasswordRecovering(email: String) {
+        if recoveryEmail {
+            coordinator.perform(action: .close)
             return
         }
-        let emailUser = email.trimmingCharacters(in: .whitespaces)
-        let parameters = [
-            "email": emailUser
-        ]
-        guard let controller = controller else {
-            return
-        }
-        BadNetworkLayer.shared.resetPassword(controller, parameters: parameters) { (success) in
-            if success {
-                controller.showSuccessState()
-            } else {
-                controller.showDefaultAlert()
-            }
+
+        if validateEmail(email: email) {
+            callAPI(email: email)
+        } else {
+            controller?.showErrorState()
+//            delegate?.showErrorState()
         }
     }
     
     func goToAccount() {
-        coordinator.controller = controller
         coordinator.perform(action: .account)
+        controller?.showSuccessState()
     }
     
     func goToContactUs() {
-        coordinator.controller = controller
         coordinator.perform(action: .contactUs)
     }
     
@@ -54,33 +67,35 @@ class ResetPasswordViewModel {
     }
 }
 
-enum ResetPasswordActions {
-    case account
-    case contactUs
-    case close
-}
-
-class ResetPasswordCoordinator {
-    var controller: UIViewController?
+private extension ResetPasswordViewModel {
+    func validateEmail(email: String) -> Bool {
+        let isValid = email.contains(".") && email.contains("@") || email.count > 5
+        return isValid
+    }
     
-    func perform(action: ResetPasswordActions) {
-        switch action {
-        case .account: goToAccount()
-        case .contactUs: goToContactUs()
-        case .close: controller?.dismiss(animated: true)
+    func callAPI(email: String) {
+        if !ConnectivityManager.shared.isConnected {
+            controller?.showNoInternetAlert()
+//            delegate?.showNoInternetAlert()
+            return
         }
+        startAPICalling(email: email)
     }
     
-    private func goToAccount() {
-        let newVc = CreateAccountViewController()
-        newVc.modalPresentationStyle = .fullScreen
-        controller?.present(newVc, animated: true)
-    }
-    
-    private func goToContactUs() {
-        let vc = ContactUsViewController()
-        vc.modalPresentationStyle = .popover
-        vc.modalTransitionStyle = .coverVertical
-        controller?.present(vc, animated: true, completion: nil)
+    func startAPICalling(email: String) {
+        guard let controller = controller else {
+            return
+        }
+        let emailUser = email.trimmingCharacters(in: .whitespaces)
+        service.tryResetPassword(email: emailUser) { result in
+            switch result {
+            case .success:
+                self.recoveryEmail = true
+                controller.showSuccessState()
+            case .failure(let error):
+                print(error.localizedDescription)
+                controller.showSuccessState()
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 import UIKit
 
-class EGLoginViewController: UIViewController {
+class RRLoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -16,20 +16,29 @@ class EGLoginViewController: UIViewController {
     var errorInLogin = false
     
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    
+    
     var initialConstant: CGFloat = 0
     let defaultSpacing: CGFloat = 100
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
     
+     
+    var viewModel: RRLoginViewModel = {
+       let viewModel = RRLoginViewModel(service: RRLoginRepository())
+       return viewModel
+   }()
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
-
+        
+        viewModel.verifyLogin()
         #if DEBUG
         emailTextField.text = "mvvmc@devpass.com"
         passwordTextField.text = "Abcde1"
         #endif
-
+        viewModel.delegate = self
         self.setupView()
         self.validateButton()
         NotificationCenter.default.addObserver(self,
@@ -44,58 +53,13 @@ class EGLoginViewController: UIViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
-    func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
-        }
-    }
     
     @IBAction func loginButton(_ sender: Any) {
         didClickLogin()
     }
     
     func didClickLogin() {
-        if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
-        }
-
-        showLoading()
-        let parameters: [String: String] = ["email": emailTextField.text!,
-                                            "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
-            }
-        }
+        viewModel.login(email: emailTextField.text!, password: passwordTextField.text!)
     }
     
     @IBAction func showPassword(_ sender: Any) {
@@ -110,7 +74,7 @@ class EGLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
+        let vc = RRResetPasswordViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
     }
@@ -189,13 +153,6 @@ class EGLoginViewController: UIViewController {
         passwordTextField.setDefaultColor()
     }
     
-    func setErrorLogin(_ message: String) {
-        errorInLogin = true
-        heightLabelError.constant = 20
-        errorLabel.text = message
-        emailTextField.setErrorColor()
-        passwordTextField.setErrorColor()
-    }
     
     func resetErrorLogin(_ textField: UITextField) {
         heightLabelError.constant = 0
@@ -209,7 +166,7 @@ class EGLoginViewController: UIViewController {
     }
 }
 
-extension EGLoginViewController: UITextFieldDelegate {
+extension RRLoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
@@ -221,42 +178,60 @@ extension EGLoginViewController: UITextFieldDelegate {
     }
 }
 
-extension EGLoginViewController {
-    
-    func validateButton() {
-        if !emailTextField.text!.contains(".") ||
-            !emailTextField.text!.contains("@") ||
-            emailTextField.text!.count <= 5 {
-            disableButton()
-        } else {
-            if let atIndex = emailTextField.text!.firstIndex(of: "@") {
-                let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
-            } else {
-                disableButton()
-            }
-        }
+extension RRLoginViewController: RRLoginViewToViewModelProtocol {
+    func stateButton(isEnabled: Bool) {
+        loginButton.backgroundColor = isEnabled ? .blue : .gray
+        loginButton.isEnabled = isEnabled
     }
     
-    func disableButton() {
-        loginButton.backgroundColor = .gray
-        loginButton.isEnabled = false
+    func showAlertDialog() {
+        showAlertDialogDS(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", buttonTitle: "Ok")
     }
     
-    func enableButton() {
-        loginButton.backgroundColor = .blue
-        loginButton.isEnabled = true
+    func showLoadingFunc() {
+        showLoading()
     }
     
+    func stopLoadingFunc() {
+        stopLoading()
+    }
+    
+    func setLoginError(_ message: String) {
+        errorInLogin = true
+        heightLabelError.constant = 20
+        errorLabel.text = message
+        emailTextField.setErrorColor()
+        passwordTextField.setErrorColor()
+    }
+    
+    func goToHome() {
+        let homeViewController = HomeViewController()
+        homeViewController.lastController = String(describing: self)
+        let vc = UINavigationController(rootViewController: homeViewController)
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
+    }
+}
+
+private extension RRLoginViewController {
+    
+    func showAlertDialogDS(title: String, message: String, buttonTitle: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let actin = UIAlertAction(title: buttonTitle, style: .default)
+        alertController.addAction(actin)
+        present(alertController, animated: true)
+    }
 }
 
 //MARK: keyboard appearence manager
 
-extension EGLoginViewController {
+extension RRLoginViewController {
+    func validateButton() {
+        viewModel.validateButton(emailText: emailTextField.text!)
+    }
     
     @objc
     func keyboardWillShow(_ notification: Notification) {
@@ -306,4 +281,6 @@ extension EGLoginViewController {
         let isTextFieldTooNearFromKeyboard = activeTFWindowPosition.minY > newOriginY
         return isTextFieldTooNearFromKeyboard
     }
+    
+    
 }
