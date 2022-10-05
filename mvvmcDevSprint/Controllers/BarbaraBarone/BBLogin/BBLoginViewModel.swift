@@ -1,12 +1,15 @@
 import Foundation
 
 final class BBLoginViewModel {
-    let endpoint = Endpoints.Auth.login
     weak var viewController: BBLoginViewController?
     
-    func fetchLogin(with email: String) {
-        let parameters = ["email" : email]
-        noInternetConnection()
+    func fetchLogin(with email: String, password: String) {
+        let parameters = ["email" : email, "password": password]
+        let endpoint = Endpoints.Auth.login
+        
+        if !ConnectivityManager.shared.isConnected {
+            viewController?.showAlertConnectivity()
+        }
         viewController?.showLoading()
         AF.request(endpoint, method: .get, parameters: parameters) { result in
             DispatchQueue.main.async {
@@ -32,12 +35,6 @@ final class BBLoginViewModel {
     
     func genericError() {
         viewController?.showGenericErrorAlert()
-    }
-    
-    func noInternetConnection() {
-        if !ConnectivityManager.shared.isConnected {
-            viewController?.showAlertConnectivity()
-        }
     }
     
     func verifyLogin() {
