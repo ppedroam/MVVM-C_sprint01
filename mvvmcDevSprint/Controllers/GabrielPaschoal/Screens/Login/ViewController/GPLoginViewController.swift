@@ -102,7 +102,6 @@ class GPLoginViewController: UIViewController {
         
         self.loginFailure()
         self.loginSucess()
-        
     }
     
     private func loginSucess() {
