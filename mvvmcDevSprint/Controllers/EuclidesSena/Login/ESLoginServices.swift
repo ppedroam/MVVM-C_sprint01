@@ -10,7 +10,7 @@ import Foundation
 
 protocol LoginServiceProtocol {
     func fetch(parameters: [String: String], _ completion: @escaping ((Result<Data, Error>) -> Void))
-    func decodeResponse(data: Data) -> Bool
+    func decodeResponse(data: Data) -> Session?
 }
 
 class ESLoginService: LoginServiceProtocol {
@@ -27,14 +27,12 @@ class ESLoginService: LoginServiceProtocol {
     
 }
 
-extension ESLoginService {
-    func decodeResponse(data: Data) -> Bool {
+extension ESLoginService  {
+    func decodeResponse(data: Data) -> Session? {
         let decoder = JSONDecoder()
         if let session = try? decoder.decode(Session.self, from: data) {
-            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-            return true
+            return session
         }
-        return false
+        return nil
     }
-    
 }

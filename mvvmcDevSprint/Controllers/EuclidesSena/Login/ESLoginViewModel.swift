@@ -17,7 +17,7 @@ protocol ESLoginViewModelProtocol {
     func startResetPasswd()
     func createAccount()
     func showHomeScreen(parameters: [String: String])
-
+    
     var delegate: ESLoginDelegate? { get set }
     var showPassword: Bool { get set }
     var errorInLogin: Bool { get set }
@@ -29,7 +29,7 @@ class ESLoginViewModel: ESLoginViewModelProtocol {
     
     var showPassword = true
     var errorInLogin = false
-
+    
     weak var delegate: ESLoginDelegate?
     
     init(withCoordinator cood: ESLoginCoordinator, _ service: LoginServiceProtocol = ESLoginService()) {
@@ -57,8 +57,11 @@ class ESLoginViewModel: ESLoginViewModelProtocol {
                 self.delegate?.stopLoadingScreen()
                 switch result {
                 case .success(let data):
-                    let decoder = self.service.decodeResponse(data: data)
-                    decoder ? self.coordinator.perform(action: .goToHome) : self.coordinator.perform(action: .alert("Ops..", "Houve um problema, tente novamente mais tarde."))
+                    if let decoder = self.service.decodeResponse(data: data) {
+                        UserDefaultsManager.UserInfos.shared.save(session: decoder, user: nil)
+                        self.coordinator.perform(action: .goToHome)
+                    }
+                    self.coordinator.perform(action: .alert("Ops..", "Houve um problema, tente novamente mais tarde."))
                 case .failure:
                     self.delegate?.setErrorLogin("E-mail ou senha incorretos")
                     self.coordinator.perform(action: .alert("Ops..", "Houve um problema, tente novamente mais tarde."))
