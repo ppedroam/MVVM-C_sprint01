@@ -13,7 +13,7 @@ enum ResetPasswordFactory {
     }
 }
 
-protocol ResetPasswordViewControlling {
+protocol ResetPasswordViewControlling: AnyObject {
     func showErrorState()
     func showNoInternetAlert()
     func showSuccessState()
@@ -42,6 +42,10 @@ class ResetPasswordViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("desacolado")
     }
     
     override func viewDidLoad() {
