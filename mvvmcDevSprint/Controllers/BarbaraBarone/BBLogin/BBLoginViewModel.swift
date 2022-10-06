@@ -2,6 +2,7 @@ import Foundation
 
 final class BBLoginViewModel {
     weak var viewController: BBLoginViewController?
+    var errorInLogin = false
     
     func fetchLogin(with email: String, password: String) {
         let parameters = ["email" : email, "password": password]
@@ -9,6 +10,7 @@ final class BBLoginViewModel {
         
         if !ConnectivityManager.shared.isConnected {
             viewController?.showAlertConnectivity()
+            return
         }
         viewController?.showLoading()
         AF.request(endpoint, method: .get, parameters: parameters) { result in
