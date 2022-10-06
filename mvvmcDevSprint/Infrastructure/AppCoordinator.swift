@@ -17,14 +17,15 @@ struct AppCoordinator {
     }
     
     func getRootViewController() -> UIViewController {
-        var architecter = Architecters.felipeAugusto
+        var architecter = Architecters.elpidioGabriel
+
         switch architecter {
         case .raulRodrigo: return RRLoginViewController()
         case .henriqueAugusto: return HALoginViewController()
         case .elpidioGabriel: return EGLoginViewController()
         case .gabrielPaschoal: return GPLoginViewController()
         case .danielSeitenfus: return DSLoginViewController()
-        case .euclidesSena: return ESLoginViewController()
+        case .euclidesSena: return ESLoginFactory.make()
         case .barbaraBarone: return BBLoginViewController()
         case .tatianaRico: return TRLoginViewController()
         case .felipeAugusto: return FALoginViewController()
@@ -32,4 +33,3 @@ struct AppCoordinator {
         }
     }
 }
-

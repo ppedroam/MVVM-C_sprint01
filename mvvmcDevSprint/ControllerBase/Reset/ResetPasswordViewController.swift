@@ -1,5 +1,25 @@
 import UIKit
 
+enum ResetPasswordFactory {
+    static func make() -> UIViewController {
+        let coordinator = ResetPasswordCoordinator()
+        let service = ResetPasswordService()
+        let viewModel = ResetPasswordViewModel(coordinator: coordinator, service: service)
+        let controller = ResetPasswordViewController(viewModel: viewModel)
+        viewModel.controller = controller
+//        viewModel.delegate = controller
+        coordinator.controller = controller
+        return controller
+    }
+}
+
+protocol ResetPasswordViewControlling: AnyObject {
+    func showErrorState()
+    func showNoInternetAlert()
+    func showSuccessState()
+    func showDefaultAlert2()
+}
+
 class ResetPasswordViewController: UIViewController {
 
     @IBOutlet weak var emailTextfield: UITextField!
@@ -12,10 +32,22 @@ class ResetPasswordViewController: UIViewController {
     @IBOutlet weak var viewSuccess: UIView!
     @IBOutlet weak var emailLabel: UILabel!
     
-    var email = ""
     var loadingScreen = LoadingController()
-    var recoveryEmail = false
-
+    private let viewModel: ResetPasswordViewModeling
+    
+    init(viewModel: ResetPasswordViewModeling) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("desacolado")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -32,78 +64,25 @@ class ResetPasswordViewController: UIViewController {
     }
 
     @IBAction func closeButtonAction(_ sender: Any) {
-        dismiss(animated: true)
+        viewModel.closeScreen()
     }
 
     @IBAction func recoverPasswordButton(_ sender: Any) {
-        if recoveryEmail {
-            dismiss(animated: true)
-            return
-        }
-
-        if validateForm() {
-            self.view.endEditing(true)
-            if !ConnectivityManager.shared.isConnected {
-                Globals.showNoInternetCOnnection(controller: self)
-                return
-            }
-
-            let emailUser = emailTextfield.text!.trimmingCharacters(in: .whitespaces)
-            
-            let parameters = [
-                "email": emailUser
-            ]
-            
-            BadNetworkLayer.shared.resetPassword(self, parameters: parameters) { (success) in
-                if success {
-                    self.recoveryEmail = true
-                    self.emailTextfield.isHidden = true
-                    self.textLabel.isHidden = true
-                    self.viewSuccess.isHidden = false
-                    self.emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
-                    self.recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
-                    self.recoverPasswordButton.setTitle("Voltar", for: .normal)
-                } else {
-                    let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "OK", style: .default)
-                    alertController.addAction(action)
-                    self.present(alertController, animated: true)
-                }
-            }
-        }
+        view.endEditing(true)
+        let email = emailTextfield.text ?? ""
+        viewModel.startPasswordRecovering(email: email)
     }
     
     @IBAction func loginButton(_ sender: Any) {
-        dismiss(animated: true)
+        viewModel.closeScreen()
     }
     
     @IBAction func helpButton(_ sender: Any) {
-        let vc = ContactUsViewController()
-        vc.modalPresentationStyle = .popover
-        vc.modalTransitionStyle = .coverVertical
-        self.present(vc, animated: true, completion: nil)
+        viewModel.goToContactUs()
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let newVc = CreateAccountViewController()
-        newVc.modalPresentationStyle = .fullScreen
-        present(newVc, animated: true)
-    }
-    
-    func validateForm() -> Bool {
-        let status = emailTextfield.text!.isEmpty ||
-            !emailTextfield.text!.contains(".") ||
-            !emailTextfield.text!.contains("@") ||
-            emailTextfield.text!.count <= 5
-        
-        if status {
-            emailTextfield.setErrorColor()
-            textLabel.textColor = .red
-            textLabel.text = "Verifique o e-mail informado"
-            return false
-        }
-        
-        return true
+        viewModel.goToAccount()
     }
     
     func setupView() {
@@ -130,11 +109,6 @@ class ResetPasswordViewController: UIViewController {
         createAccountButton.backgroundColor = .white
         
         emailTextfield.setDefaultColor()
-        
-        if !email.isEmpty {
-            emailTextfield.text = email
-            emailTextfield.isEnabled = false
-        }
         validateButton()
     }
     
@@ -173,5 +147,44 @@ extension ResetPasswordViewController {
         recoverPasswordButton.backgroundColor = .blue
         recoverPasswordButton.setTitleColor(.white, for: .normal)
         recoverPasswordButton.isEnabled = true
+    }
+    
+
+}
+
+extension UIViewController {
+    func showDefaultAlert() {
+        let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
+    }
+}
+
+extension ResetPasswordViewController: ResetPasswordViewControlling {
+    func showErrorState() {
+        emailTextfield.setErrorColor()
+        textLabel.textColor = .red
+        textLabel.text = "Verifique o e-mail informado"
+    }
+    
+    func showSuccessState() {
+        emailTextfield.isHidden = true
+        textLabel.isHidden = true
+        viewSuccess.isHidden = false
+        emailLabel.text = self.emailTextfield.text?.trimmingCharacters(in: .whitespaces)
+        recoverPasswordButton.titleLabel?.text = "REENVIAR E-MAIL"
+        recoverPasswordButton.setTitle("Voltar", for: .normal)
+    }
+    
+    func showNoInternetAlert() {
+        Globals.showNoInternetCOnnection(controller: self)
+    }
+    
+    func showDefaultAlert2() {
+        let alertController = UIAlertController(title: "Ops..", message: "Algo de errado aconteceu. Tente novamente mais tarde.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(action)
+        self.present(alertController, animated: true)
     }
 }

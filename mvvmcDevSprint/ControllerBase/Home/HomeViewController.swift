@@ -8,7 +8,6 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    
     var lastController: String = ""
     
     override func viewDidLoad() {
