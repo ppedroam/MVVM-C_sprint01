@@ -3,7 +3,9 @@ import UIKit
 enum RRLoginFactory{
     static func make() -> UIViewController {
         let coordinator = RRLoginCoordinator()
-        let service = RRLoginRepository()
+        let repository = RRLoginRepository()
+        let apiManager = RRApiManager()
+        let service = RRLoginService(repository: repository, apiManager: apiManager)
         let viewModel = RRLoginViewModel(service: service, coordinator: coordinator)
         let controller = RRLoginViewController(viewModel: viewModel)
         viewModel.delegate = controller
@@ -91,16 +93,12 @@ class RRLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = RRResetPasswordViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        viewModel.goToResetPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = CreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        viewModel.goToCreateAccount()
     }
     
     func setupView() {

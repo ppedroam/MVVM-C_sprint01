@@ -118,10 +118,12 @@
 		13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */; };
 		29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE31B128E47459009110A8 /* EGLoginViewModel.swift */; };
 		7168AF5028E3E04E00856C29 /* RRLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */; };
-		7168AF5A28EBBA7400856C29 /* RRLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7168AF5928EBBA7400856C29 /* RRLoginCoordinator.swift */; };
+		7168AF8328EE437200856C29 /* RRLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7168AF8228EE437200856C29 /* RRLoginCoordinator.swift */; };
+		7168AF8528EE4BB500856C29 /* RRLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7168AF8428EE4BB500856C29 /* RRLoginService.swift */; };
+		7168AF8828EF0BAD00856C29 /* RRApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7168AF8728EF0BAD00856C29 /* RRApiManager.swift */; };
 		7169154D28E3AA4000CDD8DE /* RRLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */; };
 		7169154F28E3AA4500CDD8DE /* RRLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */; };
-		7169155128E3AA4800CDD8DE /* RRLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169155028E3AA4800CDD8DE /* RRLoginService.swift */; };
+		7169155128E3AA4800CDD8DE /* RRLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169155028E3AA4800CDD8DE /* RRLoginRepository.swift */; };
 		A4B4947428ECD9A900370FA5 /* ResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4947328ECD9A900370FA5 /* ResetPasswordCoordinator.swift */; };
 		A4B4947628ECE13900370FA5 /* ResetPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4947528ECE13900370FA5 /* ResetPasswordService.swift */; };
 		A4FB21E828EE297E00B323CD /* ESLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB21E428EE297E00B323CD /* ESLoginViewController.swift */; };
@@ -265,11 +267,13 @@
 		13E582D428E3813C0002E621 /* LMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMLoginViewController.xib; sourceTree = "<group>"; };
 		13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCreateAccountViewController.swift; sourceTree = "<group>"; };
 		29CE31B128E47459009110A8 /* EGLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EGLoginViewModel.swift; sourceTree = "<group>"; };
-		7168AF5928EBBA7400856C29 /* RRLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginCoordinator.swift; sourceTree = "<group>"; };
+		7168AF8228EE437200856C29 /* RRLoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRLoginCoordinator.swift; sourceTree = "<group>"; };
+		7168AF8428EE4BB500856C29 /* RRLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginService.swift; sourceTree = "<group>"; };
+		7168AF8728EF0BAD00856C29 /* RRApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRApiManager.swift; sourceTree = "<group>"; };
 		7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewController.swift; sourceTree = "<group>"; };
 		7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RRLoginViewController.xib; sourceTree = "<group>"; };
 		7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewModel.swift; sourceTree = "<group>"; };
-		7169155028E3AA4800CDD8DE /* RRLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginService.swift; sourceTree = "<group>"; };
+		7169155028E3AA4800CDD8DE /* RRLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginRepository.swift; sourceTree = "<group>"; };
 		A4B4947328ECD9A900370FA5 /* ResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordCoordinator.swift; sourceTree = "<group>"; };
 		A4B4947528ECE13900370FA5 /* ResetPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordService.swift; sourceTree = "<group>"; };
 		A4FB21E428EE297E00B323CD /* ESLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ESLoginViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +313,7 @@
 		132163EE28E2345F00372C58 /* RaulRodrigo */ = {
 			isa = PBXGroup;
 			children = (
+				7168AF8628EF0B9D00856C29 /* ApiManager */,
 				7168AF5128E519BA00856C29 /* Login */,
 				1321645928E23E1300372C58 /* RRContactUsViewController.swift */,
 				1321645A28E23E1300372C58 /* RRContactUsViewController.xib */,
@@ -527,6 +532,7 @@
 				13D0786328DC8FBC00CF8E00 /* mvvmcDevSprintTests */,
 				13D0786D28DC8FBC00CF8E00 /* mvvmcDevSprintUITests */,
 				13D0784B28DC8FBB00CF8E00 /* Products */,
+				7168AF8028EE436200856C29 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -663,52 +669,7 @@
 		7168AF5128E519BA00856C29 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				7168AF5828EBBA5D00856C29 /* Coordinator */,
-				7168AF5428E519FF00856C29 /* View */,
-				7168AF5328E519F700856C29 /* ViewModel */,
-				7168AF5228E519C200856C29 /* Service */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
-		2924CAF828E772390051CD63 /* ContactUs */ = {
-			isa = PBXGroup;
-			children = (
-				1321643828E23D4100372C58 /* EGContactUsViewController.swift */,
-				1321643928E23D4100372C58 /* EGContactUsViewController.xib */,
-			);
-			path = ContactUs;
-			sourceTree = "<group>";
-		};
-		2924CAF928E7724E0051CD63 /* CreateAccount */ = {
-			isa = PBXGroup;
-			children = (
-				1321643628E23D4100372C58 /* EGCreateAccountViewController.xib */,
-				1321643B28E23D4200372C58 /* EGCreateAccountViewController.swift */,
-			);
-			path = CreateAccount;
-			sourceTree = "<group>";
-		};
-		2924CAFA28E772660051CD63 /* ResetPassword */ = {
-			isa = PBXGroup;
-			children = (
-				1321643C28E23D4200372C58 /* EGResetPasswordViewController.swift */,
-				1321643D28E23D4200372C58 /* EGResetPasswordViewController.xib */,
-			);
-			path = ResetPassword;
-			sourceTree = "<group>";
-		};
-		7168AF5828EBBA5D00856C29 /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				7168AF5928EBBA7400856C29 /* RRLoginCoordinator.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		7168AF5128E519BA00856C29 /* Login */ = {
-			isa = PBXGroup;
-			children = (
+				7168AF8128EE437200856C29 /* Coordinator */,
 				7168AF5428E519FF00856C29 /* View */,
 				7168AF5328E519F700856C29 /* ViewModel */,
 				7168AF5228E519C200856C29 /* Service */,
@@ -719,7 +680,8 @@
 		7168AF5228E519C200856C29 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				7169155028E3AA4800CDD8DE /* RRLoginService.swift */,
+				7169155028E3AA4800CDD8DE /* RRLoginRepository.swift */,
+				7168AF8428EE4BB500856C29 /* RRLoginService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -739,6 +701,29 @@
 				7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		7168AF8028EE436200856C29 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		7168AF8128EE437200856C29 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				7168AF8228EE437200856C29 /* RRLoginCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		7168AF8628EF0B9D00856C29 /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+				7168AF8728EF0BAD00856C29 /* RRApiManager.swift */,
+			);
+			path = ApiManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -951,7 +936,7 @@
 				B952E60D28E63CF800343D15 /* TRLoginViewModel.swift in Sources */,
 				B952E60B28E63C9E00343D15 /* TRLoginCoordinator.swift in Sources */,
 				1356778728E10ECC00A9C3EF /* TRLoginViewController.swift in Sources */,
-				7169155128E3AA4800CDD8DE /* RRLoginService.swift in Sources */,
+				7169155128E3AA4800CDD8DE /* RRLoginRepository.swift in Sources */,
 				13D078A728DC9AFA00CF8E00 /* Globals.swift in Sources */,
 				1321645F28E23E1300372C58 /* RRCreateAccountViewController.swift in Sources */,
 				1321643028E238B400372C58 /* GPCreateAccountViewController.swift in Sources */,
@@ -968,15 +953,16 @@
 				13D0784E28DC8FBB00CF8E00 /* AppDelegate.swift in Sources */,
 				A4FB21E928EE297E00B323CD /* ESLoginServices.swift in Sources */,
 				13D0789F28DC9A6A00CF8E00 /* LoadingController.swift in Sources */,
+				7168AF8828EF0BAD00856C29 /* RRApiManager.swift in Sources */,
 				29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */,
 				1321642128E2381500372C58 /* DSContactUsViewController.swift in Sources */,
 				13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */,
+				7168AF8328EE437200856C29 /* RRLoginCoordinator.swift in Sources */,
 				A4B4947628ECE13900370FA5 /* ResetPasswordService.swift in Sources */,
 				1356778428E10ECC00A9C3EF /* TRResetPasswordViewController.swift in Sources */,
 				1321646328E23E1300372C58 /* RRResetPasswordViewController.swift in Sources */,
 				1321644228E23D4200372C58 /* EGLoginViewController.swift in Sources */,
 				1321647428E31EE700372C58 /* FALoginViewController.swift in Sources */,
-				7168AF5A28EBBA7400856C29 /* RRLoginCoordinator.swift in Sources */,
 				1321647728E31EE700372C58 /* FAContactUsViewController.swift in Sources */,
 				1321642228E2381500372C58 /* DSResetPasswordViewController.swift in Sources */,
 				1321644328E23D4200372C58 /* EGCreateAccountViewController.swift in Sources */,
@@ -984,6 +970,7 @@
 				1321644F28E23DB400372C58 /* HALoginViewController.swift in Sources */,
 				13D0789228DC98FF00CF8E00 /* Endpoints.swift in Sources */,
 				13D0788C28DC98D200CF8E00 /* CreateAccountViewController.swift in Sources */,
+				7168AF8528EE4BB500856C29 /* RRLoginService.swift in Sources */,
 				7169154D28E3AA4000CDD8DE /* RRLoginViewController.swift in Sources */,
 				1321647528E31EE700372C58 /* FACreateAccountViewController.swift in Sources */,
 				13D0789B28DC9A2300CF8E00 /* BadNetworkLayer.swift in Sources */,
