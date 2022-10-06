@@ -41,7 +41,7 @@ private extension ResetPasswordCoordinator {
     }
     
     func goToContactUs() {
-        let vc = ContactUsViewController()
+        let vc = ContactUsFactory.make()
         vc.modalPresentationStyle = .popover
         vc.modalTransitionStyle = .coverVertical
         controller?.present(vc, animated: true, completion: nil)
