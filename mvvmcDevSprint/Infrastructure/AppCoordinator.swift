@@ -17,12 +17,13 @@ struct AppCoordinator {
     }
     
     func getRootViewController() -> UIViewController {
+        
         var architecter = Architecters.elpidioGabriel
 
         switch architecter {
         case .raulRodrigo: return RRLoginViewController()
         case .henriqueAugusto: return HALoginViewController()
-        case .elpidioGabriel: return EGLoginViewController()
+        case .elpidioGabriel: return EGLoginViewFactory.make()
         case .gabrielPaschoal: return GPLoginViewController()
         case .danielSeitenfus: return DSLoginViewController()
         case .euclidesSena: return ESLoginFactory.make()
