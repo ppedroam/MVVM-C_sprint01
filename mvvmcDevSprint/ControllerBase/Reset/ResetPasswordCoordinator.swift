@@ -20,7 +20,7 @@ protocol ResetPasswordCoordinating: AnyObject {
 }
 
 class ResetPasswordCoordinator: ResetPasswordCoordinating {
-    var controller: UIViewController?
+    weak var controller: UIViewController?
     
     func perform(action: ResetPasswordActions) {
         switch action {
