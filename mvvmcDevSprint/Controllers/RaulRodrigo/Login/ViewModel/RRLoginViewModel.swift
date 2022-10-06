@@ -55,6 +55,7 @@ extension RRLoginViewModel: RRLoginViewModelToViewProtocol{
         let controller = RRLoginViewController(viewModel: self)
         if !ConnectivityManager.shared.isConnected{
             self.delegate?.showAlertDialog()
+            return
         }
         self.delegate?.showLoadingFunc()
         let parameters: [String: String] = ["email": email,
