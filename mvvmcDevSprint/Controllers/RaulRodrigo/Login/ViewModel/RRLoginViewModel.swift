@@ -11,6 +11,8 @@ protocol RRLoginViewModelToViewProtocol  {
     func verifyLogin()
     func validateButton(emailText: String)
     func login(email:String, password: String)
+    func goToResetPassword()
+    func goToCreateAccount()
 }
 
 protocol RRLoginViewToViewModelProtocol: AnyObject {
@@ -33,6 +35,14 @@ class RRLoginViewModel {
 }
 
 extension RRLoginViewModel: RRLoginViewModelToViewProtocol{
+    func goToResetPassword() {
+        coordinator.perform(action: .resetPassword)
+    }
+    
+    func goToCreateAccount() {
+        coordinator.perform(action: .createAccount)
+    }
+    
     func validateButton(emailText: String) {
         if !emailText.contains(".") ||
             !emailText.contains("@") ||
@@ -66,10 +76,8 @@ extension RRLoginViewModel: RRLoginViewModelToViewProtocol{
             self.service.login(parameters: parameters) { result in
                 switch result{
                 case .success(let session):
-                    
                     self.coordinator.perform(action: .home)
                     UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    
                 case .failure(let error):
                     if error as? RRApiManagerError == RRApiManagerError.decodeError {
                         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: controller)
