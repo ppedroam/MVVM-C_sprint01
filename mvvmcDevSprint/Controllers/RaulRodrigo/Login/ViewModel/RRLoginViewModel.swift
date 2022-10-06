@@ -24,9 +24,9 @@ protocol RRLoginViewToViewModelProtocol: AnyObject {
 class RRLoginViewModel {
     weak var delegate: RRLoginViewToViewModelProtocol?
     private let coordinator: RRLoginCoordinating
-    private let service: RRLoginRepositoryProtocol
+    private let service: RRLoginServicing
     
-    init(service: RRLoginRepositoryProtocol, coordinator: RRLoginCoordinating) {
+    init(service: RRLoginServicing, coordinator: RRLoginCoordinating) {
         self.service = service
         self.coordinator = coordinator
     }
@@ -59,34 +59,37 @@ extension RRLoginViewModel: RRLoginViewModelToViewProtocol{
         self.delegate?.showLoadingFunc()
         let parameters: [String: String] = ["email": email,
                                             "password": password]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.delegate?.stopLoadingFunc()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        self.coordinator.perform(action: .home)
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+        
+        DispatchQueue.main.async {
+            self.delegate?.stopLoadingFunc()
+            self.service.login(parameters: parameters) { result in
+                switch result{
+                case .success(let session):
+                    
+                    self.coordinator.perform(action: .home)
+                    UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+                    
+                case .failure(let error):
+                    if error as? RRApiManagerError == RRApiManagerError.decodeError {
+                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: controller)
                     } else {
+                        self.delegate?.setLoginError("E-mail ou senha incorretos")
                         Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: controller)
                     }
-                case .failure:
-                    self.delegate?.setLoginError("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: controller)
                 }
             }
+            
         }
+        
+    }
+        
+        func verifyLogin()  {
+            if service.isLogged() {
+                coordinator.perform(action: .home)
+            }
+        }
+        
     }
     
-    func verifyLogin()  {
-        if service.isLogged() {
-            coordinator.perform(action: .home)
-        }
-    }
     
-}
-
-
-
+    

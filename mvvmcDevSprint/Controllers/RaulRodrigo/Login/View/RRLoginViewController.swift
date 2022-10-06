@@ -3,7 +3,9 @@ import UIKit
 enum RRLoginFactory{
     static func make() -> UIViewController {
         let coordinator = RRLoginCoordinator()
-        let service = RRLoginRepository()
+        let repository = RRLoginRepository()
+        let apiManager = RRApiManager()
+        let service = RRLoginService(repository: repository, apiManager: apiManager)
         let viewModel = RRLoginViewModel(service: service, coordinator: coordinator)
         let controller = RRLoginViewController(viewModel: viewModel)
         viewModel.delegate = controller
