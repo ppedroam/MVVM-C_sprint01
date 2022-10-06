@@ -25,7 +25,7 @@ protocol ResetPasswordViewModelDelegate {
 class ResetPasswordViewModel: ResetPasswordViewModeling {
 //    var controller: ResetPasswordViewController?
 //    var delegate: ResetPasswordViewModelDelegate?
-    var controller: ResetPasswordViewControlling?
+    weak var controller: ResetPasswordViewControlling?
     private let coordinator: ResetPasswordCoordinating
     private let service: ResetPasswordServicing
     
@@ -87,10 +87,10 @@ private extension ResetPasswordViewModel {
             return
         }
         let emailUser = email.trimmingCharacters(in: .whitespaces)
-        service.tryResetPassword(email: emailUser) { result in
+        service.tryResetPassword(email: emailUser) { [weak self] result in
             switch result {
             case .success:
-                self.recoveryEmail = true
+                self?.recoveryEmail = true
                 controller.showSuccessState()
             case .failure(let error):
                 print(error.localizedDescription)

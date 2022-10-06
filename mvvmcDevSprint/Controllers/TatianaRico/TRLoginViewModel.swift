@@ -73,7 +73,7 @@ class TRLoginViewModel {
         coordinator.goToCreatAccount()
     }
     
- private func alertConexao(title: String, message: String) {
+    private func alertConexao(title: String, message: String) {
         self.coordinator.vc = vc
         coordinator.alertConexaoStates(title: title, message: message)
     }
@@ -92,5 +92,5 @@ class TRLoginViewModel {
             textFieldEmail.setDefaultColor()
             textFieldPassword.setDefaultColor()
         }
-}
+    }
 }

@@ -52,7 +52,8 @@ class ESLoginViewModel: ESLoginViewModelProtocol {
         }
         
         delegate?.showLoadingScreen()
-        service.login(parameters: parameters) { result in
+        service.login(parameters: parameters) { [weak self] result in
+            guard let self = self else{ return }
             DispatchQueue.main.async {
                 self.delegate?.stopLoadingScreen()
                 switch result {
