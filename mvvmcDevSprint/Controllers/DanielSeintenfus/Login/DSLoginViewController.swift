@@ -2,7 +2,7 @@ import UIKit
 
 class DSLoginViewController: UIViewController {
     
-    private var viewModel = DSLoginViewModel()
+    private var viewModel: DSLoginViewModel!
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -22,7 +22,18 @@ class DSLoginViewController: UIViewController {
     let defaultSpacing: CGFloat = 100
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
-
+    
+    init(){
+        super.init(nibName: nil, bundle: nil)
+        let coordinator = DSLoginCoordinator()
+        coordinator.viewController = self
+        viewModel = DSLoginViewModel(coordinator: coordinator)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
@@ -71,16 +82,12 @@ class DSLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = ResetPasswordViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        viewModel.goToResetPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = CreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        viewModel.goToCreateAccount()
     }
     
     func setupView() {
@@ -169,15 +176,6 @@ class DSLoginViewController: UIViewController {
         }
     }
     
-    func openViewController(viewController: UIViewController) {
-        let vc = UINavigationController(rootViewController: viewController)
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
-    }
-    
     func validateButton(){
         let email = emailTextField.text ?? ""
         viewModel.validateButton(email)
@@ -263,10 +261,6 @@ extension DSLoginViewController: DSLoginViewModelDelegate {
     func enableButton() {
         loginButton.backgroundColor = .blue
         loginButton.isEnabled = true
-    }
-    
-    func nextViewController() {
-        openViewController(viewController: HomeViewController())
     }
     
     func startLoading() {

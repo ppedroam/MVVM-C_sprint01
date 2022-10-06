@@ -120,6 +120,7 @@
 		16968A3F28E504C00081E132 /* DSEmailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16968A3E28E504C00081E132 /* DSEmailResponse.swift */; };
 		16CE365C28E3FAC300CE5A78 /* DSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CE365B28E3FAC300CE5A78 /* DSLoginViewModel.swift */; };
 		16F5935528EE7CFF00D061E2 /* DSLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16F5935428EE7CFF00D061E2 /* DSLoginViewController.xib */; };
+		16F5935728EE7D4400D061E2 /* DSLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F5935628EE7D4400D061E2 /* DSLoginCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,6 +258,7 @@
 		16968A3E28E504C00081E132 /* DSEmailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSEmailResponse.swift; sourceTree = "<group>"; };
 		16CE365B28E3FAC300CE5A78 /* DSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSLoginViewModel.swift; sourceTree = "<group>"; };
 		16F5935428EE7CFF00D061E2 /* DSLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSLoginViewController.xib; sourceTree = "<group>"; };
+		16F5935628EE7D4400D061E2 /* DSLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSLoginCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -603,6 +605,7 @@
 				16F5935428EE7CFF00D061E2 /* DSLoginViewController.xib */,
 				16CE365B28E3FAC300CE5A78 /* DSLoginViewModel.swift */,
 				1321641C28E2381500372C58 /* DSLoginViewController.swift */,
+				16F5935628EE7D4400D061E2 /* DSLoginCoordinator.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				1321647828E31EE700372C58 /* FAResetPasswordViewController.swift in Sources */,
 				1321645028E23DB400372C58 /* HAResetPasswordViewController.swift in Sources */,
 				13D078A528DC9AC600CF8E00 /* Models.swift in Sources */,
+				16F5935728EE7D4400D061E2 /* DSLoginCoordinator.swift in Sources */,
 				1356778828E10ECC00A9C3EF /* TRContactUsViewController.swift in Sources */,
 				13D0788028DC984B00CF8E00 /* AppCoordinator.swift in Sources */,
 				13E582DB28E3813C0002E621 /* LMContactUsViewController.swift in Sources */,

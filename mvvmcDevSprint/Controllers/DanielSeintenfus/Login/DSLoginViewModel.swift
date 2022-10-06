@@ -11,7 +11,6 @@ protocol DSLoginViewModelDelegate {
     func startLoading()
     func pauseLoading()
     func alertMessage(title: String, message: String)
-    func nextViewController()
     func showErrorLogin(_ message: String)
     func enableButton()
     func disableButton()
@@ -20,10 +19,13 @@ protocol DSLoginViewModelDelegate {
 class DSLoginViewModel {
     
     public var delegate: DSLoginViewModelDelegate?
+    var coordinator: DSLoginCoordinator?
     
-    // MARK: Login Validation
-    
-    public func verifyLogin(email: String, password: String) {
+    init(coordinator: DSLoginCoordinator){
+        self.coordinator = coordinator
+    }
+        
+    func verifyLogin(email: String, password: String) {
         if !isNetworkConnected() {
             delegate?.alertMessage(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente")
             return
@@ -32,11 +34,11 @@ class DSLoginViewModel {
         delegate?.startLoading()
         
         let parameters = ["email": email, "password": password]
-        return makeLoginRequest(parameters){ result in
+        return makeLoginRequest(parameters){ [self] result in
             self.delegate?.pauseLoading()
             switch result {
             case .success:
-                self.delegate?.nextViewController()
+                goToHome()
                 break
             case .invalidCredentials:
                 self.delegate?.showErrorLogin("E-mail ou senha incorretos")
@@ -49,11 +51,68 @@ class DSLoginViewModel {
         }
     }
     
-    private func sendAltertErrorMessage(){
-        self.delegate?.alertMessage(title: "Ops...", message: "Houve um problema, tente novamente mais tarde.")
+    func isValidEmail(_ email: String) -> Bool {
+        return isValidFormatEmail(email) && isValidEmailDomain(email)
     }
     
-    private func makeLoginRequest(_ parameters: [String: String], completion: @escaping ((DSEmailResponse) -> Void)) {
+
+    func verifySession() {
+        if let _ = UserDefaultsManager.UserInfos.shared.readSesion(){
+            goToHome()
+        }
+    }
+    
+    func validateButton(_ email: String) {
+        if isValidEmail(email){
+            delegate?.enableButton()
+        }else{
+            delegate?.disableButton()
+        }
+    }
+    
+    // MARK: Coordinator
+    
+    func goToResetPassword() {
+        coordinator?.perform(action: .resetPassword)
+    }
+    
+    func goToCreateAccount(){
+        coordinator?.perform(action: .createAccount)
+    }
+    
+    func goToHome(){
+        coordinator?.perform(action: .home)
+    }
+}
+
+private extension DSLoginViewModel {
+    
+    func isNetworkConnected() -> Bool {
+        return ConnectivityManager.shared.isConnected
+    }
+    
+    func isValidFormatEmail(_ email: String) -> Bool {
+        return email.contains(".") &&
+            email.contains("@") &&
+            email.count > 5
+    }
+    
+    func isValidEmailDomain(_ email: String) -> Bool {
+        if let domain = getEmailDomain(email){
+            return domain.contains(".")
+        }
+        return false
+    }
+    
+    func getEmailDomain(_ email: String) -> Substring? {
+        if let atIndex = email.firstIndex(of: "@") {
+            let domain = email[atIndex...]
+            return domain
+        }
+        return nil
+    }
+    
+    func makeLoginRequest(_ parameters: [String: String], completion: @escaping ((DSEmailResponse) -> Void)) {
         let endpoint = Endpoints.Auth.login
         AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
             DispatchQueue.main.async {
@@ -73,51 +132,8 @@ class DSLoginViewModel {
         }
     }
     
-    private func isNetworkConnected() -> Bool {
-        return ConnectivityManager.shared.isConnected
-    }
-    
-    // MARK: E-mail validation
-    
-    public func isValidEmail(_ email: String) -> Bool {
-        return isValidFormatEmail(email) && isValidEmailDomain(email)
-    }
-    
-    private func isValidFormatEmail(_ email: String) -> Bool {
-        return email.contains(".") &&
-            email.contains("@") &&
-            email.count > 5
-    }
-    
-    private func isValidEmailDomain(_ email: String) -> Bool {
-        if let domain = getEmailDomain(email){
-            return domain.contains(".")
-        }
-        return false
-    }
-    
-    private func getEmailDomain(_ email: String) -> Substring? {
-        if let atIndex = email.firstIndex(of: "@") {
-            let domain = email[atIndex...]
-            return domain
-        }
-        return nil
-    }
-    
-    // MARK: Session
-    
-    public func verifySession() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion(){
-            delegate?.nextViewController()
-        }
-    }
-    
-    public func validateButton(_ email: String) {
-        if isValidEmail(email){
-            delegate?.enableButton()
-        }else{
-            delegate?.disableButton()
-        }
+    func sendAltertErrorMessage(){
+        self.delegate?.alertMessage(title: "Ops...", message: "Houve um problema, tente novamente mais tarde.")
     }
 }
 
