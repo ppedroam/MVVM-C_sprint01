@@ -20,18 +20,10 @@ class DSLoginCoordinator {
     
     func perform(action: DSLoginActions) {
         switch action {
-        case .resetPassword:
-            goToResetPassword()
-            break
-        case .createAccount:
-            goToCreateAccount()
-            break
-        case .home:
-            goToHome()
-            break
-        case .close:
-            viewController?.dismiss(animated: true)
-            break
+        case .resetPassword: goToResetPassword()
+        case .createAccount: goToCreateAccount()
+        case .home: goToHome()
+        case .close: viewController?.dismiss(animated: true)
         }
     }
 }
