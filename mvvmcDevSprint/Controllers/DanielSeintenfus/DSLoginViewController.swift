@@ -2,6 +2,8 @@ import UIKit
 
 class DSLoginViewController: UIViewController {
     
+    private var viewModel = DSLoginViewModel()
+    
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -20,9 +22,11 @@ class DSLoginViewController: UIViewController {
     let defaultSpacing: CGFloat = 100
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
+        
         verifyLogin()
 
         #if DEBUG
@@ -46,56 +50,13 @@ class DSLoginViewController: UIViewController {
     }
 
     func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
-        }
+        viewModel.verifySession()
     }
     
     @IBAction func loginButton(_ sender: Any) {
-        didClickLogin()
-    }
-    
-    func didClickLogin() {
-        if !ConnectivityManager.shared.isConnected {
-            let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
-            let actin = UIAlertAction(title: "Ok", style: .default)
-            alertController.addAction(actin)
-            present(alertController, animated: true)
-            return
-        }
-
-        showLoading()
-        let parameters: [String: String] = ["email": emailTextField.text!,
-                                            "password": passwordTextField.text!]
-        let endpoint = Endpoints.Auth.login
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
-            DispatchQueue.main.async {
-                self.stopLoading()
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        let vc = UINavigationController(rootViewController: HomeViewController())
-                        let scenes = UIApplication.shared.connectedScenes
-                        let windowScene = scenes.first as? UIWindowScene
-                        let window = windowScene?.windows.first
-                        window?.rootViewController = vc
-                        window?.makeKeyAndVisible()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                    }
-                case .failure:
-                    self.setErrorLogin("E-mail ou senha incorretos")
-                    Globals.alertMessage(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.", targetVC: self)
-                }
-            }
-        }
+        let email = emailTextField.text ?? ""
+        let password = passwordTextField.text ?? ""
+        viewModel.verifyLogin(email: email, password: password)
     }
     
     @IBAction func showPassword(_ sender: Any) {
@@ -207,6 +168,20 @@ class DSLoginViewController: UIViewController {
             passwordTextField.setDefaultColor()
         }
     }
+    
+    func openViewController(viewController: UIViewController) {
+        let vc = UINavigationController(rootViewController: viewController)
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
+    }
+    
+    func validateButton(){
+        let email = emailTextField.text ?? ""
+        viewModel.validateButton(email)
+    }
 }
 
 extension DSLoginViewController: UITextFieldDelegate {
@@ -215,43 +190,13 @@ extension DSLoginViewController: UITextFieldDelegate {
             passwordTextField.becomeFirstResponder()
         } else {
             view.endEditing(true)
-            didClickLogin()
+            
+            let email = emailTextField.text ?? ""
+            let password = passwordTextField.text ?? ""
+            viewModel.verifyLogin(email: email, password: password)
         }
         return true
     }
-}
-
-extension DSLoginViewController {
-    
-    func validateButton() {
-        if !emailTextField.text!.contains(".") ||
-            !emailTextField.text!.contains("@") ||
-            emailTextField.text!.count <= 5 {
-            disableButton()
-        } else {
-            if let atIndex = emailTextField.text!.firstIndex(of: "@") {
-                let substring = emailTextField.text![atIndex...]
-                if substring.contains(".") {
-                    enableButton()
-                } else {
-                    disableButton()
-                }
-            } else {
-                disableButton()
-            }
-        }
-    }
-    
-    func disableButton() {
-        loginButton.backgroundColor = .gray
-        loginButton.isEnabled = false
-    }
-    
-    func enableButton() {
-        loginButton.backgroundColor = .blue
-        loginButton.isEnabled = true
-    }
-    
 }
 
 //MARK: keyboard appearence manager
@@ -305,5 +250,38 @@ extension DSLoginViewController {
         yVariation = activeTFWindowPosition.minY - newOriginY
         let isTextFieldTooNearFromKeyboard = activeTFWindowPosition.minY > newOriginY
         return isTextFieldTooNearFromKeyboard
+    }
+}
+
+extension DSLoginViewController: DSLoginViewModelDelegate {
+    
+    func disableButton() {
+        loginButton.backgroundColor = .gray
+        loginButton.isEnabled = false
+    }
+    
+    func enableButton() {
+        loginButton.backgroundColor = .blue
+        loginButton.isEnabled = true
+    }
+    
+    func nextViewController() {
+        openViewController(viewController: HomeViewController())
+    }
+    
+    func startLoading() {
+        self.showLoading()
+    }
+    
+    func pauseLoading() {
+        self.stopLoading()
+    }
+    
+    func showErrorLogin(_ message: String) {
+        self.setErrorLogin(message)
+    }
+    
+    func alertMessage(title: String, message: String) {
+        Globals.alertMessage(title: title, message: message, targetVC: self)
     }
 }

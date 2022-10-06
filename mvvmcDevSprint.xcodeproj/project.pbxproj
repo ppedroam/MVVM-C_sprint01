@@ -116,6 +116,8 @@
 		13E582DC28E3813C0002E621 /* LMLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D328E3813C0002E621 /* LMLoginViewController.swift */; };
 		13E582DD28E3813C0002E621 /* LMLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13E582D428E3813C0002E621 /* LMLoginViewController.xib */; };
 		13E582DF28E3813C0002E621 /* LMCreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */; };
+		16968A3F28E504C00081E132 /* DSEmailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16968A3E28E504C00081E132 /* DSEmailResponse.swift */; };
+		16CE365C28E3FAC300CE5A78 /* DSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CE365B28E3FAC300CE5A78 /* DSLoginViewModel.swift */; };
 		29CE31B228E47459009110A8 /* EGLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CE31B128E47459009110A8 /* EGLoginViewModel.swift */; };
 		7168AF5028E3E04E00856C29 /* RRLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */; };
 		7169154D28E3AA4000CDD8DE /* RRLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */; };
@@ -263,6 +265,8 @@
 		13E582D328E3813C0002E621 /* LMLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMLoginViewController.swift; sourceTree = "<group>"; };
 		13E582D428E3813C0002E621 /* LMLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LMLoginViewController.xib; sourceTree = "<group>"; };
 		13E582D628E3813C0002E621 /* LMCreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMCreateAccountViewController.swift; sourceTree = "<group>"; };
+		16968A3E28E504C00081E132 /* DSEmailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSEmailResponse.swift; sourceTree = "<group>"; };
+		16CE365B28E3FAC300CE5A78 /* DSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSLoginViewModel.swift; sourceTree = "<group>"; };
 		29CE31B128E47459009110A8 /* EGLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EGLoginViewModel.swift; sourceTree = "<group>"; };
 		7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewController.swift; sourceTree = "<group>"; };
 		7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RRLoginViewController.xib; sourceTree = "<group>"; };
@@ -362,6 +366,9 @@
 		132163F228E2348200372C58 /* DanielSeintenfus */ = {
 			isa = PBXGroup;
 			children = (
+				16CE365728E3F0CF00CE5A78 /* View */,
+				16CE365628E3F0C500CE5A78 /* Model */,
+				16CE365528E3F09800CE5A78 /* ViewModel */,
 				1321641928E2381500372C58 /* DSContactUsViewController.swift */,
 				1321641728E2381500372C58 /* DSContactUsViewController.xib */,
 				1321641D28E2381500372C58 /* DSCreateAccountViewController.swift */,
@@ -621,6 +628,25 @@
 			path = LuizaMoruz;
 			sourceTree = "<group>";
 		};
+		16CE365528E3F09800CE5A78 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				16CE365B28E3FAC300CE5A78 /* DSLoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		16CE365628E3F0C500CE5A78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				16968A3E28E504C00081E132 /* DSEmailResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		16CE365728E3F0CF00CE5A78 /* View */ = {
+			isa = PBXGroup;
+			children = (
 		2924CAF728E772240051CD63 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -916,6 +942,7 @@
 				1321644428E23D4200372C58 /* EGResetPasswordViewController.swift in Sources */,
 				1321641128E2368500372C58 /* ESCreateAccountViewController.swift in Sources */,
 				1356778328E10ECC00A9C3EF /* TRCreateAccountViewController.swift in Sources */,
+				16968A3F28E504C00081E132 /* DSEmailResponse.swift in Sources */,
 				1356779628E1122700A9C3EF /* ResetPasswordViewController.swift in Sources */,
 				13D0784E28DC8FBB00CF8E00 /* AppDelegate.swift in Sources */,
 				A4FB21E928EE297E00B323CD /* ESLoginServices.swift in Sources */,
@@ -941,6 +968,7 @@
 				13D0789528DC993100CF8E00 /* Textfield+extensions.swift in Sources */,
 				1321640328E235C500372C58 /* BBResetPasswordViewController.swift in Sources */,
 				1321641328E2368500372C58 /* ESContactUsViewController.swift in Sources */,
+				16CE365C28E3FAC300CE5A78 /* DSLoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
