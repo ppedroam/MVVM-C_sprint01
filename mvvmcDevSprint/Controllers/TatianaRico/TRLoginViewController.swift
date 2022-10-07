@@ -1,5 +1,17 @@
 import UIKit
 
+enum TRLoginViewControllerFactory {
+    static func make() -> UIViewController {
+        let coordinator = TRLoginCoordinator()
+        let service = TRService()
+        let viewModel = TRLoginViewModel(coordinator: coordinator, service: service)
+        let controller = TRLoginViewController(viewModel: viewModel)
+        viewModel.vc = controller
+        coordinator.controller = controller
+        return controller
+    }
+}
+
 class TRLoginViewController: UIViewController {
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -15,18 +27,26 @@ class TRLoginViewController: UIViewController {
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
     var showPassword = true
-   
-    var viewModel = TRLoginViewModel()
+    
+    var viewModel: TRLoginViewModeling
+    
+    init(viewModel: TRLoginViewModeling) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
         
+        viewModel.verifyLogin()
         self.ifDebugPasswordMock()
         self.setupView()
         self.validateButton()
         self.configNotificationCenter()
-        viewModel.vc = self
     }
     
     @IBAction func loginButton(_ sender: Any) {
@@ -51,7 +71,7 @@ class TRLoginViewController: UIViewController {
     
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
-        viewModel.resetErrorLogin(emailTextField, textFieldPassword: passwordTextField)
+        self.resetErrorLogin(emailTextField, textFieldPassword: passwordTextField)
     }
     
     @IBAction func emailEditing(_ sender: Any) {
@@ -64,7 +84,7 @@ class TRLoginViewController: UIViewController {
     
     //senha
     @IBAction func passwordBeginEditing(_ sender: Any) {
-        viewModel.resetErrorLogin(emailTextField, textFieldPassword: passwordTextField)
+        self.resetErrorLogin(emailTextField, textFieldPassword: passwordTextField)
     }
     
     @IBAction func passwordEditing(_ sender: Any) {
@@ -81,8 +101,8 @@ class TRLoginViewController: UIViewController {
     
     func ifDebugPasswordMock() {
 #if DEBUG
-      //  emailTextField.text = "mvvmc@devpass.com"
-//        passwordTextField.text = "Abcde1"
+        emailTextField.text = "mvvmc@devpass.com"
+        passwordTextField.text = "Abcde1"
 #endif
     }
     
@@ -95,18 +115,18 @@ class TRLoginViewController: UIViewController {
                                                name: UIResponder.keyboardDidHideNotification, object: nil)
     }
     
-    func verifyLogin() {
-        self.viewModel.verifyLogin()
-    }
-    
+//    func verifyLogin() {
+//        self.viewModel.verifyLogin()
+//    }
+//    
     func didClickLogin() {
         let email = emailTextField.text ?? ""
-        let password = emailTextField.text ?? ""
-    
+        let password = passwordTextField.text ?? ""
+        
         self.viewModel.noConnectedInternet()
         
         showLoading()
-        self.viewModel.requestScreenLogin(email: email, password: password)
+        self.viewModel.startLogin(email: email, password: password)
     }
     
     func globalsAlerts(title: String, message: String) {
@@ -123,27 +143,6 @@ class TRLoginViewController: UIViewController {
         setupTextField()
         gestureBtnDidClickView()
         validateButton()
-    }
-    
-    private func gestureBtnDidClickView() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
-        view.addGestureRecognizer(gesture)
-        view.isUserInteractionEnabled = true
-    }
-    
-    private func setupLoginBtn() {
-        loginButton.layer.cornerRadius = loginButton.frame.height / 2
-        loginButton.backgroundColor = .blue
-        loginButton.setTitleColor(.white, for: .normal)
-        loginButton.isEnabled = true
-    }
-    
-    private func setupCreateAccount() {
-        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
-        createAccountButton.layer.borderWidth = 1
-        createAccountButton.layer.borderColor = UIColor.blue.cgColor
-        createAccountButton.setTitleColor(.blue, for: .normal)
-        createAccountButton.backgroundColor = .white
     }
     
     private func setupTextField() {
@@ -174,29 +173,6 @@ class TRLoginViewController: UIViewController {
         emailTextField.setErrorColor()
         passwordTextField.setErrorColor()
     }
-    
-    func resetErrorLogin(_ textField: UITextField) {
-        heightLabelError.constant = 0
-        if textField == emailTextField {
-            emailTextField.setEditingColor()
-            passwordTextField.setDefaultColor()
-        } else {
-            emailTextField.setDefaultColor()
-            passwordTextField.setDefaultColor()
-        }
-    }
-    
-    func validateButton() {
-        self.changeButtonStatus(color: .gray, isEnabled: false)
-        let email = emailTextField.text
-        
-        self.viewModel.isEmailValid(email: email ?? "") ? changeButtonStatus(color: .blue, isEnabled: true) : changeButtonStatus(color: .gray, isEnabled: false)
-    }
-    
-    private func changeButtonStatus(color: UIColor, isEnabled: Bool) {
-        loginButton.backgroundColor = color
-        loginButton.isEnabled = isEnabled
-    }
 }
 
 extension TRLoginViewController: UITextFieldDelegate {
@@ -211,9 +187,9 @@ extension TRLoginViewController: UITextFieldDelegate {
     }
 }
 
-//MARK: keyboard appearence manager
 
-extension TRLoginViewController {
+private extension TRLoginViewController {
+    //MARK: keyboard appearence manager
     @objc func keyboardWillShow(_ notification: Notification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
               isNeededToMoveTextfield(keyboardOriginY: keyboardSize.minY) else {
@@ -259,5 +235,49 @@ extension TRLoginViewController {
         yVariation = activeTFWindowPosition.minY - newOriginY
         let isTextFieldTooNearFromKeyboard = activeTFWindowPosition.minY > newOriginY
         return isTextFieldTooNearFromKeyboard
+    }
+    
+    func gestureBtnDidClickView() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
+        view.addGestureRecognizer(gesture)
+        view.isUserInteractionEnabled = true
+    }
+    
+    func setupLoginBtn() {
+        loginButton.layer.cornerRadius = loginButton.frame.height / 2
+        loginButton.backgroundColor = .blue
+        loginButton.setTitleColor(.white, for: .normal)
+        loginButton.isEnabled = true
+    }
+    
+    func setupCreateAccount() {
+        createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
+        createAccountButton.layer.borderWidth = 1
+        createAccountButton.layer.borderColor = UIColor.blue.cgColor
+        createAccountButton.setTitleColor(.blue, for: .normal)
+        createAccountButton.backgroundColor = .white
+    }
+    
+    func resetErrorLogin(_ textFieldEmail: UITextField, textFieldPassword: UITextField) {
+        heightLabelError.constant = 0
+        if viewModel.errorInLogin {
+            textFieldEmail.setEditingColor()
+            textFieldPassword.setDefaultColor()
+        } else {
+            textFieldEmail.setDefaultColor()
+            textFieldPassword.setDefaultColor()
+        }
+    }
+    
+    func validateButton() {
+        self.changeButtonStatus(color: .gray, isEnabled: false)
+        let email = emailTextField.text
+        
+        self.viewModel.isEmailValid(email: email ?? "") ? changeButtonStatus(color: .blue, isEnabled: true) : changeButtonStatus(color: .gray, isEnabled: false)
+    }
+    
+    func changeButtonStatus(color: UIColor, isEnabled: Bool) {
+        loginButton.backgroundColor = color
+        loginButton.isEnabled = isEnabled
     }
 }

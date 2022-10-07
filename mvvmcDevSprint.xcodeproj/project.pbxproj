@@ -133,6 +133,7 @@
 		A4FB21ED28EE29BA00B323CD /* ESServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB21EC28EE29BA00B323CD /* ESServiceManager.swift */; };
 		B952E60B28E63C9E00343D15 /* TRLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B952E60A28E63C9E00343D15 /* TRLoginCoordinator.swift */; };
 		B952E60D28E63CF800343D15 /* TRLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B952E60C28E63CF800343D15 /* TRLoginViewModel.swift */; };
+		B9B0914728F05BA500C23FBD /* TRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0914628F05BA500C23FBD /* TRService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -283,6 +284,7 @@
 		A4FB21EC28EE29BA00B323CD /* ESServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ESServiceManager.swift; sourceTree = "<group>"; };
 		B952E60A28E63C9E00343D15 /* TRLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRLoginCoordinator.swift; sourceTree = "<group>"; };
 		B952E60C28E63CF800343D15 /* TRLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRLoginViewModel.swift; sourceTree = "<group>"; };
+		B9B0914628F05BA500C23FBD /* TRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,6 +512,7 @@
 				1356778C28E10F7F00A9C3EF /* TRResetPasswordViewController.xib */,
 				B952E60A28E63C9E00343D15 /* TRLoginCoordinator.swift */,
 				B952E60C28E63CF800343D15 /* TRLoginViewModel.swift */,
+				B9B0914628F05BA500C23FBD /* TRService.swift */,
 			);
 			path = TatianaRico;
 			sourceTree = "<group>";
@@ -886,6 +889,7 @@
 				13D078A528DC9AC600CF8E00 /* Models.swift in Sources */,
 				1356778828E10ECC00A9C3EF /* TRContactUsViewController.swift in Sources */,
 				7169154F28E3AA4500CDD8DE /* RRLoginViewModel.swift in Sources */,
+				B9B0914728F05BA500C23FBD /* TRService.swift in Sources */,
 				13D0788028DC984B00CF8E00 /* AppCoordinator.swift in Sources */,
 				A4FB21E828EE297E00B323CD /* ESLoginViewController.swift in Sources */,
 				13E582DB28E3813C0002E621 /* LMContactUsViewController.swift in Sources */,
