@@ -13,6 +13,7 @@ enum LoginPasswordActions {
     case createAccount
     case goToHome
     case alert(String,String)
+    case verifyLogin
 }
 
 protocol LoginCoordinatorProtocol: AnyObject {
@@ -33,6 +34,7 @@ class ESLoginCoordinator: LoginCoordinatorProtocol {
         case .createAccount: goToCreateAccount()
         case .goToHome: goToHomeScreen()
         case .alert(let title, let subtitle): alertError(title, subtitle)
+        case .verifyLogin: verifyLogin()
         }
     }
     
@@ -63,6 +65,17 @@ class ESLoginCoordinator: LoginCoordinatorProtocol {
         let actin = UIAlertAction(title: "Ok", style: .default)
         alertController.addAction(actin)
         controller?.present(alertController, animated: true)
+    }
+    
+    func verifyLogin() {
+        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
+            let vc = UINavigationController(rootViewController: HomeViewController())
+            let scenes = UIApplication.shared.connectedScenes
+            let windowScene = scenes.first as? UIWindowScene
+            let window = windowScene?.windows.first
+            window?.rootViewController = vc
+            window?.makeKeyAndVisible()
+        }
     }
     
 }

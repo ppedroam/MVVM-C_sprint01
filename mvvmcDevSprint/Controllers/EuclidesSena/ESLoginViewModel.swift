@@ -17,18 +17,19 @@ protocol ESLoginViewModelProtocol {
     func startResetPasswd()
     func createAccount()
     func showHomeScreen(parameters: [String: String])
+    func verifyLogin()
     
     var delegate: ESLoginDelegate? { get set }
-    var showPassword: Bool { get set }
-    var errorInLogin: Bool { get set }
+    var showPasswordLogin: Bool { get set }
+    var requestErrorInLogin: Bool { get set }
 }
 
 class ESLoginViewModel: ESLoginViewModelProtocol {
     private let coordinator: ESLoginCoordinator
     private let service: LoginServiceProtocol
     
-    var showPassword = true
-    var errorInLogin = false
+    var showPasswordLogin = true
+    var requestErrorInLogin = false
     
     weak var delegate: ESLoginDelegate?
     
@@ -45,6 +46,10 @@ class ESLoginViewModel: ESLoginViewModelProtocol {
         coordinator.perform(action: .createAccount)
     }
     
+    func verifyLogin() {
+        coordinator.perform(action: .verifyLogin)
+    }
+    
     func showHomeScreen(parameters: [String: String]) {
         if !ConnectivityManager.shared.isConnected {
             self.coordinator.perform(action: .alert("Sem conexão", "Conecte-se à internet para tentar novamente"))
@@ -56,15 +61,19 @@ class ESLoginViewModel: ESLoginViewModelProtocol {
             guard let self = self else{ return }
             DispatchQueue.main.async {
                 self.delegate?.stopLoadingScreen()
-                switch result {
-                case .success(let session):
-                    UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    self.coordinator.perform(action: .goToHome)
-                case .failure:
-                    self.delegate?.setErrorLogin("E-mail ou senha incorretos")
-                    self.coordinator.perform(action: .alert("Ops..", "Houve um problema, tente novamente mais tarde."))
-                }
+                self.handleShowHomeResponse(with: result)
             }
+        }
+    }
+    
+    func handleShowHomeResponse(with result: Result<Session, Error>) {
+        switch result {
+        case .success(let session):
+            UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
+            coordinator.perform(action: .goToHome)
+        case .failure:
+            delegate?.setErrorLogin("E-mail ou senha incorretos")
+            coordinator.perform(action: .alert("Ops..", "Houve um problema, tente novamente mais tarde."))
         }
     }
 }
