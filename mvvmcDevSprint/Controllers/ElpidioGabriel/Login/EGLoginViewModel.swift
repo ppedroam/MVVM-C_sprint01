@@ -31,8 +31,7 @@ final class EGLoginViewModel: EGLoginViewModelProtocol  {
     private let coordinator: EGLoginCoordinatorProtocol
     private let service: EGLoginServiceProtocol
     
-    init(delegate: EGLoginViewModelDelegate? = nil, coordinator: EGLoginCoordinatorProtocol, service: EGLoginServiceProtocol) {
-        self.delegate = delegate
+    init(coordinator: EGLoginCoordinatorProtocol, service: EGLoginServiceProtocol) {
         self.coordinator = coordinator
         self.service = service
     }
