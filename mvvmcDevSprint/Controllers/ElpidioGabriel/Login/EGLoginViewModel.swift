@@ -8,7 +8,6 @@
 import Foundation
 
 protocol EGLoginViewModelDelegate {
-    func goToHomeView()
     func noConnectionAlert()
     func showLoadingFunction()
     func stopLoadingFunction()
@@ -21,14 +20,24 @@ protocol EGLoginViewModelProtocol {
     func verifyLogin()
     func isLogged(emailText: String, passwordText: String)
     func validateButton(emailText: String)
+    func goToCreateAccount()
+    func goToResetPassword()
+    func goToHomeView()
 }
 
 final class EGLoginViewModel: EGLoginViewModelProtocol  {
     var delegate: EGLoginViewModelDelegate?
     
+    let coordinator: EGLoginCoordinatorProtocol
+    
+    init(delegate: EGLoginViewModelDelegate? = nil, coordinator: EGLoginCoordinatorProtocol) {
+        self.delegate = delegate
+        self.coordinator = coordinator
+    }
+    
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            delegate?.goToHomeView()
+            coordinator.goToHomeView()
         }
     }
     
@@ -46,7 +55,7 @@ final class EGLoginViewModel: EGLoginViewModelProtocol  {
                     case .success(let data):
                         let decoder = JSONDecoder()
                         if let session = try? decoder.decode(Session.self, from: data) {
-                            self.delegate?.goToHomeView()
+                            self.coordinator.goToHomeView()
                             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
                         } else {
                             self.delegate?.tryAgainAlert()
@@ -77,5 +86,17 @@ final class EGLoginViewModel: EGLoginViewModelProtocol  {
                 self.delegate?.isButtonEnable(false)
             }
         }
+    }
+    
+    func goToCreateAccount() {
+        coordinator.goToCreateAccount()
+    }
+    
+    func goToResetPassword() {
+        coordinator.goToResetPassword()
+    }
+    
+    func goToHomeView() {
+        coordinator.goToHomeView()
     }
 }

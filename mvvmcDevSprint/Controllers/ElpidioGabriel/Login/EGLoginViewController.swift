@@ -1,5 +1,16 @@
 import UIKit
 
+enum EGLoginViewFactory {
+    static func make() -> UIViewController {
+        let coordinator = EGLoginCoordinator()
+        let viewModel = EGLoginViewModel(coordinator: coordinator)
+        let controller = EGLoginViewController(viewModel: viewModel)
+        viewModel.delegate = controller
+        coordinator.controller = controller
+        return controller
+    }
+}
+
 class EGLoginViewController: UIViewController {
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
     @IBOutlet weak var errorLabel: UILabel!
@@ -20,9 +31,16 @@ class EGLoginViewController: UIViewController {
     var yVariation: CGFloat = 0
     var textFieldIsMoving = false
     
-    let viewModel: EGLoginViewModelProtocol = {
-        return EGLoginViewModel()
-    }()
+    private let viewModel: EGLoginViewModelProtocol
+    
+    init(viewModel: EGLoginViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +75,6 @@ class EGLoginViewController: UIViewController {
     }
     
     func didClickLogin() {
-//        viewModel.isNoConnection()
         viewModel.isLogged(emailText: emailTextField.text ?? "", passwordText: passwordTextField.text ?? "")
     }
     
@@ -73,16 +90,12 @@ class EGLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = EGResetPasswordViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        viewModel.goToResetPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = CreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        viewModel.goToCreateAccount()
     }
     
     func setupView() {
@@ -244,14 +257,6 @@ extension EGLoginViewController {
 }
 
 extension EGLoginViewController: EGLoginViewModelDelegate {
-    func goToHomeView() {
-        let vc = UINavigationController(rootViewController: HomeViewController())
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
-    }
     
     func noConnectionAlert() {
         let alertController = UIAlertController(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente", preferredStyle: .alert)
