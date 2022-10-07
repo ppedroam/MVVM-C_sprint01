@@ -2,27 +2,37 @@
 //  RRLoginService.swift
 //  mvvmcDevSprint
 //
-//  Created by Raul Rodrigo on 26/09/22.
+//  Created by Raul Rodrigo on 05/10/22.
 //
 
 import Foundation
 
-protocol RRLoginRepositoryProtocol{
+protocol RRLoginServicing{
+    func login(parameters: [String: String], _ completion: @escaping ((Result<Session, Error>) -> Void))
     func isLogged() -> Bool
-    func isWithOutConnection() -> Bool
-    
 }
-
-
-class RRLoginRepository: RRLoginRepositoryProtocol {
-    func isWithOutConnection() -> Bool {
-        return !ConnectivityManager.shared.isConnected
+class RRLoginService: RRLoginServicing{
+    let repository: RRLoginRepositoryProtocol
+    let apiManager: RRApiManager
+    init(repository: RRLoginRepositoryProtocol, apiManager: RRApiManager) {
+        self.repository = repository
+        self.apiManager = apiManager
+    }
+    func login(parameters: [String : String], _ completion: @escaping ((Result<Session, Error>) -> Void)) {
+        apiManager.request(Endpoints.Auth.login, parameters: parameters) { result in
+            switch result {
+            case .success(let session):
+                completion(.success(session))
+            case .failure(let error):
+                completion(.failure(error))
+                
+            }
+        }
     }
     
     
     func isLogged() -> Bool {
-        return UserDefaultsManager.UserInfos.shared.readSesion() != nil ? true : false
+        return repository.isLogged()
     }
-    
     
 }

@@ -1,5 +1,19 @@
 import UIKit
 
+enum RRLoginFactory{
+    static func make() -> UIViewController {
+        let coordinator = RRLoginCoordinator()
+        let repository = RRLoginRepository()
+        let apiManager = RRApiManager()
+        let service = RRLoginService(repository: repository, apiManager: apiManager)
+        let viewModel = RRLoginViewModel(service: service, coordinator: coordinator)
+        let controller = RRLoginViewController(viewModel: viewModel)
+        viewModel.delegate = controller
+        coordinator.controller = controller
+        return controller
+    }
+}
+
 class RRLoginViewController: UIViewController {
     
     @IBOutlet weak var heightLabelError: NSLayoutConstraint!
@@ -24,10 +38,16 @@ class RRLoginViewController: UIViewController {
     var textFieldIsMoving = false
     
      
-    var viewModel: RRLoginViewModel = {
-       let viewModel = RRLoginViewModel(service: RRLoginRepository())
-       return viewModel
-   }()
+    private let viewModel: RRLoginViewModelToViewProtocol
+    
+    init(viewModel: RRLoginViewModelToViewProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
    
     
     override func viewDidLoad() {
@@ -38,7 +58,6 @@ class RRLoginViewController: UIViewController {
         emailTextField.text = "mvvmc@devpass.com"
         passwordTextField.text = "Abcde1"
         #endif
-        viewModel.delegate = self
         self.setupView()
         self.validateButton()
         NotificationCenter.default.addObserver(self,
@@ -74,16 +93,12 @@ class RRLoginViewController: UIViewController {
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
-        let vc = RRResetPasswordViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        viewModel.goToResetPassword()
     }
     
     
     @IBAction func createAccountButton(_ sender: Any) {
-        let controller = CreateAccountViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        viewModel.goToCreateAccount()
     }
     
     func setupView() {
@@ -202,17 +217,6 @@ extension RRLoginViewController: RRLoginViewToViewModelProtocol {
         errorLabel.text = message
         emailTextField.setErrorColor()
         passwordTextField.setErrorColor()
-    }
-    
-    func goToHome() {
-        let homeViewController = HomeViewController()
-        homeViewController.lastController = String(describing: self)
-        let vc = UINavigationController(rootViewController: homeViewController)
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        window?.rootViewController = vc
-        window?.makeKeyAndVisible()
     }
 }
 

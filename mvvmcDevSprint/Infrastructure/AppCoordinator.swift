@@ -38,11 +38,11 @@ struct AppCoordinator {
         case luizamoruz
     }
     
-    private func getLoginViewController() -> UIViewController {
-        var architecter = Architecters.elpidioGabriel
+    func getRootViewController() -> UIViewController {
+        var architecter = Architecters.raulRodrigo
 
         switch architecter {
-        case .raulRodrigo: return RRLoginViewController()
+        case .raulRodrigo: return RRLoginFactory.make()
         case .henriqueAugusto: return HALoginViewController()
         case .elpidioGabriel: return EGLoginViewFactory.make()
         case .gabrielPaschoal: return GPLoginViewController()
