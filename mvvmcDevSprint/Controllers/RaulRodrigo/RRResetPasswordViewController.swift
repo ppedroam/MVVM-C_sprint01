@@ -78,7 +78,7 @@ class RRResetPasswordViewController: UIViewController {
     }
     
     @IBAction func helpButton(_ sender: Any) {
-        let vc = ContactUsViewController()
+        let vc = RRContactUsViewController()
         vc.modalPresentationStyle = .popover
         vc.modalTransitionStyle = .coverVertical
         self.present(vc, animated: true, completion: nil)

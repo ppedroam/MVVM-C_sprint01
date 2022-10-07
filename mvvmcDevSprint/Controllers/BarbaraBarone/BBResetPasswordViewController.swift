@@ -78,7 +78,7 @@ class BBResetPasswordViewController: UIViewController {
     }
     
     @IBAction func helpButton(_ sender: Any) {
-        let vc = ContactUsViewController()
+        let vc = BBContactUsViewController()
         vc.modalPresentationStyle = .popover
         vc.modalTransitionStyle = .coverVertical
         self.present(vc, animated: true, completion: nil)

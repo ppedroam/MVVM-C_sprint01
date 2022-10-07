@@ -23,7 +23,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
 
         #if DEBUG
         emailTextField.text = "mvvmc@devpass.com"
@@ -43,17 +42,6 @@ class LoginViewController: UIViewController {
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-
-    func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
-        }
     }
     
     @IBAction func loginButton(_ sender: Any) {

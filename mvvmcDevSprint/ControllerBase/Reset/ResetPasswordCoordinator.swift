@@ -20,7 +20,7 @@ protocol ResetPasswordCoordinating: AnyObject {
 }
 
 class ResetPasswordCoordinator: ResetPasswordCoordinating {
-    var controller: UIViewController?
+    weak var controller: UIViewController?
     
     func perform(action: ResetPasswordActions) {
         switch action {
@@ -41,7 +41,7 @@ private extension ResetPasswordCoordinator {
     }
     
     func goToContactUs() {
-        let vc = ContactUsViewController()
+        let vc = ContactUsFactory.make()
         vc.modalPresentationStyle = .popover
         vc.modalTransitionStyle = .coverVertical
         controller?.present(vc, animated: true, completion: nil)

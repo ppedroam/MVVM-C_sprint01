@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ResetPasswordViewModeling {
-    func startPasswordRecovering(email: String)
+    func startPasswordRecovering(with email: String)
     func goToAccount()
     func goToContactUs()
     func closeScreen()
@@ -29,7 +29,7 @@ class ResetPasswordViewModel: ResetPasswordViewModeling {
     private let coordinator: ResetPasswordCoordinating
     private let service: ResetPasswordServicing
     
-    private var recoveryEmail = false
+    private var didRecoveryEmail = false
     
     init(
         coordinator: ResetPasswordCoordinating,
@@ -39,17 +39,11 @@ class ResetPasswordViewModel: ResetPasswordViewModeling {
         self.service = service
     }
     
-    func startPasswordRecovering(email: String) {
-        if recoveryEmail {
+    func startPasswordRecovering(with email: String) {
+        if didRecoveryEmail {
             coordinator.perform(action: .close)
-            return
-        }
-
-        if validateEmail(email: email) {
-            callAPI(email: email)
         } else {
-            controller?.showErrorState()
-//            delegate?.showErrorState()
+            tryResetPasswordIfEmailIsValid(with: email)
         }
     }
     
@@ -68,34 +62,51 @@ class ResetPasswordViewModel: ResetPasswordViewModeling {
 }
 
 private extension ResetPasswordViewModel {
-    func validateEmail(email: String) -> Bool {
+    func isEmailValid(for email: String) -> Bool {
         let isValid = email.contains(".") && email.contains("@") || email.count > 5
         return isValid
     }
     
-    func callAPI(email: String) {
-        if !ConnectivityManager.shared.isConnected {
-            controller?.showNoInternetAlert()
-//            delegate?.showNoInternetAlert()
-            return
+    func tryResetPasswordIfEmailIsValid(with email: String) {
+        if isEmailValid(for: email) {
+            tryResetPasswordIfConnected(with: email)
+        } else {
+            controller?.showErrorState()
+//            delegate?.showErrorState()
         }
-        startAPICalling(email: email)
     }
     
-    func startAPICalling(email: String) {
-        guard let controller = controller else {
-            return
+    func tryResetPasswordIfConnected(with email: String) {
+        if !ConnectivityManager.shared.isConnected {
+            controller?.showNoInternetAlert()
+            //            delegate?.showNoInternetAlert()
+        } else {
+            startPasswordReseting(with: email)
         }
+    }
+    
+    func startPasswordReseting(with email: String) {
+        guard let _ = controller else { return }
         let emailUser = email.trimmingCharacters(in: .whitespaces)
         service.tryResetPassword(email: emailUser) { [weak self] result in
-            switch result {
-            case .success:
-                self?.recoveryEmail = true
-                controller.showSuccessState()
-            case .failure(let error):
-                print(error.localizedDescription)
-                controller.showSuccessState()
+            DispatchQueue.main.async {
+                self?.handleResetPasswordResponse(with: result)
             }
         }
+    }
+    
+    func handleResetPasswordResponse(with result: Result<Bool, Error>) {
+        switch result {
+        case .success:
+            self.didSuccedPasswordRecovering()
+        case .failure(let error):
+            print(error.localizedDescription)
+            controller?.showSuccessState()
+        }
+    }
+    
+    func didSuccedPasswordRecovering() {
+        self.didRecoveryEmail = true
+        controller?.showSuccessState()
     }
 }
