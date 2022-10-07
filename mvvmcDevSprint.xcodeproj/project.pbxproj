@@ -121,7 +121,6 @@
 		7169154D28E3AA4000CDD8DE /* RRLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154B28E3AA4000CDD8DE /* RRLoginViewController.swift */; };
 		7169154F28E3AA4500CDD8DE /* RRLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */; };
 		7169155128E3AA4800CDD8DE /* RRLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7169155028E3AA4800CDD8DE /* RRLoginService.swift */; };
-		A4AD757D28EF1F7F004C275E /* DSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AD757A28EF1F7F004C275E /* DSLoginViewModel.swift */; };
 		A4AD757E28EF1F7F004C275E /* DSEmailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AD757B28EF1F7F004C275E /* DSEmailResponse.swift */; };
 		A4AD757F28EF1F7F004C275E /* DSLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AD757C28EF1F7F004C275E /* DSLoginViewController.swift */; };
 		A4B4947428ECD9A900370FA5 /* ResetPasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4947328ECD9A900370FA5 /* ResetPasswordCoordinator.swift */; };
@@ -271,7 +270,6 @@
 		7169154C28E3AA4000CDD8DE /* RRLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RRLoginViewController.xib; sourceTree = "<group>"; };
 		7169154E28E3AA4500CDD8DE /* RRLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginViewModel.swift; sourceTree = "<group>"; };
 		7169155028E3AA4800CDD8DE /* RRLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRLoginService.swift; sourceTree = "<group>"; };
-		A4AD757A28EF1F7F004C275E /* DSLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSLoginViewModel.swift; path = ../../../../../DSLoginViewModel.swift; sourceTree = "<group>"; };
 		A4AD757B28EF1F7F004C275E /* DSEmailResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSEmailResponse.swift; path = ../../../../../DSEmailResponse.swift; sourceTree = "<group>"; };
 		A4AD757C28EF1F7F004C275E /* DSLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSLoginViewController.swift; path = ../../../../../DSLoginViewController.swift; sourceTree = "<group>"; };
 		A4B4947328ECD9A900370FA5 /* ResetPasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordCoordinator.swift; sourceTree = "<group>"; };
@@ -369,7 +367,6 @@
 			isa = PBXGroup;
 			children = (
 				A4AD757B28EF1F7F004C275E /* DSEmailResponse.swift */,
-				A4AD757A28EF1F7F004C275E /* DSLoginViewModel.swift */,
 				1321641928E2381500372C58 /* DSContactUsViewController.swift */,
 				1321641728E2381500372C58 /* DSContactUsViewController.xib */,
 				1321641D28E2381500372C58 /* DSCreateAccountViewController.swift */,
@@ -888,7 +885,6 @@
 				7169154F28E3AA4500CDD8DE /* RRLoginViewModel.swift in Sources */,
 				13D0788028DC984B00CF8E00 /* AppCoordinator.swift in Sources */,
 				A4AD757E28EF1F7F004C275E /* DSEmailResponse.swift in Sources */,
-				A4AD757D28EF1F7F004C275E /* DSLoginViewModel.swift in Sources */,
 				A4FB21E828EE297E00B323CD /* ESLoginViewController.swift in Sources */,
 				13E582DB28E3813C0002E621 /* LMContactUsViewController.swift in Sources */,
 				1321646128E23E1300372C58 /* RRContactUsViewController.swift in Sources */,
