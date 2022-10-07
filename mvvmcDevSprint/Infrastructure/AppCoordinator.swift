@@ -30,7 +30,7 @@ struct AppCoordinator {
         case henriqueAugusto
         case elpidioGabriel
         case gabrielPaschoal
-        case danielSeitenfus
+//        case danielSeitenfus
         case euclidesSena
         case barbaraBarone
         case tatianaRico
@@ -44,9 +44,9 @@ struct AppCoordinator {
         switch architecter {
         case .raulRodrigo: return RRLoginViewController()
         case .henriqueAugusto: return HALoginViewController()
-        case .elpidioGabriel: return EGLoginViewController()
+        case .elpidioGabriel: return EGLoginViewFactory.make()
         case .gabrielPaschoal: return GPLoginViewController()
-        case .danielSeitenfus: return DSLoginViewController()
+//        case .danielSeitenfus: return DSLoginViewController()
         case .euclidesSena: return ESLoginFactory.make()
         case .barbaraBarone: return BBLoginViewController()
         case .tatianaRico: return TRLoginViewController()
