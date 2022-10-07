@@ -97,6 +97,6 @@ final class EGLoginViewModel: EGLoginViewModelProtocol  {
     }
     
     func goToHomeView() {
-        
+        coordinator.goToHomeView()
     }
 }

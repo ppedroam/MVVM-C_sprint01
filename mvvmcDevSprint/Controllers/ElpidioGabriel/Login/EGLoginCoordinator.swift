@@ -19,8 +19,7 @@ class EGLoginCoordinator: EGLoginCoordinatorProtocol {
     weak  var controller: UIViewController?
     
     func goToHomeView() {
-        let controller = EGLoginViewFactory.make()
-        let vc = UINavigationController(rootViewController: controller)
+        let vc = UINavigationController(rootViewController: HomeViewController())
         let scenes = UIApplication.shared.connectedScenes
         let windowScene = scenes.first as? UIWindowScene
         let window = windowScene?.windows.first
