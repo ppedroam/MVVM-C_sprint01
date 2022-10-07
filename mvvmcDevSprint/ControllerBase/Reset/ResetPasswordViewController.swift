@@ -70,7 +70,7 @@ class ResetPasswordViewController: UIViewController {
     @IBAction func recoverPasswordButton(_ sender: Any) {
         view.endEditing(true)
         let email = emailTextfield.text ?? ""
-        viewModel.startPasswordRecovering(email: email)
+        viewModel.startPasswordRecovering(with: email)
     }
     
     @IBAction func loginButton(_ sender: Any) {

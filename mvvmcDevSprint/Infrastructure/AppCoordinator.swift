@@ -1,7 +1,29 @@
 import UIKit
 
 struct AppCoordinator {
-    static let shared = AppCoordinator()
+    private let loggedUserChecker: LoggedUserChecking
+    
+    init(loggedUserChecker: LoggedUserChecking) {
+        self.loggedUserChecker = loggedUserChecker
+    }
+    
+    private let hasToCompleteRegistration = false
+    private let didClickContactOutOfAPP = false
+    
+    func getRootViewController() -> UIViewController {
+        let isUserLogged = loggedUserChecker.isUserLogged
+        var controller: UIViewController
+        if isUserLogged {
+            controller = UINavigationController(rootViewController: HomeViewController())
+        } else if hasToCompleteRegistration {
+            controller = CreateAccountViewController()
+        } else if didClickContactOutOfAPP {
+            controller = ContactUsFactory.make()
+        } else {
+            controller = getLoginViewController()
+        }
+        return controller
+    }
     
     private enum Architecters {
         case raulRodrigo
@@ -16,14 +38,13 @@ struct AppCoordinator {
         case luizamoruz
     }
     
-    func getRootViewController() -> UIViewController {
-        
+    private func getLoginViewController() -> UIViewController {
         var architecter = Architecters.elpidioGabriel
 
         switch architecter {
         case .raulRodrigo: return RRLoginViewController()
         case .henriqueAugusto: return HALoginViewController()
-        case .elpidioGabriel: return EGLoginViewFactory.make()
+        case .elpidioGabriel: return EGLoginViewController()
         case .gabrielPaschoal: return GPLoginViewController()
         case .danielSeitenfus: return DSLoginViewController()
         case .euclidesSena: return ESLoginFactory.make()
@@ -32,5 +53,18 @@ struct AppCoordinator {
         case .felipeAugusto: return FALoginViewController()
         case .luizamoruz: return LMLoginViewController()
         }
+    }
+}
+
+
+protocol LoggedUserChecking {
+    var isUserLogged: Bool { get }
+}
+
+struct LoggedUserChecker: LoggedUserChecking {
+    var isUserLogged: Bool {
+        let user  = UserDefaultsManager.UserInfos.shared.readSesion()
+        let isUserLogged = user != nil
+        return isUserLogged
     }
 }
