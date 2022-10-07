@@ -8,18 +8,33 @@
 import Foundation
 import UIKit
 
-class TRLoginViewModel {
+protocol TRLoginViewModeling {
+    func verifyLogin()
+    func isEmailValid(email: String) -> Bool
+    func goToResetPassword()
+    func startLogin(email: String, password: String)
+    func goToCreatAccount()
+    var errorInLogin: Bool { get }
+    func noConnectedInternet()
+}
+
+class TRLoginViewModel: TRLoginViewModeling {
     var vc: TRLoginViewController? = nil
     var errorInLogin = false
+    let coordinator: TRLoginCoordinator?
+    let service: TRLogincServicing
     
-    let coordinator = TRLoginCoordinator()
+    init(coordinator: TRLoginCoordinator, service: TRService) {
+        self.coordinator = coordinator
+        self.service = service
+    }
     
     func verifyLogin() {
-        coordinator.verifyLogin()
+        coordinator?.verifyLogin()
     }
     
     func isEmailValid(email: String) -> Bool {
-       guard let atIndex  = email.firstIndex(of: "@") else { return false }
+        guard let atIndex  = email.firstIndex(of: "@") else { return false }
         let emailHasDot = email.contains(".")
         let emailHasAt = email.contains("@")
         let emailIsHigherOrEqualToFive = email.count >= 5
@@ -33,49 +48,39 @@ class TRLoginViewModel {
         } else {
             return false
         }
-}
+    }
     
-    func requestScreenLogin(email: String, password: String) {
-        
-        let parameters: [String: String] = ["email": email,
-                                            "password": password]
-        let endpoint = Endpoints.Auth.login
-        
-        AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
+    func startLogin(email: String, password: String) {
+        service.tryLogin(email: email, password: password) { [ weak self ] result in
+            self?.vc?.stopLoading()
             DispatchQueue.main.async {
-                self.vc?.stopLoading()
-                
-                switch result {
-                case .success(let data):
-                    let decoder = JSONDecoder()
-                    if let session = try? decoder.decode(Session.self, from: data) {
-                        self.vc?.goToHome()
-                        UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                    } else {
-                        self.vc?.globalsAlerts(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
-                    }
-                case .failure:
-                    self.errorInLogin = true
-                    self.vc?.setErrorLogin("E-mail ou senha incorretos")
-                    self.vc?.globalsAlerts(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
-                }
+                self?.handleLoginResponse(with: result)
+            }
+        }
+    }
+    
+    func handleLoginResponse(with result: Result<Session, Error>) {
+        DispatchQueue.main.async {
+            switch result {
+            case .success(let data):
+                self.vc?.goToHome()
+                UserDefaultsManager.UserInfos.shared.save(session: data, user: nil)
+            case .failure(_):
+                self.errorInLogin = false
+                self.vc?.setErrorLogin("E-mail ou senha incorretos")
+                self.vc?.globalsAlerts(title: "Ops..", message: "Houve um problema, tente novamente mais tarde.")
             }
         }
     }
     
     func goToResetPassword() {
-        self.coordinator.vc = vc
-        coordinator.goToResetPassword()
+        self.coordinator?.controller = vc
+        coordinator?.perform(action: .resetPassword)
     }
     
     func goToCreatAccount() {
-        self.coordinator.vc = vc
-        coordinator.goToCreatAccount()
-    }
-    
-    private func alertConexao(title: String, message: String) {
-        self.coordinator.vc = vc
-        coordinator.alertConexaoStates(title: title, message: message)
+        self.coordinator?.controller = vc
+        coordinator?.perform(action: .createAccount)
     }
     
     func noConnectedInternet() {
@@ -83,14 +88,11 @@ class TRLoginViewModel {
             self.alertConexao(title: "Sem conexão", message: "Conecte-se à internet para tentar novamente")
         }
     }
-    
-    func resetErrorLogin(_ textFieldEmail: UITextField, textFieldPassword: UITextField) {
-        if errorInLogin {
-            textFieldEmail.setEditingColor()
-            textFieldPassword.setDefaultColor()
-        } else {
-            textFieldEmail.setDefaultColor()
-            textFieldPassword.setDefaultColor()
-        }
+}
+
+private extension TRLoginViewModel {
+    func alertConexao(title: String, message: String) {
+        self.coordinator?.controller = vc
+        coordinator?.alertConexaoStates(title: title, message: message)
     }
 }

@@ -8,8 +8,25 @@
 import Foundation
 import UIKit
 
-class TRLoginCoordinator {
-    var vc: UIViewController?
+enum LoginAction {
+    case resetPassword
+    case createAccount
+}
+
+protocol TRLoginCoordinating {
+    var controller: UIViewController? { get set }
+    func perform(action: LoginAction)
+}
+
+class TRLoginCoordinator: TRLoginCoordinating {
+    var controller: UIViewController?
+    
+    func perform(action: LoginAction) {
+        switch action {
+        case .resetPassword: goToResetPassword()
+        case .createAccount: goToCreatAccount()
+        }
+    }
     
     func verifyLogin() {
         if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
@@ -21,24 +38,26 @@ class TRLoginCoordinator {
             window?.makeKeyAndVisible()
         }
     }
-    
-    func goToResetPassword() {
-        let vc = TRResetPasswordViewController()
-        vc.modalPresentationStyle = .fullScreen
-        self.vc?.present(vc, animated: true)
-    }
-    
-    func goToCreatAccount(){
-    let controller = TRCreateAccountViewController()
-    controller.modalPresentationStyle = .fullScreen
-        self.vc?.present(controller, animated: true)
-}
-    
+        
     func alertConexaoStates(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let actin = UIAlertAction(title: "Ok", style: .default)
         alertController.addAction(actin)
-        self.vc?.present(alertController, animated: true)
+        self.controller?.present(alertController, animated: true)
         return
+    }
+}
+
+private extension TRLoginCoordinator {
+    func goToResetPassword() {
+        let vc = TRResetPasswordViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.controller?.present(vc, animated: true)
+    }
+    
+    func goToCreatAccount() {
+        let controller = TRCreateAccountViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.controller?.present(controller, animated: true)
     }
 }

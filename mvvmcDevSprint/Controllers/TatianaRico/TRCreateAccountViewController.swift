@@ -31,6 +31,7 @@ class TRCreateAccountViewController: UIViewController {
 
 // MARK: - Actions
     @IBAction func closedButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true)
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
