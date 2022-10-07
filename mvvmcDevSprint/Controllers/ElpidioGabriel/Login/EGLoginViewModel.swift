@@ -26,17 +26,19 @@ protocol EGLoginViewModelProtocol {
 }
 
 final class EGLoginViewModel: EGLoginViewModelProtocol  {
+    
     var delegate: EGLoginViewModelDelegate?
+    private let coordinator: EGLoginCoordinatorProtocol
+    private let service: EGLoginServiceProtocol
     
-    let coordinator: EGLoginCoordinatorProtocol
-    
-    init(delegate: EGLoginViewModelDelegate? = nil, coordinator: EGLoginCoordinatorProtocol) {
+    init(delegate: EGLoginViewModelDelegate? = nil, coordinator: EGLoginCoordinatorProtocol, service: EGLoginServiceProtocol) {
         self.delegate = delegate
         self.coordinator = coordinator
+        self.service = service
     }
     
     func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
+        if service.isLogged() {
             coordinator.goToHomeView()
         }
     }
@@ -47,22 +49,16 @@ final class EGLoginViewModel: EGLoginViewModelProtocol  {
         } else {
             delegate?.showLoadingFunction()
             let parameters: [String: String] = ["email": emailText, "password": passwordText]
-            let endpoint = Endpoints.Auth.login
-            AF.request(endpoint, method: .get, parameters: parameters, headers: nil) { result in
+            service.login(parameters: parameters) { [weak self] result in
                 DispatchQueue.main.async {
-                    self.delegate?.stopLoadingFunction()
+                    self?.delegate?.stopLoadingFunction()
                     switch result {
-                    case .success(let data):
-                        let decoder = JSONDecoder()
-                        if let session = try? decoder.decode(Session.self, from: data) {
-                            self.coordinator.goToHomeView()
+                    case .success(let session):
+                        self?.coordinator.goToHomeView()
                             UserDefaultsManager.UserInfos.shared.save(session: session, user: nil)
-                        } else {
-                            self.delegate?.tryAgainAlert()
-                        }
                     case .failure:
-                        self.delegate?.loginErrorMessage()
-                        self.delegate?.tryAgainAlert()
+                        self?.delegate?.loginErrorMessage()
+                        self?.delegate?.tryAgainAlert()
                     }
                 }
             }
