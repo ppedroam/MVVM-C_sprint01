@@ -3,7 +3,9 @@ import UIKit
 enum EGLoginViewFactory {
     static func make() -> UIViewController {
         let coordinator = EGLoginCoordinator()
-        let viewModel = EGLoginViewModel(coordinator: coordinator)
+        let manager = EGLoginManager()
+        let service = EGLoginService(serviceManager: manager)
+        let viewModel = EGLoginViewModel(coordinator: coordinator, service: service)
         let controller = EGLoginViewController(viewModel: viewModel)
         viewModel.delegate = controller
         coordinator.controller = controller
