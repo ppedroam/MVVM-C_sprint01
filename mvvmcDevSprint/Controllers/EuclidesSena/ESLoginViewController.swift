@@ -43,7 +43,7 @@ class ESLoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        verifyLogin()
+        viewModel.verifyLogin()
 
         #if DEBUG
         emailTextField.text = "mvvmc@devpass.com"
@@ -64,17 +64,6 @@ class ESLoginViewController: UIViewController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
-    func verifyLogin() {
-        if let _ = UserDefaultsManager.UserInfos.shared.readSesion() {
-            let vc = UINavigationController(rootViewController: HomeViewController())
-            let scenes = UIApplication.shared.connectedScenes
-            let windowScene = scenes.first as? UIWindowScene
-            let window = windowScene?.windows.first
-            window?.rootViewController = vc
-            window?.makeKeyAndVisible()
-        }
-    }
     
     @IBAction func loginButton(_ sender: Any) {
         let parameters: [String: String] = ["email": emailTextField.text!,
@@ -84,14 +73,14 @@ class ESLoginViewController: UIViewController {
     }
     
     @IBAction func showPassword(_ sender: Any) {
-        if(viewModel.showPassword == true) {
+        if(viewModel.showPasswordLogin == true) {
             passwordTextField.isSecureTextEntry = false
             showPasswordButton.setImage(UIImage.init(systemName: "eye.slash")?.withRenderingMode(.alwaysTemplate), for: .normal)
         } else {
             passwordTextField.isSecureTextEntry = true
             showPasswordButton.setImage(UIImage.init(systemName: "eye")?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
-        viewModel.showPassword = !viewModel.showPassword
+        viewModel.showPasswordLogin = !viewModel.showPasswordLogin
     }
     
     @IBAction func resetPasswordButton(_ sender: Any) {
@@ -105,29 +94,45 @@ class ESLoginViewController: UIViewController {
     
     func setupView() {
         heightLabelError.constant = 0
+        setupUILoginButton()
+        showPasswordButton.tintColor = .lightGray
+        setupUICreateButton()
+        setupDidClickView()
+        validateButton()
+        setupUIEmailTextField()
+        setupUIPasswordTextField()
+    }
+    
+    private func setupUILoginButton() {
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.backgroundColor = .blue
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
-
-        showPasswordButton.tintColor = .lightGray
-
+    }
+    
+    private func setupUICreateButton() {
         createAccountButton.layer.cornerRadius = createAccountButton.frame.height / 2
         createAccountButton.layer.borderWidth = 1
         createAccountButton.layer.borderColor = UIColor.blue.cgColor
         createAccountButton.setTitleColor(.blue, for: .normal)
         createAccountButton.backgroundColor = .white
-        
-        emailTextField.setDefaultColor()
-        passwordTextField.setDefaultColor()
+    }
+    
+    private func setupDidClickView() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didClickView))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
-        validateButton()
-        
+    }
+    
+    private func setupUIEmailTextField() {
+        emailTextField.setDefaultColor()
         emailTextField.returnKeyType = .next
-        passwordTextField.returnKeyType = .done
         emailTextField.delegate = self
+    }
+    
+    private func setupUIPasswordTextField() {
+        passwordTextField.returnKeyType = .done
+        passwordTextField.setDefaultColor()
         passwordTextField.delegate = self
     }
 
@@ -138,7 +143,7 @@ class ESLoginViewController: UIViewController {
     
     //email
     @IBAction func emailBeginEditing(_ sender: Any) {
-        if viewModel.errorInLogin {
+        if viewModel.requestErrorInLogin {
             resetErrorLogin(emailTextField)
         } else {
             emailTextField.setEditingColor()
@@ -155,7 +160,7 @@ class ESLoginViewController: UIViewController {
     
     //senha
     @IBAction func passwordBeginEditing(_ sender: Any) {
-        if viewModel.errorInLogin {
+        if viewModel.requestErrorInLogin {
             resetErrorLogin(passwordTextField)
         } else {
             passwordTextField.setEditingColor()
@@ -286,7 +291,7 @@ extension ESLoginViewController {
 
 extension ESLoginViewController: ESLoginDelegate {
     func setErrorLogin(_ message: String) {
-        viewModel.errorInLogin = true
+        viewModel.requestErrorInLogin = true
         heightLabelError.constant = 20
         errorLabel.text = message
         emailTextField.setErrorColor()
